@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/22 20:08:13 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:36:25 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 int	main(void)
 {
 	printf("Hello world");
+	printf("minishell\n");
 	return (0);
 }
