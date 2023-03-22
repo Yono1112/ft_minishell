@@ -2,6 +2,7 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline
+RLDIR = `brew --prefix readline`
 RM = rm -rf
 SRCS =	main.c	\
 
@@ -27,4 +28,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+test:all
+	./test.sh
+
+.PHONY: all clean fclean re test
