@@ -30,5 +30,9 @@ assert() {
 # Empty line (EOF)
 assert ''
 
+# Absolute path commands without args 
+assert '/bin/pwd'
+assert '/bin/echo'
+
 cleanup
 echo 'all OK'
