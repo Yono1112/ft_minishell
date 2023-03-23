@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/23 02:05:06 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/23 17:20:22 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ int	interpret(char	*line)
 	pid_t		pid;
 	int			wstatus;
 
+	// if run execve in parent process
+	// execve(line, argv, environ);
+	// printf("aaaa");
+	// return (0);
 	pid = fork();
 	if (pid < 0)
 		fatal_error("fork");
