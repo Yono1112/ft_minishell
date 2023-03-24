@@ -33,6 +33,17 @@ assert ''
 # Absolute path commands without args 
 assert '/bin/pwd'
 assert '/bin/echo'
+ssert '/bin/ls'
+
+# Search command path without args
+assert 'pwd'
+assert 'echo'
+assert 'ls'
+assert './minishell'
+
+## no such command
+assert 'a.out'
+assert 'nosuchfile'
 
 cleanup
 
