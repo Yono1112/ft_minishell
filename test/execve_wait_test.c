@@ -9,10 +9,10 @@ int	main(int argc, char **argv)
 	char	*cmd = argv[1];
 	char	*args[] = {cmd, NULL};
 	int		status;
-	// char	**args;
 
 	if (argc != 2)
 		return (1);
+	// char	**args;
 	// args = malloc(sizeof(char *) * (argc + 1));
 	// for (int i = 0; i < argc; i++){
 	// 	args[i] = argv[i];

@@ -6,23 +6,11 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/23 20:22:37 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:44:57by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "unistd.h"
-#include "readline/readline.h"
-#include "readline/history.h"
-
-void	fatal_error(const char *msg)__attribute__((noreturn));
-
-void	fatal_error(const char *msg)
-{
-	dprintf(STDERR_FILENO, "Fatal Error : %s\n", msg);
-	exit(1);
-}
+#include <minishell.h>
 
 int	interpret(char	*line)
 {
@@ -37,16 +25,35 @@ int	interpret(char	*line)
 	// return (0);
 	pid = fork();
 	if (pid < 0)
-		fatal_error("fork");
+	{
+		perror("fork Error");
+		exit(EXIT_FAILURE);
+	}
 	else if (pid == 0)
 	{
 		execve(line, argv, environ);
-		fatal_error("execve");
+		perror("execve Error");
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		wait(&wstatus);
-		return (WEXITSTATUS(wstatus));
+		pid = wait(&wstatus);
+		if (pid == -1)
+		{
+			perror("wait error");
+			exit(EXIT_FAILURE);
+		}
+		if (WIFEXITED(wstatus))
+		{
+			printf("Child process exited with status %d\n",
+				WEXITSTATUS(wstatus));
+			return (WEXITSTATUS(wstatus));
+		}
+		else
+		{
+			printf("Child process exited abnormally\n");
+			return (WEXITSTATUS(wstatus));
+		}
 	}
 }
 
