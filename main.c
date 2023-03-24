@@ -98,7 +98,7 @@ int	exec_cmd(char *argv[])
 	}
 	else if (pid == 0)
 	{
-		if (strchr(path, "/" == NULL))
+		if (strchr(path, '/') == NULL)
 			path = check_cmd_path(path);
 		if (!check_is_filename(path))
 		{
