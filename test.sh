@@ -35,4 +35,5 @@ assert '/bin/pwd'
 assert '/bin/echo'
 
 cleanup
+
 echo 'all OK'
