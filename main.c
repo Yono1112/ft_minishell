@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/23 17:20:22 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/23 20:22:37 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,5 @@ int	main(void)
 		status = interpret(line);
 		free(line);
 	}
-	exit (0);
 	exit (status);
 }
