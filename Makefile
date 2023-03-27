@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline
 RLDIR = `brew --prefix readline`
 RM = rm -rf
-SRCS =	main.c	\
+SRCS =	src/main.c	\
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -18,7 +18,7 @@ $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 	$(RM) $(OBJ_DIR)
