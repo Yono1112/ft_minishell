@@ -39,29 +39,18 @@ char	*check_cmd_path(const char *filename)
 	{
 		end = strchr(value, ':');
 		if (end)
-		{
 			path_len = (size_t)end - (size_t)value;
-			if (path_len >= PATH_MAX)
-			{
-				fprintf(stderr, "Error: PATH element is too long\n");
-				return (NULL);
-			}
-			memcpy(path, value, path_len);
-			path[path_len] = '\0';
-		}
 		else
-		{
 			path_len = strlen(value);
-			if (path_len >= PATH_MAX)
-			{
-				fprintf(stderr, "Error: PATH element is too long\n");
-				return (NULL);
-			}
-			strcpy(path, value);
+		if (path_len >= PATH_MAX)
+		{
+			fprintf(stderr, "Error: PATH element is too long\n");
+			return (NULL);
 		}
-		path_len = strlen(path);
-		strncat(path, "/", PATH_MAX - path_len - 1);
-		strncat(path, filename, PATH_MAX - path_len - 1);
+		memcpy(path, value, path_len);
+		path[path_len] = '\0';
+		strncat(path, "/", PATH_MAX - strlen(path) - 1);
+		strncat(path, filename, PATH_MAX - strlen(path) - 1);
 		if (access(path, X_OK) == 0)
 		{
 			dup = strdup(path);
@@ -82,14 +71,11 @@ char	*check_cmd_path(const char *filename)
 int	exec_cmd(char *argv[])
 {
 	extern char	**environ;
-	const char	*path = argv[0];
+	char		*path = argv[0];
+	// char		*cmd_path;
 	pid_t		pid;
 	int			wstatus;
 
-	// if run execve in parent process
-	// execve(line, argv, environ);
-	// printf("aaaa");
-	// return (0);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -100,8 +86,15 @@ int	exec_cmd(char *argv[])
 	{
 		if (strchr(path, '/') == NULL)
 			path = check_cmd_path(path);
+		if (!path)
+		{
+			free(path);
+			printf("not exit path\n");
+			exit(EXIT_FAILURE);
+		}
 		if (!check_is_filename(path))
 		{
+			free(path);
 			exit(EXIT_FAILURE);
 		}
 		execve(path, argv, environ);
@@ -130,13 +123,14 @@ int	exec_cmd(char *argv[])
 	}
 }
 
-int	interpret(char *const line)
+void	interpret(char *const line, int *status)
 {
-	int	status;
+	// char	**argv;
+	// t_token	*token;
 	char	*argv[] = {line, NULL};
 
-	status = exec_cmd(argv);
-	return (status);
+	// token = tokenize_arg(line);
+	*status = exec_cmd(argv);
 }
 
 int	main(void)
@@ -153,7 +147,7 @@ int	main(void)
 			break ;
 		if (*line)
 			add_history(line);
-		status = interpret(line);
+		interpret(line, &status);
 		free(line);
 	}
 	exit (status);

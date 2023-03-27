@@ -35,4 +35,4 @@
 
 ##doc
 - [readlineとsignal by 42soul](https://intrepidgeeks.com/tutorial/minishell-readline)
-- https://techdebt.tistory.com/33?category=833728
+- [minishellの概要 by 42soul](https://techdebt.tistory.com/33?category=833728)

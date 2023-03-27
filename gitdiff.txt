@@ -1,0 +1,177 @@
+diff --git a/minishell.md b/minishell.md
+index 4ed410e..2ddde36 100644
+--- a/minishell.md
++++ b/minishell.md
+@@ -35,4 +35,4 @@
+ 
+ ##doc
+ - [readlineとsignal by 42soul](https://intrepidgeeks.com/tutorial/minishell-readline)
+-- https://techdebt.tistory.com/33?category=833728
+\ No newline at end of file
++- [minishellの概要 by 42soul](https://techdebt.tistory.com/33?category=833728)
+\ No newline at end of file
+diff --git a/src/main.c b/src/main.c
+index a34d206..5ed1806 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -39,29 +39,18 @@ char	*check_cmd_path(const char *filename)
+ 	{
+ 		end = strchr(value, ':');
+ 		if (end)
+-		{
+ 			path_len = (size_t)end - (size_t)value;
+-			if (path_len >= PATH_MAX)
+-			{
+-				fprintf(stderr, "Error: PATH element is too long\n");
+-				return (NULL);
+-			}
+-			memcpy(path, value, path_len);
+-			path[path_len] = '\0';
+-		}
+ 		else
+-		{
+ 			path_len = strlen(value);
+-			if (path_len >= PATH_MAX)
+-			{
+-				fprintf(stderr, "Error: PATH element is too long\n");
+-				return (NULL);
+-			}
+-			strcpy(path, value);
++		if (path_len >= PATH_MAX)
++		{
++			fprintf(stderr, "Error: PATH element is too long\n");
++			return (NULL);
+ 		}
+-		path_len = strlen(path);
+-		strncat(path, "/", PATH_MAX - path_len - 1);
+-		strncat(path, filename, PATH_MAX - path_len - 1);
++		memcpy(path, value, path_len);
++		path[path_len] = '\0';
++		strncat(path, "/", PATH_MAX - strlen(path) - 1);
++		strncat(path, filename, PATH_MAX - strlen(path) - 1);
+ 		if (access(path, X_OK) == 0)
+ 		{
+ 			dup = strdup(path);
+@@ -82,14 +71,11 @@ char	*check_cmd_path(const char *filename)
+ int	exec_cmd(char *argv[])
+ {
+ 	extern char	**environ;
+-	const char	*path = argv[0];
++	char		*path = argv[0];
++	// char		*cmd_path;
+ 	pid_t		pid;
+ 	int			wstatus;
+ 
+-	// if run execve in parent process
+-	// execve(line, argv, environ);
+-	// printf("aaaa");
+-	// return (0);
+ 	pid = fork();
+ 	if (pid < 0)
+ 	{
+@@ -100,8 +86,15 @@ int	exec_cmd(char *argv[])
+ 	{
+ 		if (strchr(path, '/') == NULL)
+ 			path = check_cmd_path(path);
++		if (!path)
++		{
++			free(path);
++			printf("not exit path\n");
++			exit(EXIT_FAILURE);
++		}
+ 		if (!check_is_filename(path))
+ 		{
++			free(path);
+ 			exit(EXIT_FAILURE);
+ 		}
+ 		execve(path, argv, environ);
+@@ -130,13 +123,14 @@ int	exec_cmd(char *argv[])
+ 	}
+ }
+ 
+-int	interpret(char *const line)
++void	interpret(char *const line, int *status)
+ {
+-	int	status;
++	// char	**argv;
++	// t_token	*token;
+ 	char	*argv[] = {line, NULL};
+ 
+-	status = exec_cmd(argv);
+-	return (status);
++	// token = tokenize_arg(line);
++	*status = exec_cmd(argv);
+ }
+ 
+ int	main(void)
+@@ -153,7 +147,7 @@ int	main(void)
+ 			break ;
+ 		if (*line)
+ 			add_history(line);
+-		status = interpret(line);
++		interpret(line, &status);
+ 		free(line);
+ 	}
+ 	exit (status);
+diff --git a/valgrind.txt b/valgrind.txt
+index 1465dc2..85644d2 100644
+--- a/valgrind.txt
++++ b/valgrind.txt
+@@ -1,21 +1,36 @@
+-==21463== Memcheck, a memory error detector
+-==21463== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+-==21463== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+-==21463== Command: ./minishell
+-==21463== Parent PID: 10481
+-==21463== 
+-==21463== 
+-==21463== HEAP SUMMARY:
+-==21463==     in use at exit: 208,820 bytes in 243 blocks
+-==21463==   total heap usage: 506 allocs, 263 frees, 225,586 bytes allocated
+-==21463== 
+-==21463== LEAK SUMMARY:
+-==21463==    definitely lost: 0 bytes in 0 blocks
+-==21463==    indirectly lost: 0 bytes in 0 blocks
+-==21463==      possibly lost: 0 bytes in 0 blocks
+-==21463==    still reachable: 208,820 bytes in 243 blocks
+-==21463==         suppressed: 0 bytes in 0 blocks
+-==21463== Rerun with --leak-check=full to see details of leaked memory
+-==21463== 
+-==21463== For lists of detected and suppressed errors, rerun with: -s
+-==21463== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
++==92491== Memcheck, a memory error detector
++==92491== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
++==92491== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
++==92491== Command: ./minishell
++==92491== Parent PID: 10481
++==92491== 
++==92516== 
++==92516== HEAP SUMMARY:
++==92516==     in use at exit: 208,194 bytes in 226 blocks
++==92516==   total heap usage: 445 allocs, 219 frees, 225,351 bytes allocated
++==92516== 
++==92516== LEAK SUMMARY:
++==92516==    definitely lost: 0 bytes in 0 blocks
++==92516==    indirectly lost: 0 bytes in 0 blocks
++==92516==      possibly lost: 0 bytes in 0 blocks
++==92516==    still reachable: 208,194 bytes in 226 blocks
++==92516==         suppressed: 0 bytes in 0 blocks
++==92516== Rerun with --leak-check=full to see details of leaked memory
++==92516== 
++==92516== For lists of detected and suppressed errors, rerun with: -s
++==92516== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
++==92491== 
++==92491== HEAP SUMMARY:
++==92491==     in use at exit: 208,192 bytes in 225 blocks
++==92491==   total heap usage: 453 allocs, 228 frees, 224,477 bytes allocated
++==92491== 
++==92491== LEAK SUMMARY:
++==92491==    definitely lost: 0 bytes in 0 blocks
++==92491==    indirectly lost: 0 bytes in 0 blocks
++==92491==      possibly lost: 0 bytes in 0 blocks
++==92491==    still reachable: 208,192 bytes in 225 blocks
++==92491==         suppressed: 0 bytes in 0 blocks
++==92491== Rerun with --leak-check=full to see details of leaked memory
++==92491== 
++==92491== For lists of detected and suppressed errors, rerun with: -s
++==92491== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
