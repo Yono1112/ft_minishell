@@ -125,11 +125,11 @@ int	exec_cmd(char *argv[])
 
 void	interpret(char *const line, int *status)
 {
-	// char	**argv;
-	// t_token	*token;
-	char	*argv[] = {line, NULL};
+	// char	*argv[] = {line, NULL};
+	char	**argv;
+	t_token	*token;
 
-	// token = tokenize_arg(line);
+	token = tokenize_arg(line);
 	*status = exec_cmd(argv);
 }
 
