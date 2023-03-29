@@ -2,7 +2,7 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline
-RLDIR = `brew --prefix readline`
+# RLDIR = `brew --prefix readline`
 RM = rm -rf
 SRCS =	src/main.c	\
 		src/free.c	\
