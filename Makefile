@@ -5,8 +5,13 @@ LDFLAGS = -lreadline
 RLDIR = `brew --prefix readline`
 RM = rm -rf
 SRCS =	src/main.c	\
+		src/free.c	\
 		src/lexer/tokenize.c	\
-		src/error/output_error.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/token_list_to_argv.c	\
+		src/output_error/output_error.c	\
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
