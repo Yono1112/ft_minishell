@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/30 14:40:14 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:22:47 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '\"'
+# define ERROR_TOKENIZE 258
+
+extern bool	syntax_error;
 
 typedef enum e_token_kind
 {
@@ -51,6 +54,8 @@ char	**token_list_to_argv(t_token *tok);
 void	fatal_error(const char *str);
 void	assert_error(const char *str);
 void	todo(const char *msg);
+void	err_exit(const char *location, const char *msg, int status);
+void	tokenize_error(const char *location, char **rest, char *line);
 t_token	*create_new_token_list(char *word, t_token_kind kind);
 bool	is_word(char *line);
 t_token	*add_word_to_list(char **rest_line, char *line);

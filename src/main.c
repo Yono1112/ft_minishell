@@ -71,11 +71,11 @@ char	*check_cmd_path(const char *filename)
 int	exec_cmd(char *argv[])
 {
 	extern char	**environ;
-	char		*path = argv[0];
-	// char		*cmd_path;
+	char		*path;
 	pid_t		pid;
 	int			wstatus;
 
+	path = argv[0];
 	pid = fork();
 	if (pid < 0)
 	{
@@ -86,17 +86,8 @@ int	exec_cmd(char *argv[])
 	{
 		if (strchr(path, '/') == NULL)
 			path = check_cmd_path(path);
-		if (!path)
-		{
-			free(path);
-			printf("not exit path\n");
-			exit(EXIT_FAILURE);
-		}
 		if (!check_is_filename(path))
-		{
-			free(path);
-			exit(EXIT_FAILURE);
-		}
+			err_exit(argv[0], "command not found", 127);
 		execve(path, argv, environ);
 		perror("execve Error");
 		exit(EXIT_FAILURE);
@@ -112,7 +103,7 @@ int	exec_cmd(char *argv[])
 		if (WIFEXITED(wstatus))
 		{
 			// printf("Child process exited with status %d\n",
-				// WEXITSTATUS(wstatus));
+			// 	WEXITSTATUS(wstatus));
 			return (WEXITSTATUS(wstatus));
 		}
 		else
@@ -125,12 +116,13 @@ int	exec_cmd(char *argv[])
 
 void	interpret(char *const line, int *status)
 {
-	// char	*argv[] = {line, NULL};
 	char	**argv;
 	t_token	*token;
 
 	token = tokenize(line);
-	if (token->kind != TK_EOF)
+	if (token->kind != TK_EOF && syntax_error)
+		*status = ERROR_TOKENIZE;
+	else if (token->kind != TK_EOF)
 	{
 		expand(token);
 		argv = token_list_to_argv(token);

@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/29 22:11:07 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:54:27 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	quote_removal(t_token *token)
 				while (*p != SINGLE_QUOTE_CHAR)
 				{
 					if (*p == '\0')
-						todo("Unclosed single quote");
+						assert_error("Unclosed single quote");
 					append_char(&new_word, *p++);
 				}
 				p++;
@@ -61,7 +61,7 @@ static void	quote_removal(t_token *token)
 				while (*p != DOUBLE_QUOTE_CHAR)
 				{
 					if (*p == '\0')
-						todo("Unclosed double quote");
+						assert_error("Unclosed single quote");
 					append_char(&new_word, *p++);
 				}
 				p++;
