@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/29 16:18:22 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/29 22:10:28 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,32 @@ t_token	*add_word_to_list(char **rest_line, char *line)
 
 	start = line;
 	while (*line && is_word(line))
-		line++;
+	{
+		if (*line == SINGLE_QUOTE_CHAR)
+		{
+			line++;
+			while (*line != SINGLE_QUOTE_CHAR)
+			{
+				if (*line == '\0')
+					todo("Unclosed single quote");
+				line++;
+			}
+			line++;
+		}
+		else if (*line == DOUBLE_QUOTE_CHAR)
+		{
+			line++;
+			while (*line != DOUBLE_QUOTE_CHAR)
+			{
+				if (*line == '\0')
+					todo("Unclosed double quote");
+				line++;
+			}
+			line++;
+		}
+		else
+			line++;
+	}
 	word = strndup(start, line - start);
 	printf("word: %s\n", word);
 	if (word == NULL)

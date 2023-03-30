@@ -132,6 +132,7 @@ void	interpret(char *const line, int *status)
 	token = tokenize(line);
 	if (token->kind != TK_EOF)
 	{
+		expand(token);
 		argv = token_list_to_argv(token);
 		*status = exec_cmd(argv);
 		free_argv(argv);
