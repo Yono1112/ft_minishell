@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/31 17:13:26 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:10:03 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_token	*add_operator_to_list(char **rest_line, char *line);
 bool	is_blank(char c);
 void	skip_blank(char **skip_line, char *line);
 // expansion
-void	expand(t_token *token);
+void	expand(t_node *node);
 // parser
 t_node	*parse(t_token *token);
 void	free_node(t_node *node);

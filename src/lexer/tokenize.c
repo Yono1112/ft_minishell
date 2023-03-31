@@ -48,7 +48,7 @@ t_token	*tokenize(char	*line)
 	{
 		if (is_blank(*line))
 			skip_blank(&line, line);
-		if (is_operator(line))
+		else if (is_operator(line))
 		{
 			token->next = add_operator_to_list(&line, line);
 			token = token->next;

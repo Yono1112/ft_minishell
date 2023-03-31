@@ -52,8 +52,15 @@
 ## Todo
 - exec filenameでstrdupしたのをまだfreeしてない
 - ~~ubuntuで動かすとreadlineのヘッダファイルが無いとerrorが出る~~
+	- done
+		- readlineのリンクを一番後ろにすると解決した。順序があるっぽい。
 - 標準ライブラリをlibftにする
 - cat fileでsegvする(usashellはしない)
+- ~~echo にスペースだけだとsegvする(usahsellはしない)~~
+	- tokenizerでスペースをwordと認識されているのが原因、usashellはwordと認識されてない
+	- done!
+		- tokenizerのblankとoperator以下のif文を別々に分けていたがelse ifで全ての条件式を一つにしたら解決した。
+
 
 ##doc
 - [readlineとsignal by 42soul](https://intrepidgeeks.com/tutorial/minishell-readline)

@@ -10,9 +10,10 @@ SRCS =	src/main.c	\
 		src/lexer/blank.c		\
 		src/lexer/operator.c	\
 		src/lexer/word.c		\
-		src/lexer/token_list_to_argv.c	\
+		src/lexer/add_token_to_argv.c	\
 		src/output_error/output_error.c	\
-		src/expansion/expand.c
+		src/expansion/expand.c	\
+		src/parser/parse.c
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
