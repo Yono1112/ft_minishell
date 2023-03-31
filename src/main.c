@@ -118,16 +118,19 @@ void	interpret(char *const line, int *status)
 {
 	char	**argv;
 	t_token	*token;
+	t_node	*node;
 
 	token = tokenize(line);
 	if (token->kind != TK_EOF && syntax_error)
 		*status = ERROR_TOKENIZE;
 	else if (token->kind != TK_EOF)
 	{
-		expand(token);
-		argv = token_list_to_argv(token);
+		node = parse(token);
+		expand(node);
+		argv = add_token_to_argv(node->args);
 		*status = exec_cmd(argv);
 		free_argv(argv);
+		free_node(node);
 	}
 	free_token(token);
 }

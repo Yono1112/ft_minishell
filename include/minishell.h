@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/30 15:22:47 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:13:26 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,28 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-// tokenizer
-t_token	*tokenize(char	*line);
-void	free_token(t_token *token);
-void	free_argv(char **argv);
-char	**token_list_to_argv(t_token *tok);
+typedef enum e_node_kind
+{
+	ND_SIMPLE_CMD,
+}	t_node_kind;
+
+typedef struct s_node
+{
+	t_token			*args;
+	t_node_kind		kind;
+	struct s_node	*next;
+}	t_node;
+
+// error
 void	fatal_error(const char *str);
 void	assert_error(const char *str);
 void	todo(const char *msg);
 void	err_exit(const char *location, const char *msg, int status);
+// tokenizer
+t_token	*tokenize(char	*line);
+void	free_token(t_token *token);
+void	free_argv(char **argv);
+char	**add_token_to_argv(t_token *tok);
 void	tokenize_error(const char *location, char **rest, char *line);
 t_token	*create_new_token_list(char *word, t_token_kind kind);
 bool	is_word(char *line);
@@ -63,6 +76,10 @@ bool	is_operator(char *line);
 t_token	*add_operator_to_list(char **rest_line, char *line);
 bool	is_blank(char c);
 void	skip_blank(char **skip_line, char *line);
+// expansion
 void	expand(t_token *token);
+// parser
+t_node	*parse(t_token *token);
+void	free_node(t_node *node);
 
 #endif

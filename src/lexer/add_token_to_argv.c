@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:07:45 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/30 18:32:14 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:12:48 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static size_t	token_lstsize(t_token *token)
 	return (count);
 }
 
-char	**token_list_to_argv(t_token *token)
+char	**add_token_to_argv(t_token *token)
 {
 	size_t	len;
 	char	**argv;

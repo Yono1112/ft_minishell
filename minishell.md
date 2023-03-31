@@ -53,6 +53,7 @@
 - exec filenameでstrdupしたのをまだfreeしてない
 - ~~ubuntuで動かすとreadlineのヘッダファイルが無いとerrorが出る~~
 - 標準ライブラリをlibftにする
+- cat fileでsegvする(usashellはしない)
 
 ##doc
 - [readlineとsignal by 42soul](https://intrepidgeeks.com/tutorial/minishell-readline)
