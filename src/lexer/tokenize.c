@@ -12,17 +12,6 @@
 
 #include "minishell.h"
 
-bool	syntax_error = false;
-
-void	tokenize_error(const char *location, char **rest, char *line)
-{
-	syntax_error = true;
-	dprintf(STDERR_FILENO, "minishell: syntax error near %s\n", location);
-	while (*line)
-		line++;
-	*rest = line;
-}
-
 t_token	*create_new_token_list(char *word, t_token_kind kind)
 {
 	t_token	*new_token;
