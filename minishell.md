@@ -55,7 +55,8 @@
 	- done
 		- readlineのリンクを一番後ろにすると解決した。順序があるっぽい。
 - 標準ライブラリをlibftにする
-- cat fileでsegvする(usashellはしない)
+- ~~cat fileでsegvする(usashellはしない)~~
+	- done.だけど最後の行にプロンプトが表示されてしまう
 - ~~echo にスペースだけだとsegvする(usahsellはしない)~~
 	- tokenizerでスペースをwordと認識されているのが原因、usashellはwordと認識されてない
 	- done!

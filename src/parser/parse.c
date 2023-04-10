@@ -6,35 +6,39 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/31 18:32:08 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:00:62by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	add_token_to_node(t_token **nd_token, t_token *new_token)
-// {
-// 	// t_token	*last_token;
-
-// 	if (*nd_token == NULL)
-// 		*nd_token = new_token;
-// 	else
-// 	{
-// 		// last_token = *nd_token;
-// 		while (*nd_token != NULL)
-// 			*nd_token = (*nd_token)->next;
-// 		(*nd_token)->next = new_token;
-// 	}
-// }
-void	add_token_to_node(t_token **tokens, t_token *tok)
+void	add_token_to_node(t_token **node_token, t_token *new_token)
 {
-	if (*tokens == NULL)
+	t_token	*tmp_token;
+
+	if (*node_token == NULL)
 	{
-		*tokens = tok;
+		*node_token = new_token;
 		return ;
 	}
-	add_token_to_node(&(*tokens)->next, tok);
+	else
+	{
+		tmp_token = *node_token;
+		while (tmp_token->next != NULL)
+			tmp_token = tmp_token->next;
+		tmp_token->next = new_token;
+	}
 }
+
+// void	add_token_to_node(t_token **tokens, t_token *tok)
+// {
+// 	if (*tokens == NULL)
+// 	{
+// 		*tokens = tok;
+// 		return ;
+// 	}
+// 	add_token_to_node(&(*tokens)->next, tok);
+// }
 
 t_token	*tokendup(t_token *token)
 {
