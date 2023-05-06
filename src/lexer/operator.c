@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:19:11 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/29 16:19:52 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/07 00:99:04by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool	is_operator(char *line)
 {
-	static char *const	operators[] = {"||", "|", "&", "&&",
-		";", ";;", "(", ")", "\n"};
+	static char *const	operators[] = {">>", "<<", ">", "<",
+		"||", "|", "&", "&&", ";", ";;", "(", ")", "\n"};
 	size_t				i;
 	size_t				operators_len;
 
@@ -32,8 +32,8 @@ bool	is_operator(char *line)
 
 t_token	*add_operator_to_list(char **rest_line, char *line)
 {
-	static char *const	operators[] = {"||", "|", "&&", "&",
-		";;", ";", "(", ")", "\n"};
+	static char *const	operators[] = {">>", "<<", ">", "<",
+		"||", "|", "&&", "&", ";;", ";", "(", ")", "\n"};
 	size_t				i;
 	size_t				operators_len;
 	char				*operator;
@@ -41,7 +41,7 @@ t_token	*add_operator_to_list(char **rest_line, char *line)
 
 	i = 0;
 	operators_len = sizeof(operators) / sizeof(*operators);
-	while (i < operators_len)
+	while (i < sizeof(operators) / sizeof(*operators))
 	{
 		operator = operators[i];
 		if (!strncmp(line, operators[i], strlen(operator)))

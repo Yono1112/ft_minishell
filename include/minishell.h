@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/31 18:10:03 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/07 01:38:46 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '\"'
 # define ERROR_TOKENIZE 258
+# define STDOUT_FILENO 1
 
 extern bool	syntax_error;
 
@@ -49,13 +50,21 @@ typedef struct s_token
 typedef enum e_node_kind
 {
 	ND_SIMPLE_CMD,
+	ND_REDIR_OUT,
 }	t_node_kind;
 
 typedef struct s_node
 {
-	t_token			*args;
 	t_node_kind		kind;
 	struct s_node	*next;
+	// CMD
+	t_token			*args;
+	struct s_node	*redirects;
+	// REDIR
+	int				targetfd;
+	t_token			*filename;
+	int				filefd;
+	int				stashed_targetfd;
 }	t_node;
 
 // error
@@ -81,5 +90,9 @@ void	expand(t_node *node);
 // parser
 t_node	*parse(t_token *token);
 void	free_node(t_node *node);
+// redirection
+void	open_redirect_file(t_node *redirect);
+void	do_redirect(t_node *redirect);
+void	reset_redirect(t_node *redirect);
 
 #endif

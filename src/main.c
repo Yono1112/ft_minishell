@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <errno.h>
-# include <string.h>
-# include <limits.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+#include <limits.h>
 
 bool	check_is_filename(const char *path)
 {
@@ -74,14 +74,14 @@ char	*check_cmd_path(const char *filename)
 	return (NULL);
 }
 
-int	exec_cmd(char *argv[])
+int	exec_cmd(t_node *node)
 {
 	extern char	**environ;
 	char		*path;
 	pid_t		pid;
 	int			wstatus;
+	char		**argv;
 
-	path = argv[0];
 	pid = fork();
 	if (pid < 0)
 	{
@@ -90,6 +90,8 @@ int	exec_cmd(char *argv[])
 	}
 	else if (pid == 0)
 	{
+		argv = add_token_to_argv(node->args);
+		path = argv[0];
 		if (strchr(path, '/') == NULL)
 			path = check_cmd_path(path);
 		if (!check_is_filename(path))
@@ -120,9 +122,19 @@ int	exec_cmd(char *argv[])
 	}
 }
 
+int	exec(t_node *node)
+{
+	int		status;
+
+	open_redirect_file(node->redirects);
+	do_redirect(node->redirects);
+	status = exec_cmd(node);
+	reset_redirect(node->redirects);
+	return (status);
+}
+
 void	interpret(char *const line, int *status)
 {
-	char	**argv;
 	t_token	*token;
 	t_node	*node;
 
@@ -133,9 +145,7 @@ void	interpret(char *const line, int *status)
 	{
 		node = parse(token);
 		expand(node);
-		argv = add_token_to_argv(node->args);
-		*status = exec_cmd(argv);
-		free_argv(argv);
+		*status = exec(node);
 		free_node(node);
 	}
 	free_token(token);

@@ -30,15 +30,23 @@ void	add_token_to_node(t_token **node_token, t_token *new_token)
 	}
 }
 
-// void	add_token_to_node(t_token **tokens, t_token *tok)
-// {
-// 	if (*tokens == NULL)
-// 	{
-// 		*tokens = tok;
-// 		return ;
-// 	}
-// 	add_token_to_node(&(*tokens)->next, tok);
-// }
+void	add_operator_to_node(t_node **node, t_node *new_node)
+{
+	t_node	*tmp_node;
+
+	if (*node == NULL)
+	{
+		*node = new_node;
+		return ;
+	}
+	else
+	{
+		tmp_node = *node;
+		while (tmp_node->next != NULL)
+			tmp_node = tmp_node->next;
+		tmp_node->next = new_node;
+	}
+}
 
 t_token	*tokendup(t_token *token)
 {
@@ -61,6 +69,24 @@ t_node	*create_new_node_list(t_node_kind kind)
 	return (node);
 }
 
+bool	check_operator(t_token *token, char *op)
+{
+	if (token->kind != TK_OP)
+		return (false);
+	return (strcmp(token->word, op) == 0);
+}
+
+t_node	*create_new_redirect(t_token **rest, t_token *token)
+{
+	t_node	*node;
+
+	node = create_new_node_list(ND_REDIR_OUT);
+	node->filename = tokendup(token->next);
+	node->targetfd = STDOUT_FILENO;
+	*rest = token->next->next;
+	return (node);
+}
+
 t_node	*parse(t_token *token)
 {
 	t_node	*node;
@@ -70,6 +96,8 @@ t_node	*parse(t_token *token)
 	{
 		if (token->kind == TK_WORD)
 			add_token_to_node(&node->args, tokendup(token));
+		else if (check_operator(token, ">") && token->next->kind == TK_WORD)
+			add_operator_to_node(&node->redirects, create_new_redirect(&token, token));
 		else
 			todo("Implement parser");
 		token = token->next;
