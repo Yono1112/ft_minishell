@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define STDOUT_FILENO 1
 
 void	add_token_to_node(t_token **node_token, t_token *new_token)
 {

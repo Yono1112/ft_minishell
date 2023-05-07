@@ -17,6 +17,7 @@
 #include <errno.h>
 #include <string.h>
 #include <limits.h>
+#include <readline/history.h>
 
 bool	check_is_filename(const char *path)
 {

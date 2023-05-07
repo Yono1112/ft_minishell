@@ -41,7 +41,7 @@ t_token	*add_operator_to_list(char **rest_line, char *line)
 
 	i = 0;
 	operators_len = sizeof(operators) / sizeof(*operators);
-	while (i < sizeof(operators) / sizeof(*operators))
+	while (i < operators_len)
 	{
 		operator = operators[i];
 		if (!strncmp(line, operators[i], strlen(operator)))
