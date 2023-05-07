@@ -17,10 +17,7 @@ void	add_token_to_node(t_token **node_token, t_token *new_token)
 	t_token	*tmp_token;
 
 	if (*node_token == NULL)
-	{
 		*node_token = new_token;
-		return ;
-	}
 	else
 	{
 		tmp_token = *node_token;
@@ -35,10 +32,7 @@ void	add_operator_to_node(t_node **node, t_node *new_node)
 	t_node	*tmp_node;
 
 	if (*node == NULL)
-	{
 		*node = new_node;
-		return ;
-	}
 	else
 	{
 		tmp_node = *node;
@@ -71,9 +65,7 @@ t_node	*create_new_node_list(t_node_kind kind)
 
 bool	check_operator(t_token *token, char *op)
 {
-	if (token->kind != TK_OP)
-		return (false);
-	return (strcmp(token->word, op) == 0);
+	return (token->kind == TK_OP || strcmp(token->word, op) == 0);
 }
 
 t_node	*create_new_redirect(t_token **rest, t_token *token)
@@ -94,13 +86,16 @@ t_node	*parse(t_token *token)
 	node = create_new_node_list(ND_SIMPLE_CMD);
 	while (token && token->kind != TK_EOF)
 	{
+		// printf("token_kind: %u\n", token->kind);
 		if (token->kind == TK_WORD)
+		{
 			add_token_to_node(&node->args, tokendup(token));
+			token = token->next;
+		}
 		else if (check_operator(token, ">") && token->next->kind == TK_WORD)
 			add_operator_to_node(&node->redirects, create_new_redirect(&token, token));
 		else
 			todo("Implement parser");
-		token = token->next;
 	}
 	return (node);
 }
