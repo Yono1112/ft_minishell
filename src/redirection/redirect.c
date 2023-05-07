@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/07 17:20:24 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/07 23:02:49 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,7 @@ void	do_redirect(t_node *redirect)
 void	reset_redirect(t_node *redirect)
 {
 	if (redirect == NULL)
-	{
-		// printf("reset\n");
 		return ;
-	}
 	reset_redirect(redirect->next);
 	if (redirect->kind == ND_REDIR_OUT)
 	{
@@ -103,3 +100,20 @@ void	reset_redirect(t_node *redirect)
 		dup2(redirect->stashed_targetfd, redirect->targetfd);
 	}
 }
+
+// void	reset_redirect(t_node *redirect)
+// {
+// 	t_node	*current;
+
+// 	current = redirect;
+// 	while (current != NULL)
+// 	{
+// 		if (current->kind == ND_REDIR_OUT)
+// 		{
+// 			close(current->filefd);
+// 			close(current->targetfd);
+// 			dup2(current->stashed_targetfd, current->targetfd);
+// 		}
+// 		current = current->next;
+// 	}
+// }
