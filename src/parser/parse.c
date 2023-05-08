@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define STDOUT_FILENO 1
 
 void	add_token_to_node(t_token **node_token, t_token *new_token)
 {
@@ -66,16 +65,27 @@ t_node	*create_new_node_list(t_node_kind kind)
 
 bool	check_operator(t_token *token, char *op)
 {
-	return (token->kind == TK_OP || strcmp(token->word, op) == 0);
+	return (token->kind == TK_OP && strcmp(token->word, op) == 0);
 }
 
-t_node	*create_new_redirect(t_token **rest, t_token *token)
+t_node	*create_new_redirect_out(t_token **rest, t_token *token)
 {
 	t_node	*node;
 
 	node = create_new_node_list(ND_REDIR_OUT);
 	node->filename = tokendup(token->next);
 	node->targetfd = STDOUT_FILENO;
+	*rest = token->next->next;
+	return (node);
+}
+
+t_node	*create_new_redirect_in(t_token **rest, t_token *token)
+{
+	t_node	*node;
+
+	node = create_new_node_list(ND_REDIR_IN);
+	node->filename = tokendup(token->next);
+	node->targetfd = STDIN_FILENO;
 	*rest = token->next->next;
 	return (node);
 }
@@ -94,7 +104,9 @@ t_node	*parse(t_token *token)
 			token = token->next;
 		}
 		else if (check_operator(token, ">") && token->next->kind == TK_WORD)
-			add_operator_to_node(&node->redirects, create_new_redirect(&token, token));
+			add_operator_to_node(&node->redirects, create_new_redirect_out(&token, token));
+		else if (check_operator(token, "<") && token->next->kind == TK_WORD)
+			add_operator_to_node(&node->redirects, create_new_redirect_in(&token, token));
 		else
 			todo("Implement parser");
 	}

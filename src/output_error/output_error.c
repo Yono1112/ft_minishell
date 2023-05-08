@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   output_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 03:09:29 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/04/01 17:28:44 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/08 11:11:34 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+#define ERROR_PREFIX "minishell: "
+
 bool	syntax_error = false;
+
+static void	perror_prefix(void)
+{
+	dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
+}
 
 void	fatal_error(const char *str)
 {
@@ -54,4 +61,10 @@ void	parse_error(const char *location, t_token **rest, t_token *token)
 	while (token && token->kind != TK_EOF)
 		token = token->next;
 	*rest = token;
+}
+
+void	xperror(const char *location)
+{
+	perror_prefix();
+	perror(location);
 }

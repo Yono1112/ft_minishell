@@ -73,10 +73,11 @@
 	- tokenizerでスペースをwordと認識されているのが原因、usashellはwordと認識されてない
 	- done!
 		- tokenizerのblankとoperator以下のif文を別々に分けていたがelse ifで全ての条件式を一つにしたら解決した。
-- ~~redirect inputが複数個の時にファイルが一つしか開かない~~
+- ~~redirect outputが複数個の時にファイルが一つしか開かない~~
 	- done
 		- parserでtokenのポインタが正しく動いていなかったのが原因だった
 - reset_redirectを自作する(現状usashellのをコピペしている)
+- redirect inputでcat < fileをするも`cat: stdin: Bad file descriptor`と表示され読み込めない
 
 
 ##doc

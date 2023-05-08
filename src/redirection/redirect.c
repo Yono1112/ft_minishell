@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/07 23:02:49 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/08 11:21:58 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,38 +26,52 @@ static int	stashfd(int fd)
 	return (stashfd);
 }
 
-// void	open_redirect_file(t_node *redirect)
-// {
-// 	// printf("yes\n");
-// 	if (redirect == NULL)
-// 	{
-// 		// printf("no\n");
-// 		return ;
-// 	}
-// 	if (redirect->kind == ND_REDIR_OUT)
-// 	{
-// 		// printf("open\n");
-// 		redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-// 	}
-// 	else
-// 		todo("open_redirect_file");
-// 	// printf("open_stashfd\n");
-// 	redirect->filefd = stashfd(redirect->filefd);
-// 	open_redirect_file(redirect->next);
-// }
-
-void	open_redirect_file(t_node *redirect)
+int	open_redirect_file(t_node *redirect)
 {
-	while (redirect != NULL)
+	if (redirect == NULL)
+		return (0);
+	printf("open_redirect\n");
+	if (redirect->kind == ND_REDIR_OUT)
 	{
-		if (redirect->kind == ND_REDIR_OUT)
-			redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		else
-			todo("open_redirect_file");
-		redirect->filefd = stashfd(redirect->filefd);
-		redirect = redirect->next;
+		printf("redirect_out_open\n");
+		redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	}
+	else if (redirect->kind == ND_REDIR_IN)
+	{
+		printf("redirect_in_open\n");
+		redirect->filefd = open(redirect->filename->word, O_RDONLY);
+	}
+	else
+		todo("open_redirect_file");
+	if (redirect->filefd < 0)
+	{
+		xperror(redirect->filename->word);
+		return (-1);
+	}
+	redirect->filefd = stashfd(redirect->filefd);
+	return (open_redirect_file(redirect->next));
 }
+
+// int		open_redirect_file(t_node *redirect)
+// {
+// 	while (redirect != NULL)
+// 	{
+// 		if (redirect->kind == ND_REDIR_OUT)
+// 			redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+// 		else if (redirect->kind == ND_REDIR_IN)
+// 			redirect->filefd = open(redirect->filename->word, O_RDONLY);
+// 		else
+// 			todo("open_redirect_file");
+// 		if (redirect->filefd < 0)
+// 		{
+// 			xperror(redirect->filename->word);
+// 			return (-1);
+// 		}
+// 		redirect->filefd = stashfd(redirect->filefd);
+// 		redirect = redirect->next;
+// 	}
+// 	return (0);
+// }
 
 // void	do_redirect(t_node *redirect)
 // {
@@ -66,11 +80,24 @@ void	open_redirect_file(t_node *redirect)
 // 		// printf("do\n");
 // 		return ;
 // 	}
-// 	if (redirect->kind == ND_REDIR_OUT)
+// 	printf("do_not_null\n");
+// 	if (redirect->kind == ND_REDIR_OUT || redirect->kind == ND_REDIR_IN)
 // 	{
-// 		// printf("do_stashfd\n");
+// 		printf("do_stashfd\n");
 // 		redirect->stashed_targetfd = stashfd(redirect->targetfd);
-// 		dup2(redirect->filefd, redirect->targetfd);
+// 		if (dup2(redirect->filefd, redirect->targetfd) < 0)
+// 		{
+// 			printf("do_no!\n");
+// 			xperror("dup2");
+// 			return ;
+// 		}
+// 		else
+// 			printf("do_yes\n");
+// 	}
+// 	else
+// 	{
+// 		printf("do_todo\n");
+// 		todo("do_redirect");
 // 	}
 // 	do_redirect(redirect->next);
 // }
@@ -79,11 +106,13 @@ void	do_redirect(t_node *redirect)
 {
 	while (redirect != NULL)
 	{
-		if (redirect->kind == ND_REDIR_OUT)
+		if (redirect->kind == ND_REDIR_OUT || redirect->kind == ND_REDIR_IN)
 		{
 			redirect->stashed_targetfd = stashfd(redirect->targetfd);
 			dup2(redirect->filefd, redirect->targetfd);
 		}
+		else
+			todo("do_redirect");
 		redirect = redirect->next;
 	}
 }
@@ -93,12 +122,21 @@ void	reset_redirect(t_node *redirect)
 	if (redirect == NULL)
 		return ;
 	reset_redirect(redirect->next);
-	if (redirect->kind == ND_REDIR_OUT)
+	if (redirect->kind == ND_REDIR_OUT || redirect->kind == ND_REDIR_IN)
 	{
 		close(redirect->filefd);
 		close(redirect->targetfd);
-		dup2(redirect->stashed_targetfd, redirect->targetfd);
+		if (dup2(redirect->stashed_targetfd, redirect->targetfd) < 0)
+		{
+			printf("reset_no!\n");
+			xperror("dup2");
+			return ;
+		}
+		else
+			printf("reset_yes!\n");
 	}
+	else
+		todo("rest_redirect");
 }
 
 // void	reset_redirect(t_node *redirect)

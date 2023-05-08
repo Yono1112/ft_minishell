@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/07 01:38:46 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/08 00:37:53 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/wait.h>
+# include <stddef.h>
 
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '\"'
 # define ERROR_TOKENIZE 258
-# define STDOUT_FILENO 1
+# define ERROR_OPEN_REDIR 1
 
 extern bool	syntax_error;
 
@@ -51,6 +52,7 @@ typedef enum e_node_kind
 {
 	ND_SIMPLE_CMD,
 	ND_REDIR_OUT,
+	ND_REDIR_IN,
 }	t_node_kind;
 
 typedef struct s_node
@@ -72,6 +74,7 @@ void	fatal_error(const char *str);
 void	assert_error(const char *str);
 void	todo(const char *msg);
 void	err_exit(const char *location, const char *msg, int status);
+void	xperror(const char *location);
 // tokenizer
 t_token	*tokenize(char	*line);
 void	free_token(t_token *token);
@@ -91,7 +94,7 @@ void	expand(t_node *node);
 t_node	*parse(t_token *token);
 void	free_node(t_node *node);
 // redirection
-void	open_redirect_file(t_node *redirect);
+int		open_redirect_file(t_node *redirect);
 void	do_redirect(t_node *redirect);
 void	reset_redirect(t_node *redirect);
 
