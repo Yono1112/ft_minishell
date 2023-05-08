@@ -90,6 +90,17 @@ t_node	*create_new_redirect_in(t_token **rest, t_token *token)
 	return (node);
 }
 
+t_node	*create_new_redirect_append(t_token **rest, t_token *token)
+{
+	t_node	*node;
+
+	node = create_new_node_list(ND_REDIR_APPEND);
+	node->filename = tokendup(token->next);
+	node->targetfd = STDOUT_FILENO;
+	*rest = token->next->next;
+	return (node);
+}
+
 t_node	*parse(t_token *token)
 {
 	t_node	*node;
@@ -107,6 +118,8 @@ t_node	*parse(t_token *token)
 			add_operator_to_node(&node->redirects, create_new_redirect_out(&token, token));
 		else if (check_operator(token, "<") && token->next->kind == TK_WORD)
 			add_operator_to_node(&node->redirects, create_new_redirect_in(&token, token));
+		else if (check_operator(token, ">>") && token->next->kind == TK_WORD)
+			add_operator_to_node(&node->redirects, create_new_redirect_append(&token, token));
 		else
 			todo("Implement parser");
 	}
