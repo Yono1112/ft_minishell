@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/08 12:28:53 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/09 21:41:56 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define DOUBLE_QUOTE_CHAR '\"'
 # define ERROR_TOKENIZE 258
 # define ERROR_OPEN_REDIR 1
+# define STDOUT_FILENO 1
+# define STDIN_FILENO 0
 
 extern bool	syntax_error;
 
@@ -54,6 +56,7 @@ typedef enum e_node_kind
 	ND_REDIR_OUT,
 	ND_REDIR_IN,
 	ND_REDIR_APPEND,
+	ND_REDIR_HEREDOC,
 }	t_node_kind;
 
 typedef struct s_node
@@ -66,6 +69,7 @@ typedef struct s_node
 	// REDIR
 	int				targetfd;
 	t_token			*filename;
+	t_token			*delimiter;
 	int				filefd;
 	int				stashed_targetfd;
 }	t_node;

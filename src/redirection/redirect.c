@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/09 16:38:16 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:44:23 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,31 @@ static int	stashfd(int fd)
 	return (stashfd);
 }
 
-int		open_redirect_file(t_node *redirect)
+int	read_heredoc(const char *delimiter)
+{
+	char	*line;
+	int		pfd[2];
+
+	if (pipe(pfd) < 0)
+		fatal_error("pipe");
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL)
+			break ;
+		if (strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			break ;
+		}
+		dprintf(pfd[1], "%s\n", line);
+		free(line);
+	}
+	close(pfd[1]);
+	return (pfd[0]);
+}
+
+int	open_redirect_file(t_node *redirect)
 {
 	while (redirect != NULL)
 	{
@@ -36,6 +60,8 @@ int		open_redirect_file(t_node *redirect)
 			redirect->filefd = open(redirect->filename->word, O_RDONLY);
 		else if (redirect->kind == ND_REDIR_APPEND)
 			redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		else if (redirect->kind == ND_REDIR_HEREDOC)
+			redirect->filefd = read_heredoc(redirect->delimiter->word);
 		else
 			todo("open_redirect_file");
 		if (redirect->filefd < 0)
@@ -49,11 +75,21 @@ int		open_redirect_file(t_node *redirect)
 	return (0);
 }
 
+bool	is_redirect(t_node *redirect)
+{
+	if (redirect->kind == ND_REDIR_IN || redirect->kind == ND_REDIR_OUT
+		|| redirect->kind == ND_REDIR_APPEND
+		|| redirect->kind == ND_REDIR_HEREDOC)
+		return (true);
+	else
+		return (false);
+}
+
 void	do_redirect(t_node *redirect)
 {
 	while (redirect != NULL)
 	{
-		if (redirect->kind == ND_REDIR_OUT || redirect->kind == ND_REDIR_IN || redirect->kind == ND_REDIR_APPEND)
+		if (is_redirect(redirect))
 		{
 			redirect->stashed_targetfd = stashfd(redirect->targetfd);
 			if (dup2(redirect->filefd, redirect->targetfd) < 0)
@@ -73,7 +109,7 @@ void	reset_redirect(t_node *redirect)
 	if (redirect == NULL)
 		return ;
 	reset_redirect(redirect->next);
-	if (redirect->kind == ND_REDIR_OUT || redirect->kind == ND_REDIR_IN || redirect->kind == ND_REDIR_APPEND)
+	if (is_redirect(redirect))
 	{
 		close(redirect->filefd);
 		close(redirect->targetfd);

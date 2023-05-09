@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define STDOUT_FILENO 1
+#define STDIN_FILENO 0
 
 void	add_token_to_node(t_token **node_token, t_token *new_token)
 {
@@ -101,6 +103,17 @@ t_node	*create_new_redirect_append(t_token **rest, t_token *token)
 	return (node);
 }
 
+t_node	*create_new_redirect_heredoc(t_token **rest, t_token *token)
+{
+	t_node	*node;
+
+	node = create_new_node_list(ND_REDIR_HEREDOC);
+	node->delimiter = tokendup(token->next);
+	node->targetfd = STDIN_FILENO;
+	*rest = token->next->next;
+	return (node);
+}
+
 t_node	*parse(t_token *token)
 {
 	t_node	*node;
@@ -120,6 +133,8 @@ t_node	*parse(t_token *token)
 			add_operator_to_node(&node->redirects, create_new_redirect_in(&token, token));
 		else if (check_operator(token, ">>") && token->next->kind == TK_WORD)
 			add_operator_to_node(&node->redirects, create_new_redirect_append(&token, token));
+		else if (check_operator(token, "<<") && token->next->kind == TK_WORD)
+			add_operator_to_node(&node->redirects, create_new_redirect_heredoc(&token, token));
 		else
 			todo("Implement parser");
 	}
