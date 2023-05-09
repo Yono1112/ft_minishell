@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/08 12:31:27 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/09 16:38:16 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,27 @@ static int	stashfd(int fd)
 	return (stashfd);
 }
 
-int	open_redirect_file(t_node *redirect)
+int		open_redirect_file(t_node *redirect)
 {
-	if (redirect == NULL)
-		return (0);
-	if (redirect->kind == ND_REDIR_OUT)
-		redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else if (redirect->kind == ND_REDIR_IN)
-		redirect->filefd = open(redirect->filename->word, O_RDONLY);
-	else if (redirect->kind == ND_REDIR_APPEND)
-		redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	else
-		todo("open_redirect_file");
-	if (redirect->filefd < 0)
+	while (redirect != NULL)
 	{
-		xperror(redirect->filename->word);
-		return (-1);
+		if (redirect->kind == ND_REDIR_OUT)
+			redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		else if (redirect->kind == ND_REDIR_IN)
+			redirect->filefd = open(redirect->filename->word, O_RDONLY);
+		else if (redirect->kind == ND_REDIR_APPEND)
+			redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		else
+			todo("open_redirect_file");
+		if (redirect->filefd < 0)
+		{
+			xperror(redirect->filename->word);
+			return (-1);
+		}
+		redirect->filefd = stashfd(redirect->filefd);
+		redirect = redirect->next;
 	}
-	redirect->filefd = stashfd(redirect->filefd);
-	return (open_redirect_file(redirect->next));
+	return (0);
 }
 
 void	do_redirect(t_node *redirect)
@@ -85,25 +87,25 @@ void	reset_redirect(t_node *redirect)
 		todo("rest_redirect");
 }
 
-// int		open_redirect_file(t_node *redirect)
+// int	open_redirect_file(t_node *redirect)
 // {
-// 	while (redirect != NULL)
+// 	if (redirect == NULL)
+// 		return (0);
+// 	if (redirect->kind == ND_REDIR_OUT)
+// 		redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+// 	else if (redirect->kind == ND_REDIR_IN)
+// 		redirect->filefd = open(redirect->filename->word, O_RDONLY);
+// 	else if (redirect->kind == ND_REDIR_APPEND)
+// 		redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_APPEND, 0644);
+// 	else
+// 		todo("open_redirect_file");
+// 	if (redirect->filefd < 0)
 // 	{
-// 		if (redirect->kind == ND_REDIR_OUT)
-// 			redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-// 		else if (redirect->kind == ND_REDIR_IN)
-// 			redirect->filefd = open(redirect->filename->word, O_RDONLY);
-// 		else
-// 			todo("open_redirect_file");
-// 		if (redirect->filefd < 0)
-// 		{
-// 			xperror(redirect->filename->word);
-// 			return (-1);
-// 		}
-// 		redirect->filefd = stashfd(redirect->filefd);
-// 		redirect = redirect->next;
+// 		xperror(redirect->filename->word);
+// 		return (-1);
 // 	}
-// 	return (0);
+// 	redirect->filefd = stashfd(redirect->filefd);
+// 	return (open_redirect_file(redirect->next));
 // }
 
 // void	do_redirect(t_node *redirect)
