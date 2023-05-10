@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/31 18:09:48 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:32:04 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	append_char(char **s, char c)
 	*s = new;
 }
 
-static void	quote_removal(t_token *token)
+static void	remove_quote(t_token *token)
 {
 	char	*p;
 	char	*new_word;
@@ -75,7 +75,18 @@ static void	quote_removal(t_token *token)
 	}
 }
 
+void	expand_quote_removal(t_node *node)
+{
+	if (node == NULL)
+		return ;
+	remove_quote(node->args);
+	remove_quote(node->filename);
+	remove_quote(node->delimiter);
+	expand_quote_removal(node->redirects);
+	expand_quote_removal(node->next);
+}
+
 void	expand(t_node *node)
 {
-	quote_removal(node->args);
+	expand_quote_removal(node);
 }
