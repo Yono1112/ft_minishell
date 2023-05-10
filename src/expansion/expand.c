@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/10 19:32:04 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:39:17 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,42 @@ static void	append_char(char **s, char c)
 	*s = new;
 }
 
+void	remove_double_quote(char **dst, char **rest, char *p)
+{
+	if (*p == DOUBLE_QUOTE_CHAR)
+	{
+		p++;
+		while (*p != DOUBLE_QUOTE_CHAR)
+		{
+			if (*p == '\0')
+				assert_error("Unclosed double quote");
+			append_char(dst, *p++);
+		}
+		p++;
+		*rest = p;
+	}
+	else
+		assert_error("Expected double quote");
+}
+
+void	remove_single_quote(char **dst, char **rest, char *p)
+{
+	if (*p == SINGLE_QUOTE_CHAR)
+	{
+		p++;
+		while (*p != SINGLE_QUOTE_CHAR)
+		{
+			if (*p == '\0')
+				assert_error("Unclosed single quote");
+			append_char(dst, *p++);
+		}
+		p++;
+		*rest = p;
+	}
+	else
+		assert_error("Expected single quote");
+}
+
 static void	remove_quote(t_token *token)
 {
 	char	*p;
@@ -45,27 +81,29 @@ static void	remove_quote(t_token *token)
 		while (*p != '\0')
 		{
 			if (*p == SINGLE_QUOTE_CHAR)
-			{
-				p++;
-				while (*p != SINGLE_QUOTE_CHAR)
-				{
-					if (*p == '\0')
-						assert_error("Unclosed single quote");
-					append_char(&new_word, *p++);
-				}
-				p++;
-			}
+				remove_single_quote(&new_word, &p, p);
+			// {
+			// 	p++;
+			// 	while (*p != SINGLE_QUOTE_CHAR)
+			// 	{
+			// 		if (*p == '\0')
+			// 			assert_error("Unclosed single quote");
+			// 		append_char(&new_word, *p++);
+			// 	}
+			// 	p++;
+			// }
 			else if (*p == DOUBLE_QUOTE_CHAR)
-			{
-				p++;
-				while (*p != DOUBLE_QUOTE_CHAR)
-				{
-					if (*p == '\0')
-						assert_error("Unclosed single quote");
-					append_char(&new_word, *p++);
-				}
-				p++;
-			}
+				remove_double_quote(&new_word, &p, p);
+			// {
+			// 	p++;
+			// 	while (*p != DOUBLE_QUOTE_CHAR)
+			// 	{
+			// 		if (*p == '\0')
+			// 			assert_error("Unclosed single quote");
+			// 		append_char(&new_word, *p++);
+			// 	}
+			// 	p++;
+			// }
 			else
 				append_char(&new_word, *p++);
 		}
