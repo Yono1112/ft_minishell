@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/09 21:44:23 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:43:47 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ int	open_redirect_file(t_node *redirect)
 	while (redirect != NULL)
 	{
 		if (redirect->kind == ND_REDIR_OUT)
-			redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			redirect->filefd = open(redirect->filename->word,
+					O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (redirect->kind == ND_REDIR_IN)
 			redirect->filefd = open(redirect->filename->word, O_RDONLY);
 		else if (redirect->kind == ND_REDIR_APPEND)
-			redirect->filefd = open(redirect->filename->word, O_CREAT | O_WRONLY | O_APPEND, 0644);
+			redirect->filefd = open(redirect->filename->word,
+					O_CREAT | O_WRONLY | O_APPEND, 0644);
 		else if (redirect->kind == ND_REDIR_HEREDOC)
 			redirect->filefd = read_heredoc(redirect->delimiter->word);
 		else
@@ -97,6 +99,7 @@ void	do_redirect(t_node *redirect)
 				fatal_error("dup2");
 				return ;
 			}
+			close(redirect->filefd);
 		}
 		else
 			todo("do_redirect");
@@ -111,8 +114,8 @@ void	reset_redirect(t_node *redirect)
 	reset_redirect(redirect->next);
 	if (is_redirect(redirect))
 	{
-		close(redirect->filefd);
-		close(redirect->targetfd);
+		// close(redirect->filefd);
+		// close(redirect->targetfd);
 		if (dup2(redirect->stashed_targetfd, redirect->targetfd) < 0)
 		{
 			fatal_error("dup2");

@@ -128,13 +128,17 @@ t_node	*parse(t_token *token)
 			token = token->next;
 		}
 		else if (check_operator(token, ">") && token->next->kind == TK_WORD)
-			add_operator_to_node(&node->redirects, create_new_redirect_out(&token, token));
+			add_operator_to_node(&node->redirects,
+				create_new_redirect_out(&token, token));
 		else if (check_operator(token, "<") && token->next->kind == TK_WORD)
-			add_operator_to_node(&node->redirects, create_new_redirect_in(&token, token));
+			add_operator_to_node(&node->redirects,
+				create_new_redirect_in(&token, token));
 		else if (check_operator(token, ">>") && token->next->kind == TK_WORD)
-			add_operator_to_node(&node->redirects, create_new_redirect_append(&token, token));
+			add_operator_to_node(&node->redirects,
+				create_new_redirect_append(&token, token));
 		else if (check_operator(token, "<<") && token->next->kind == TK_WORD)
-			add_operator_to_node(&node->redirects, create_new_redirect_heredoc(&token, token));
+			add_operator_to_node(&node->redirects,
+				create_new_redirect_heredoc(&token, token));
 		else
 			todo("Implement parser");
 	}
