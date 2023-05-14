@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/14 12:59:18 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/14 20:11:27 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define ERROR_PARSE 258
 # define STDOUT_FILENO 1
 # define STDIN_FILENO 0
+# define CHILD_PID 0
 
 extern bool	syntax_error;
 

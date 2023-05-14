@@ -89,7 +89,7 @@ int	exec_cmd(t_node *node)
 		perror("fork Error");
 		exit(EXIT_FAILURE);
 	}
-	else if (pid == 0)
+	else if (pid == CHILD_PID)
 	{
 		argv = add_token_to_argv(node->args);
 		path = argv[0];
