@@ -24,7 +24,7 @@ INC = -I include
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
-	mkdir -p $(@D)
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME): $(OBJS)
