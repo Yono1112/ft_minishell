@@ -85,10 +85,7 @@ int	exec_cmd(t_node *node)
 
 	pid = fork();
 	if (pid < 0)
-	{
-		perror("fork Error");
-		exit(EXIT_FAILURE);
-	}
+		fatal_error("fork");
 	else if (pid == CHILD_PID)
 	{
 		argv = add_token_to_argv(node->args);
