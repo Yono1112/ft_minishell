@@ -75,20 +75,25 @@ char	*check_cmd_path(const char *filename)
 	return (NULL);
 }
 
-int	exec_cmd(t_node *node)
+pid_t	exec_cmd(t_node *node)
 {
 	extern char	**environ;
 	char		*path;
 	pid_t		pid;
-	int			wstatus;
+	// int			wstatus;
 	char		**argv;
 
+	if (node == NULL)
+		return (-1);
+	prepare_pipe(node);
 	pid = fork();
 	if (pid < 0)
 		fatal_error("fork");
 	else if (pid == CHILD_PID)
 	{
-		argv = add_token_to_argv(node->args);
+		prepare_pipe_child(node);
+		do_redirect(node->command->redirects);
+		argv = add_token_to_argv(node->command->args);
 		path = argv[0];
 		if (strchr(path, '/') == NULL)
 			path = check_cmd_path(path);
@@ -100,35 +105,60 @@ int	exec_cmd(t_node *node)
 	}
 	else
 	{
-		pid = wait(&wstatus);
-		if (pid == -1)
+		prepare_pipe_parent(node);
+		if (node->next)
+			return (exec_cmd(node->next));
+		// pid = wait(&wstatus);
+		// if (pid == -1)
+		// {
+		// 	perror("wait error");
+		// 	exit(EXIT_FAILURE);
+		// }
+		// if (WIFEXITED(wstatus))
+		// {
+		// 	// printf("Child process exited with status %d\n",
+		// 	// 	WEXITSTATUS(wstatus));
+		// 	return (WEXITSTATUS(wstatus));
+		// }
+		// else
+		// {
+		// 	// printf("Child process exited abnormally\n");
+		// 	return (WEXITSTATUS(wstatus));
+		// }
+	}
+	return (pid);
+}
+
+int	wait_pipeline(pid_t last_child_pid)
+{
+	pid_t	wait_pid;
+	int		status;
+	int		wstatus;
+
+	while (1)
+	{
+		wait_pid = wait(&wstatus);
+		if (wait_pid == last_child_pid)
+			status = WEXITSTATUS(wstatus);
+		else if (wait_pid < 0)
 		{
-			perror("wait error");
-			exit(EXIT_FAILURE);
-		}
-		if (WIFEXITED(wstatus))
-		{
-			// printf("Child process exited with status %d\n",
-			// 	WEXITSTATUS(wstatus));
-			return (WEXITSTATUS(wstatus));
-		}
-		else
-		{
-			// printf("Child process exited abnormally\n");
-			return (WEXITSTATUS(wstatus));
+			if (errno == ECHILD)
+				break ;
 		}
 	}
+	return (status);
 }
 
 int	exec(t_node *node)
 {
 	int		status;
+	pid_t	last_child_pid;
 
 	if (open_redirect_file(node->redirects) < 0)
 		return (ERROR_OPEN_REDIR);
-	do_redirect(node->redirects);
-	status = exec_cmd(node);
-	reset_redirect(node->redirects);
+	last_child_pid = exec_cmd(node);
+	status = wait_pipeline(last_child_pid);
+	// reset_redirect(node->redirects);
 	return (status);
 }
 

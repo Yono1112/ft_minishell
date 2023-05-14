@@ -14,7 +14,8 @@ SRCS =	src/main.c	\
 		src/output_error/output_error.c	\
 		src/expansion/expand.c	\
 		src/parser/parse.c	\
-		src/redirection/redirect.c
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

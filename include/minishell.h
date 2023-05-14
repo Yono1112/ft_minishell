@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/14 20:11:27 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/15 03:59:38 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,9 @@ void	free_node(t_node *node);
 int		open_redirect_file(t_node *redirect);
 void	do_redirect(t_node *redirect);
 void	reset_redirect(t_node *redirect);
+// pipeline
+void	prepare_pipe(t_node *node);
+void	prepare_pipe_child(t_node *node);
+void	prepare_pipe_parent(t_node *node);
 
 #endif
