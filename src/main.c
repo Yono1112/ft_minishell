@@ -146,8 +146,13 @@ void	interpret(char *const line, int *status)
 	else if (token->kind != TK_EOF)
 	{
 		node = parse(token);
-		expand(node);
-		*status = exec(node);
+		if (syntax_error)
+			*status = ERROR_PARSE;
+		else
+		{
+			expand(node);
+			*status = exec(node);
+		}
 		free_node(node);
 	}
 	free_token(token);

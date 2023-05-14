@@ -114,12 +114,30 @@ t_node	*create_new_redirect_heredoc(t_token **rest, t_token *token)
 	return (node);
 }
 
-t_node	*parse(t_token *token)
+bool	is_control_operator(t_token *token)
+{
+	static char *const	operators[] = {">>", "<<", ">", "<",
+		"||", "|", "&", "&&", ";", ";;", "(", ")", "\n"};
+	size_t				i;
+	size_t				operators_len;
+
+	i = 0;
+	operators_len = sizeof(operators) / sizeof(*operators);
+	while (i < operators_len)
+	{
+		if (!strncmp(token->word, operators[i], strlen(operators[i])))
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+t_node	*simple_command(t_token **rest, t_token *token)
 {
 	t_node	*node;
 
 	node = create_new_node_list(ND_SIMPLE_CMD);
-	while (token && token->kind != TK_EOF)
+	while (token && token->kind != TK_EOF && !is_control_operator(token))
 	{
 		// printf("token_kind: %u\n", token->kind);
 		if (token->kind == TK_WORD)
@@ -142,5 +160,27 @@ t_node	*parse(t_token *token)
 		else
 			todo("Implement parser");
 	}
+	*rest = token;
 	return (node);
+}
+
+t_node	*pipeline(t_token **rest, t_token *token)
+{
+	t_node	*node;
+
+	node = create_new_node_list(ND_PIPELINE);
+	node->inpipe[0] = STDIN_FILENO;
+	node->inpipe[1] = -1;
+	node->outpipe[0] = -1;
+	node->outpipe[1] = STDOUT_FILENO;
+	node->command = simple_command(&token, token);
+	if (check_operator(token, "|"))
+		node->next = pipeline(&token, token->next);
+	*rest = token;
+	return (node);
+}
+
+t_node	*parse(t_token *token)
+{
+	return (pipeline(&token, token));
 }
