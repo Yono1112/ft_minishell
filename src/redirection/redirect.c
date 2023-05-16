@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/16 21:31:37 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/16 22:00:25 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ static int	stashfd(int fd)
 {
 	int		stashfd;
 
-	printf("start stashfd\n");
-	printf("fd in stashfd: %d\n", fd);
+	// printf("start stashfd\n");
+	// printf("fd in stashfd: %d\n", fd);
 	stashfd = fcntl(fd, F_DUPFD, 10);
-	printf("stashfd in stashfd: %d\n", stashfd);
+	// printf("stashfd in stashfd: %d\n", stashfd);
 	if (stashfd < 0)
 		fatal_error("fcntl");
 	if (close(fd) < 0)
 		fatal_error("close");
-	printf("finish stashfd\n");
+	// printf("finish stashfd\n");
 	return (stashfd);
 }
 
@@ -34,11 +34,11 @@ int	read_heredoc(const char *delimiter)
 	char	*line;
 	int		pfd[2];
 
-	printf("delimiter: %s\n", delimiter);
+	// printf("delimiter: %s\n", delimiter);
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
-	printf("pfd[0]: %d\n", pfd[0]);
-	printf("pfd[1]: %d\n", pfd[1]);
+	// printf("pfd[0]: %d\n", pfd[0]);
+	// printf("pfd[1]: %d\n", pfd[1]);
 	while (1)
 	{
 		line = readline("> ");
@@ -58,7 +58,7 @@ int	read_heredoc(const char *delimiter)
 
 int	open_redirect_file(t_node *node)
 {
-	printf("start open_redirect\n");
+	// printf("start open_redirect\n");
 	while (node != NULL)
 	{
 		if (node->kind == ND_PIPELINE)
@@ -89,7 +89,7 @@ int	open_redirect_file(t_node *node)
 			return (-1);
 		}
 		node->filefd = stashfd(node->filefd);
-		printf("node->filefd after stashfd: %d\n", node->filefd);
+		// printf("node->filefd after stashfd: %d\n", node->filefd);
 		node = node->next;
 	}
 	return (0);
@@ -109,12 +109,12 @@ void	do_redirect(t_node *redirect)
 {
 	while (redirect != NULL)
 	{
-		printf("start do_redirect\n");
+		// printf("start do_redirect\n");
 		if (is_redirect(redirect))
 		{
-			printf("redirect->targetfd: %d\n", redirect->targetfd);
+			// printf("redirect->targetfd: %d\n", redirect->targetfd);
 			redirect->stashed_targetfd = stashfd(redirect->targetfd);
-			printf("redirect->stashed_targetfd: %d\n", redirect->stashed_targetfd);
+			// printf("redirect->stashed_targetfd: %d\n", redirect->stashed_targetfd);
 			if (dup2(redirect->filefd, redirect->targetfd) < 0)
 			{
 				fatal_error("dup2");
@@ -126,7 +126,7 @@ void	do_redirect(t_node *redirect)
 			todo("do_redirect");
 		redirect = redirect->next;
 	}
-	printf("finish do_redirect\n");
+	// printf("finish do_redirect\n");
 }
 
 void	reset_redirect(t_node *redirect)

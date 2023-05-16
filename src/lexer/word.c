@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/07 01:38:33 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/16 21:55:25 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_token	*add_word_to_list(char **rest_line, char *line)
 			line++;
 	}
 	word = strndup(start, line - start);
-	printf("word: %s\n", word);
+	// printf("word: %s\n", word);
 	if (word == NULL)
 		fatal_error("strndup");
 	*rest_line = line;

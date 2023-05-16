@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/16 21:40:33 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/16 21:51:44 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,17 @@ pid_t	exec_cmd(t_node *node)
 	pid_t		pid;
 	char		**argv;
 
-	printf("start exec_cmd\n");
+	// printf("start exec_cmd\n");
 	if (node == NULL)
 		return (-1);
 	prepare_pipe(node);
 	pid = fork();
-	printf("fork=============================================\n");
+	// printf("fork=============================================\n");
 	if (pid < 0)
 		fatal_error("fork");
 	else if (pid == CHILD_PID)
 	{
-		printf("start child_process\n");
+		// printf("start child_process\n");
 		prepare_pipe_child(node);
 		do_redirect(node->command->redirects);
 		argv = add_token_to_argv(node->command->args);
@@ -107,7 +107,7 @@ pid_t	exec_cmd(t_node *node)
 	}
 	else
 	{
-		printf("start parent_process\n");
+		// printf("start parent_process\n");
 		prepare_pipe_parent(node);
 	}
 	if (node->next)
@@ -122,7 +122,7 @@ int	wait_pipeline(pid_t last_child_pid)
 	int		status;
 	int		wstatus;
 
-	printf("start wait_pipeline\n");
+	// printf("start wait_pipeline\n");
 	while (1)
 	{
 		wait_pid = wait(&wstatus);
@@ -134,7 +134,7 @@ int	wait_pipeline(pid_t last_child_pid)
 				break ;
 		}
 	}
-	printf("finish wait_pipeline\n");
+	// printf("finish wait_pipeline\n");
 	return (status);
 }
 
@@ -145,9 +145,9 @@ int	exec(t_node *node)
 
 	if (open_redirect_file(node) < 0)
 		return (ERROR_OPEN_REDIR);
-	printf("finish open_redirect\n");
+	// printf("finish open_redirect\n");
 	last_child_pid = exec_cmd(node);
-	printf("finish exec_cmd\n");
+	// printf("finish exec_cmd\n");
 	status = wait_pipeline(last_child_pid);
 	return (status);
 }
