@@ -1,4 +1,0 @@
-finish do_redirect
-hello
-finish do_redirect
-Hello

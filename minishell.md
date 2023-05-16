@@ -86,7 +86,8 @@
 - reset_redirectを自作する(現状usashellのをコピペしている)
 - ~~redirect inputでcat < fileをするも`cat: stdin: Bad file descriptor`と表示され読み込めない~~
 	- done
-		create_new_redirect_inのt_node_kindがND_REDIR_OUTになっていたのが原因だった
+		- create_new_redirect_inのt_node_kindがND_REDIR_OUTになっていたのが原因だった
+- pipeを実装したらredirect_inputとredirect_heredocを実行してもfcntlでerrorになってしまう
 
 
 ##doc

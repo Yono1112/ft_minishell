@@ -54,7 +54,7 @@ is_word	./src/lexer/word.c	/^bool	is_word(char *line)$/
 new_node	./usatie_minishell/src/parse.c	/^t_node	*new_node(t_node_kind kind)$/
 new_token	./usatie_minishell/src/tokenize.c	/^t_token	*new_token(char *word, t_token_kind kind)$/
 open_redir_file	./usatie_minishell/src/redirect.c	/^int	open_redir_file(t_node *node)$/
-open_redirect_file	./src/redirection/redirect.c	/^int	open_redirect_file(t_node *redirect)$/
+open_redirect_file	./src/redirection/redirect.c	/^int	open_redirect_file(t_node *node)$/
 operator	./usatie_minishell/src/tokenize.c	/^t_token	*operator(char **rest, char *line)$/
 parse	./src/parser/parse.c	/^t_node	*parse(t_token *token)$/
 parse_error	./src/output_error/output_error.c	/^void	parse_error(const char *location, t_token **r/

@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 03:09:29 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/08 11:11:34 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/16 19:08:14 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	perror_prefix(void)
 
 void	fatal_error(const char *str)
 {
+	printf("start fatal_error\n");
 	dprintf(STDERR_FILENO, "Fatal Error: %s\n", str);
 	exit(EXIT_FAILURE);
 }
