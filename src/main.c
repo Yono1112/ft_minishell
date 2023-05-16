@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/24 18:44:57by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:44:05 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,13 @@ pid_t	exec_cmd(t_node *node)
 	extern char	**environ;
 	char		*path;
 	pid_t		pid;
-	// int			wstatus;
 	char		**argv;
 
+	printf("start exec_cmd\n");
+	printf("node_kind(pipe): %d\n", node->kind);
+	printf("node_kind(cmd): %d\n", node->command->kind);
+	if (node->command->redirects != NULL)
+		printf("node_kind(redirect): %d\n", node->command->redirects->kind);
 	if (node == NULL)
 		return (-1);
 	prepare_pipe(node);
@@ -100,33 +104,15 @@ pid_t	exec_cmd(t_node *node)
 		if (!check_is_filename(path))
 			err_exit(argv[0], "command not found", 127);
 		execve(path, argv, environ);
-		perror("execve Error");
-		exit(EXIT_FAILURE);
+		// reset_redirect(node->redirects);
+		fatal_error("execve");
 	}
 	else
-	{
 		prepare_pipe_parent(node);
-		if (node->next)
-			return (exec_cmd(node->next));
-		// pid = wait(&wstatus);
-		// if (pid == -1)
-		// {
-		// 	perror("wait error");
-		// 	exit(EXIT_FAILURE);
-		// }
-		// if (WIFEXITED(wstatus))
-		// {
-		// 	// printf("Child process exited with status %d\n",
-		// 	// 	WEXITSTATUS(wstatus));
-		// 	return (WEXITSTATUS(wstatus));
-		// }
-		// else
-		// {
-		// 	// printf("Child process exited abnormally\n");
-		// 	return (WEXITSTATUS(wstatus));
-		// }
-	}
-	return (pid);
+	if (node->next)
+		return (exec_cmd(node->next));
+	else
+		return (pid);
 }
 
 int	wait_pipeline(pid_t last_child_pid)
@@ -154,11 +140,10 @@ int	exec(t_node *node)
 	int		status;
 	pid_t	last_child_pid;
 
-	if (open_redirect_file(node->redirects) < 0)
+	if (open_redirect_file(node) < 0)
 		return (ERROR_OPEN_REDIR);
 	last_child_pid = exec_cmd(node);
 	status = wait_pipeline(last_child_pid);
-	// reset_redirect(node->redirects);
 	return (status);
 }
 

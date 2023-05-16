@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/15 03:59:38 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/16 17:00:40 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_node
 	// CMD
 	t_token			*args;
 	struct s_node	*redirects;
+	struct s_node	*command;
 	// REDIR
 	int				targetfd;
 	t_token			*filename;
@@ -78,7 +79,6 @@ typedef struct s_node
 	// PINELINE
 	int				inpipe[2];
 	int				outpipe[2];
-	struct s_node	*command;
 }	t_node;
 
 // error

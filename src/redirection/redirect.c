@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/10 18:43:47 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:47:02 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	stashfd(int fd)
 	int		stashfd;
 
 	stashfd = fcntl(fd, F_DUPFD, 10);
-	// printf("stashfd: %d\n", stashfd);
+	printf("stashfd: %d\n", stashfd);
 	if (stashfd < 0)
 		fatal_error("fcntl");
 	if (close(fd) < 0)
@@ -50,30 +50,53 @@ int	read_heredoc(const char *delimiter)
 	return (pfd[0]);
 }
 
-int	open_redirect_file(t_node *redirect)
+int	open_redirect_file(t_node *node)
 {
-	while (redirect != NULL)
+	printf("start open_redirect\n");
+	while (node != NULL)
 	{
-		if (redirect->kind == ND_REDIR_OUT)
-			redirect->filefd = open(redirect->filename->word,
-					O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		else if (redirect->kind == ND_REDIR_IN)
-			redirect->filefd = open(redirect->filename->word, O_RDONLY);
-		else if (redirect->kind == ND_REDIR_APPEND)
-			redirect->filefd = open(redirect->filename->word,
-					O_CREAT | O_WRONLY | O_APPEND, 0644);
-		else if (redirect->kind == ND_REDIR_HEREDOC)
-			redirect->filefd = read_heredoc(redirect->delimiter->word);
-		else
-			todo("open_redirect_file");
-		if (redirect->filefd < 0)
+		printf("node_kind: %d\n", node->kind);
+		if (node->kind == ND_PIPELINE)
 		{
-			xperror(redirect->filename->word);
+			node = node->command;
+			printf("node_kind is ND_PIPELINE\n");
+			continue ;
+		}
+		else if (node->kind == ND_SIMPLE_CMD)
+		{
+			node = node->redirects;
+			printf("node_kind is ND_SIMPLE_CMD\n");
+			continue ;
+		}
+		else if (node->kind == ND_REDIR_OUT)
+		{
+			printf("redirect_out\n");
+			node->filefd = open(node->filename->word,
+					O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			printf("node_filefd: %d\n", node->filefd);
+		}
+		else if (node->kind == ND_REDIR_IN)
+		{
+			printf("redirect_in\n");
+			node->filefd = open(node->filename->word, O_RDONLY);
+			printf("node_filefd: %d\n", node->filefd);
+		}
+		else if (node->kind == ND_REDIR_APPEND)
+			node->filefd = open(node->filename->word,
+					O_CREAT | O_WRONLY | O_APPEND, 0644);
+		else if (node->kind == ND_REDIR_HEREDOC)
+			node->filefd = read_heredoc(node->delimiter->word);
+		else
+			todo("open_node_file");
+		if (node->filefd < 0)
+		{
+			xperror(node->filename->word);
 			return (-1);
 		}
-		redirect->filefd = stashfd(redirect->filefd);
-		redirect = redirect->next;
+		node->filefd = stashfd(node->filefd);
+		node = node->next;
 	}
+	printf("finish open_redirect\n");
 	return (0);
 }
 
@@ -91,8 +114,10 @@ void	do_redirect(t_node *redirect)
 {
 	while (redirect != NULL)
 	{
+		printf("start do_redirect\n");
 		if (is_redirect(redirect))
 		{
+			printf("redirect_targetfd: %d\n", redirect->targetfd);
 			redirect->stashed_targetfd = stashfd(redirect->targetfd);
 			if (dup2(redirect->filefd, redirect->targetfd) < 0)
 			{
@@ -105,6 +130,7 @@ void	do_redirect(t_node *redirect)
 			todo("do_redirect");
 		redirect = redirect->next;
 	}
+	printf("finish do_redirect\n");
 }
 
 void	reset_redirect(t_node *redirect)
