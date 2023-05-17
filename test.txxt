@@ -1,3 +1,4 @@
+finish do_redirect
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror

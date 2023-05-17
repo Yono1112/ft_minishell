@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/11 00:21:58 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:00:40 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@
 # define ERROR_TOKENIZE 258
 # define ERROR_PARSE 258
 # define ERROR_OPEN_REDIR 1
+# define ERROR_PARSE 258
 # define STDOUT_FILENO 1
 # define STDIN_FILENO 0
+# define CHILD_PID 0
 
 extern bool	syntax_error;
 
@@ -53,12 +55,12 @@ typedef struct s_token
 
 typedef enum e_node_kind
 {
-	ND_PIPELINE,
 	ND_SIMPLE_CMD,
 	ND_REDIR_OUT,
 	ND_REDIR_IN,
 	ND_REDIR_APPEND,
 	ND_REDIR_HEREDOC,
+	ND_PIPELINE,
 }	t_node_kind;
 
 typedef struct s_node
@@ -67,17 +69,17 @@ typedef struct s_node
 	struct s_node	*next;
 	// CMD
 	t_token			*args;
-	struct s_node	*redirects;
 	// REDIR
+	struct s_node	*redirects;
 	int				targetfd;
 	t_token			*filename;
 	t_token			*delimiter;
 	int				filefd;
 	int				stashed_targetfd;
-	// PIPELINE
+	// PINELINE
+	struct s_node	*command;
 	int				inpipe[2];
 	int				outpipe[2];
-	t_node			*command;
 }	t_node;
 
 // error
@@ -108,5 +110,9 @@ void	free_node(t_node *node);
 int		open_redirect_file(t_node *redirect);
 void	do_redirect(t_node *redirect);
 void	reset_redirect(t_node *redirect);
+// pipeline
+void	prepare_pipe(t_node *node);
+void	prepare_pipe_child(t_node *node);
+void	prepare_pipe_parent(t_node *node);
 
 #endif

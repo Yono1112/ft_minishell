@@ -21,7 +21,12 @@
 	- fork
 		- プロセスを複製するコマンド
 	- wait
-		- 特定のプロセスが終了するまで呼び出し元のプロセスを停止するコマンド
+		- `pid_t wait(int *wstatus)`
+		- 呼び出し元プロセスの子プロセスの状態変化を待ちます。子プロセスの状態変化がすでに発生していた場合は、wait関数はすぐに復帰します。それ以外の場合は、子プロセスの状態変化が起こるか、シグナルハンドラによりシステムコールが中断されるまで呼び出し元プロセスは停止します。
+		- *statusは子プロセスからの終了ステータスを格納する変数を指定します。
+		- 返り値は成功すると、終了した子プロセスのプロセスID を返す。 エラーの場合 -1 を返す。 
+		- WEXITSATUS
+			- 子プロセスの終了ステータスを返す。
 	- execve
 		- 指定したコマンドを呼び出し元のプロセスで実行するコマンド
 - step.4 Exec Filename
@@ -81,9 +86,13 @@
 - reset_redirectを自作する(現状usashellのをコピペしている)
 - ~~redirect inputでcat < fileをするも`cat: stdin: Bad file descriptor`と表示され読み込めない~~
 	- done
-		create_new_redirect_inのt_node_kindがND_REDIR_OUTになっていたのが原因だった
+		- create_new_redirect_inのt_node_kindがND_REDIR_OUTになっていたのが原因だった
+- pipeを実装したらredirect_inputとredirect_heredocを実行してもfcntlでerrorになってしまう
+	- done
+		- なぜかpushしたら上手くいくようになった。原因不明
 
 
 ##doc
 - [readlineとsignal by 42soul](https://intrepidgeeks.com/tutorial/minishell-readline)
 - [minishellの概要 by 42soul](https://techdebt.tistory.com/33?category=833728)
+- [個人開発でGithubのissue,プルリクを活用する方法](https://qiita.com/usayamadausako/items/375bdae07e381745e6eb)

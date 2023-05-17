@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/04/10 16:00:62by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:22:49 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,33 +114,74 @@ t_node	*create_new_redirect_heredoc(t_token **rest, t_token *token)
 	return (node);
 }
 
-t_node	*parse(t_token *token)
+bool	is_control_operator(t_token *token)
 {
-	t_node	*node;
+	static char *const	operators[] = {"||", "|", "&", "&&", ";", ";;", "(", ")", "\n"};
+	size_t				i;
+	size_t				operators_len;
 
-	node = create_new_node_list(ND_SIMPLE_CMD);
-	while (token && token->kind != TK_EOF)
+	i = 0;
+	operators_len = sizeof(operators) / sizeof(*operators);
+	while (i < operators_len)
+	{
+		if (!strncmp(token->word, operators[i], strlen(operators[i])))
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+t_node	*simple_command(t_token **rest, t_token *token)
+{
+	t_node	*command;
+
+	command = create_new_node_list(ND_SIMPLE_CMD);
+	while (token && token->kind != TK_EOF && !is_control_operator(token))
 	{
 		// printf("token_kind: %u\n", token->kind);
 		if (token->kind == TK_WORD)
 		{
-			add_token_to_node(&node->args, tokendup(token));
+			add_token_to_node(&command->args, tokendup(token));
 			token = token->next;
 		}
 		else if (check_operator(token, ">") && token->next->kind == TK_WORD)
-			add_operator_to_node(&node->redirects,
+			add_operator_to_node(&command->redirects,
 				create_new_redirect_out(&token, token));
 		else if (check_operator(token, "<") && token->next->kind == TK_WORD)
-			add_operator_to_node(&node->redirects,
+			add_operator_to_node(&command->redirects,
 				create_new_redirect_in(&token, token));
 		else if (check_operator(token, ">>") && token->next->kind == TK_WORD)
-			add_operator_to_node(&node->redirects,
+			add_operator_to_node(&command->redirects,
 				create_new_redirect_append(&token, token));
 		else if (check_operator(token, "<<") && token->next->kind == TK_WORD)
-			add_operator_to_node(&node->redirects,
+			add_operator_to_node(&command->redirects,
 				create_new_redirect_heredoc(&token, token));
 		else
 			todo("Implement parser");
 	}
+	*rest = token;
+	return (command);
+}
+
+t_node	*pipeline(t_token **rest, t_token *token)
+{
+	t_node	*node;
+
+	// printf("start pipeline\n");
+	node = create_new_node_list(ND_PIPELINE);
+	node->inpipe[0] = STDIN_FILENO;
+	node->inpipe[1] = -1;
+	node->outpipe[0] = -1;
+	node->outpipe[1] = STDOUT_FILENO;
+	node->command = simple_command(&token, token);
+	if (check_operator(token, "|"))
+		node->next = pipeline(&token, token->next);
+	*rest = token;
+	// printf("finish pipeline\n");
 	return (node);
+}
+
+t_node	*parse(t_token *token)
+{
+	return (pipeline(&token, token));
 }

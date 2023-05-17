@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:19:11 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/07 00:99:04by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/16 21:56:01 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	*add_operator_to_list(char **rest_line, char *line)
 		{
 			*rest_line = line + strlen(operator);
 			str = strndup(line, strlen(operator));
-			printf("operator: %s\n", str);
+			// printf("operator: %s\n", str);
 			if (!str)
 				fatal_error("strndup");
 			return (create_new_token_list(str, TK_OP));
