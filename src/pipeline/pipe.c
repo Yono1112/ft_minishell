@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 19:09:12 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/17 20:30:37 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/17 20:58:21 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 // 		return ;
 // 	if (pipe(node->outpipe) < 0)
 // 		fatal_error("pipe");
+// 	printf("node->outpipe[0]: %d, node->outpipe[1]: %d\n", node->outpipe[0], node->outpipe[1]);
 // 	cpy_pipe(node->next->inpipe, node->outpipe);
+// 	printf("node->inpipe[0]: %d, node->inpipe[1]: %d\n", node->next->inpipe[0], node->next->inpipe[1]);
 // }
 
 void	prepare_pipe(t_node *node)
@@ -33,8 +35,10 @@ void	prepare_pipe(t_node *node)
 	{
 		if (pipe(node->outpipe) < 0)	
 			fatal_error("pipe");
-		node->outpipe[0] = node->next->inpipe[0];
-		node->outpipe[1] = node->next->inpipe[1];
+		// printf("node->outpipe[0]: %d, node->outpipe[1]: %d\n", node->outpipe[0], node->outpipe[1]);
+		node->next->inpipe[0] = node->outpipe[0];
+		node->next->inpipe[1] = node->outpipe[1];
+		// printf("node->inpipe[0]: %d, node->inpipe[1]: %d\n", node->next->inpipe[0], node->next->inpipe[1]);
 	}
 }
 
