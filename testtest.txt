@@ -1,0 +1,14 @@
+afjslwjfa
+fd in stashfd: 0
+finish stashfd
+fjsakldjf
+jfak
+redirect->stashed_targetfd: 14
+redirect->targetfd: 0
+rraewliijfae
+sadfuaiwe
+sdfsfjawei
+start do_redirect
+start stashfd
+stashfd in stashfd: 14
+zjfaewij
