@@ -6,25 +6,36 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 19:09:12 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/15 03:59:48 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/17 20:30:37 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	cpy_pipe(int dst[2], int src[2])
-{
-	dst[0] = src[0];
-	dst[1] = src[1];
-}
+// static void	cpy_pipe(int dst[2], int src[2])
+// {
+// 	dst[0] = src[0];
+// 	dst[1] = src[1];
+// }
+// 
+// void	prepare_pipe(t_node *node)
+// {
+// 	if (node->next == NULL)
+// 		return ;
+// 	if (pipe(node->outpipe) < 0)
+// 		fatal_error("pipe");
+// 	cpy_pipe(node->next->inpipe, node->outpipe);
+// }
 
 void	prepare_pipe(t_node *node)
 {
-	if (node->next == NULL)
-		return ;
-	if (pipe(node->outpipe) < 0)
-		fatal_error("pipe");
-	cpy_pipe(node->next->inpipe, node->outpipe);
+	if (node->next != NULL)
+	{
+		if (pipe(node->outpipe) < 0)	
+			fatal_error("pipe");
+		node->outpipe[0] = node->next->inpipe[0];
+		node->outpipe[1] = node->next->inpipe[1];
+	}
 }
 
 void	prepare_pipe_child(t_node *node)
