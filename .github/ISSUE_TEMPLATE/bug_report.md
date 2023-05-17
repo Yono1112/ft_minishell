@@ -12,14 +12,14 @@ assignees: ''
 
 **To Reproduce**
 Steps to reproduce the behavior:
-1. 
-1. 
-1. 
+- 
+- 
+- 
 
 **Expected behavior**
-1. 
-1. 
-1. 
+- 
+- 
+- 
 
 **Other additional information**
 -
