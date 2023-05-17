@@ -29,6 +29,7 @@
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '\"'
 # define ERROR_TOKENIZE 258
+# define ERROR_PARSE 258
 # define ERROR_OPEN_REDIR 1
 # define ERROR_PARSE 258
 # define STDOUT_FILENO 1
@@ -68,15 +69,15 @@ typedef struct s_node
 	struct s_node	*next;
 	// CMD
 	t_token			*args;
-	struct s_node	*redirects;
-	struct s_node	*command;
 	// REDIR
+	struct s_node	*redirects;
 	int				targetfd;
 	t_token			*filename;
 	t_token			*delimiter;
 	int				filefd;
 	int				stashed_targetfd;
 	// PINELINE
+	struct s_node	*command;
 	int				inpipe[2];
 	int				outpipe[2];
 }	t_node;
