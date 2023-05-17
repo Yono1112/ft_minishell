@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/16 22:00:25 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/17 18:24:01 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,45 @@ int	read_heredoc(const char *delimiter)
 int	open_redirect_file(t_node *node)
 {
 	// printf("start open_redirect\n");
+	t_node *start_node;
+
+	start_node = node;
 	while (node != NULL)
 	{
 		if (node->kind == ND_PIPELINE)
 		{
+			// printf("node_kind is ND_PIPELINE\n");
 			node = node->command;
 			continue ;
 		}
 		else if (node->kind == ND_SIMPLE_CMD)
 		{
+			// printf("node_kind is ND_SIMPLE_CMD\n");
 			node = node->redirects;
 			continue ;
 		}
 		else if (node->kind == ND_REDIR_OUT)
+		{
 			node->filefd = open(node->filename->word,
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			// printf("node_kind is ND_REDIR_OUT, filefd: %d\n", node->filefd);
+		}
 		else if (node->kind == ND_REDIR_IN)
+		{
 			node->filefd = open(node->filename->word, O_RDONLY);
+			// printf("node_kind is ND_REDIR_IN, filefd: %d\n", node->filefd);
+		}
 		else if (node->kind == ND_REDIR_APPEND)
+		{
 			node->filefd = open(node->filename->word,
 					O_CREAT | O_WRONLY | O_APPEND, 0644);
+			// printf("node_kind is ND_REDIR_APPEND, filefd: %d\n", node->filefd);
+		}
 		else if (node->kind == ND_REDIR_HEREDOC)
+		{
 			node->filefd = read_heredoc(node->delimiter->word);
+			// printf("node_kind is ND_REDIR_HEREDOC, filefd: %d\n", node->filefd);
+		}
 		else
 			todo("open_node_file");
 		if (node->filefd < 0)
@@ -90,8 +107,11 @@ int	open_redirect_file(t_node *node)
 		}
 		node->filefd = stashfd(node->filefd);
 		// printf("node->filefd after stashfd: %d\n", node->filefd);
+		// printf("open_redirect next node\n");
 		node = node->next;
 	}
+	if (start_node->next != NULL && start_node->next->kind == ND_PIPELINE)
+		open_redirect_file(start_node->next);
 	return (0);
 }
 
@@ -121,6 +141,7 @@ void	do_redirect(t_node *redirect)
 				return ;
 			}
 			close(redirect->filefd);
+			// printf("redirect->filefd after dup2: %d\n", redirect->filefd);
 		}
 		else
 			todo("do_redirect");

@@ -95,3 +95,4 @@
 ##doc
 - [readlineとsignal by 42soul](https://intrepidgeeks.com/tutorial/minishell-readline)
 - [minishellの概要 by 42soul](https://techdebt.tistory.com/33?category=833728)
+- [個人開発でGithubのissue,プルリクを活用する方法](https://qiita.com/usayamadausako/items/375bdae07e381745e6eb)

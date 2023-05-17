@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/16 17:53:55 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/17 18:22:49 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ t_node	*pipeline(t_token **rest, t_token *token)
 {
 	t_node	*node;
 
+	// printf("start pipeline\n");
 	node = create_new_node_list(ND_PIPELINE);
 	node->inpipe[0] = STDIN_FILENO;
 	node->inpipe[1] = -1;
@@ -176,6 +177,7 @@ t_node	*pipeline(t_token **rest, t_token *token)
 	if (check_operator(token, "|"))
 		node->next = pipeline(&token, token->next);
 	*rest = token;
+	// printf("finish pipeline\n");
 	return (node);
 }
 
