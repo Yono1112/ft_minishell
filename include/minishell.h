@@ -103,6 +103,8 @@ bool	is_blank(char c);
 void	skip_blank(char **skip_line, char *line);
 // expansion
 void	expand(t_node *node);
+void	expand_quote_removal(t_node *node);
+void	append_char(char **s, char c);
 // parser
 t_node	*parse(t_token *token);
 void	free_node(t_node *node);
