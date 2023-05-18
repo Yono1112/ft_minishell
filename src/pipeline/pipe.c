@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 19:09:12 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/18 18:16:44 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/18 18:25:43 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,16 @@ void	prepare_pipe(t_node *node)
 
 void	prepare_pipe_child(t_node *node)
 {
-	close(node->outpipe[0]);
-	dup2(node->inpipe[0], STDIN_FILENO);
-	if (node->inpipe[0] != STDIN_FILENO)
-		close(node->inpipe[0]);
 	if (node->next != NULL)
 	{
 		dup2(node->outpipe[1], STDOUT_FILENO);
 		if (node->outpipe[1] != STDOUT_FILENO)
 			close(node->outpipe[1]);
 	}
+	dup2(node->inpipe[0], STDIN_FILENO);
+	if (node->inpipe[0] != STDIN_FILENO)
+		close(node->inpipe[0]);
+	close(node->outpipe[0]);
 }
 
 void	prepare_pipe_parent(t_node *node)
