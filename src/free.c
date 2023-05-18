@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:05:12 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/10 19:14:49 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:36:23 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	free_node(t_node *node)
 	free_token(node->filename);
 	free_token(node->delimiter);
 	free_node(node->redirects);
+	free_node(node->command);
 	free_node(node->next);
 	free(node);
 }

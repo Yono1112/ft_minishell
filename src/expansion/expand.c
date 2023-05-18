@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/10 19:39:17 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:35:58 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	expand_quote_removal(t_node *node)
 	remove_quote(node->filename);
 	remove_quote(node->delimiter);
 	expand_quote_removal(node->redirects);
+	expand_quote_removal(node->command);
 	expand_quote_removal(node->next);
 }
 
