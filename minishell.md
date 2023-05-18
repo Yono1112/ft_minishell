@@ -87,7 +87,7 @@
 - ~~redirect inputでcat < fileをするも`cat: stdin: Bad file descriptor`と表示され読み込めない~~
 	- done
 		- create_new_redirect_inのt_node_kindがND_REDIR_OUTになっていたのが原因だった
-- pipeを実装したらredirect_inputとredirect_heredocを実行してもfcntlでerrorになってしまう
+- ~~pipeを実装したらredirect_inputとredirect_heredocを実行してもfcntlでerrorになってしまう~~
 	- done
 		- なぜかpushしたら上手くいくようになった。原因不明
 
