@@ -22,6 +22,8 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 INC = -I include
 
+DEBUG_FLAG = -fsanitize=address
+
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
@@ -39,7 +41,10 @@ fclean: clean
 
 re: fclean all
 
-test:all
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: all
 	./test.sh
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re test debug
