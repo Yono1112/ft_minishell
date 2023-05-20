@@ -69,6 +69,24 @@
 			- 所有者に対して読み書きの権限を、グループおよび他のユーザーに対しては読み取りのみの権限を与えることを意味します。
 - step10 pipe
 - step11 expand
+	- 展開 (expansion) とは変数などの中身をそれが使われてる場所に入れ込むこと
+	- 今回は変数展開とパラメータ展開の$?を実装する 
+	- $は展開したいときに使用する。
+
+| 名前 | 展開・置換の意味 |
+| --- | ------------- |
+| ブレース展開 |  {1..10} を展開すること |
+| チルダ展開 |  ~/.bash_profile の ~ を展開すること |
+| パラメータ展開 |  $@、$1、${1:-word} 等を展開すること |
+| 変数展開 | 上記とほぼ同じだが展開対象が変数名の場合 |
+| コマンド置換 |  $(cmd) を置換すること |
+| 算術式展開 |  $((var + 1)) を展開すること |
+| パス名展開 |  *.txt を展開すること |
+| クォート削除 | "test.txt"の"を表示しない |
+- step12 signal
+- step13 environ
+- step14 builtin
+
 
 ## Todo
 - exec filenameでstrdupしたのをまだfreeしてない
@@ -98,3 +116,5 @@
 - [readlineとsignal by 42soul](https://intrepidgeeks.com/tutorial/minishell-readline)
 - [minishellの概要 by 42soul](https://techdebt.tistory.com/33?category=833728)
 - [個人開発でGithubのissue,プルリクを活用する方法](https://qiita.com/usayamadausako/items/375bdae07e381745e6eb)
+- [git clone の際に submodule の clone を忘れたときの対処法](https://qiita.com/kentarosasaki/items/3e670567c0512b9d411e)
+- [シェルスクリプトの $ は･･･変数の接頭辞ではなく展開するときの記号](https://qiita.com/ko1nksm/items/1864aa2db8ce7bcf332d)

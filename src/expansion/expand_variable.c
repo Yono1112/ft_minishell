@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/20 19:26:52 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/20 21:29:34 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	append_double_quote(char **dst, char **rest, char *p)
 		assert_error("Expected double quote");
 }
 
-void	expand_variable_tok(t_token *tok)
+void	expand_variable_token(t_token *tok)
 {
 	char	*new_word;
 	char	*p;
@@ -125,17 +125,27 @@ void	expand_variable_tok(t_token *tok)
 	}
 	free(tok->word);
 	tok->word = new_word;
-	expand_variable_tok(tok->next);
+	expand_variable_token(tok->next);
 }
 
 void	expand_variable(t_node *node)
 {
-	if (node == NULL)
-		return ;
-	expand_variable_tok(node->args);
-	expand_variable_tok(node->filename);
-	// do not expand heredoc delimiter
-	expand_variable(node->redirects);
-	expand_variable(node->command);
-	expand_variable(node->next);
+	if (node->command != NULL)
+		expand_variable_token(node->command->args);
+	if (node->command->redirects != NULL)
+		expand_variable_token(node->redirects->filename);
+	if (node->next != NULL)
+		expand_variable(node->next);
 }
+
+// void	expand_variable(t_node *node)
+// {
+// 	if (node == NULL)
+// 		return ;
+// 	expand_variable_token(node->args);
+// 	expand_variable_token(node->filename);
+// 	// do not expand heredoc delimiter
+// 	expand_variable(node->redirects);
+// 	expand_variable(node->command);
+// 	expand_variable(node->next);
+// }
