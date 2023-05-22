@@ -25,23 +25,30 @@ cleanup() {
 assert() {
 	COMMAND="$1"
 	shift
+	# テストしようとしている内容をprint
 	printf '%-50s:' "[$COMMAND]"
 	# exit status
+	# bashの出力をcmpに保存
 	echo -n -e "$COMMAND" | bash >cmp 2>&-
+	# bashのexit statusをexpectedに代入
 	expected=$?
+	# minishellの出力をoutに保存
 	for arg in "$@"
 	do
 		mv "$arg" "$arg"".cmp"
 	done
 	echo -n -e "$COMMAND" | ./minishell >out 2>&-
+	# minishellのexit statusをactualに代入
 	actual=$?
 	for arg in "$@"
 	do
 		mv "$arg" "$arg"".out"
 	done
 
+	# bashとminishellの出力を比較
 	diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
 
+	# bashとminishellのexit statusを比較
 	if [ "$actual" = "$expected" ]; then
 		echo -e -n "  status $OK"
 	else

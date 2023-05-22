@@ -46,7 +46,7 @@ re: fclean all
 debug: CFLAGS += $(DEBUG_FLAG)
 debug: re
 
-test: all
+test: re
 	./test.sh
 
 .PHONY: all clean fclean re test debug

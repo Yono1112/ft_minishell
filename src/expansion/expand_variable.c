@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/22 17:45:19 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/22 19:49:27 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,73 +33,91 @@ bool	is_variable(char *s)
 {
 	return (s[0] == '$' && is_alpha_under(s[1]));
 }
+char	*append_variable_name(char **rest, char *current_word)
+{
+	char	*variable_name;
 
-void	expand_variable_str(char **dst, char **rest, char *p)
+	variable_name = calloc(1, sizeof(char));
+	if (variable_name == NULL)
+		fatal_error("calloc");
+	if (!is_alpha_under(*current_word))
+		assert_error("Variable must starts with alphabetic character or underscore.");
+	append_char(&variable_name, *current_word);
+	current_word++;
+	while (is_alpha_num_under(*current_word))
+	{
+		append_char(&variable_name, *current_word);
+		current_word++;
+	}
+	*rest = current_word;
+	return (variable_name);
+}
+
+void	expand_variable_str(char **new_word, char **rest, char *current_word)
 {
 	char	*name;
 	char	*value;
 
-	name = calloc(1, sizeof(char));
-	if (name == NULL)
-		fatal_error("calloc");
-	if (*p != '$')
+	if (*current_word != '$')
 		assert_error("Expected dollar sign");
-	p++;
-	if (!is_alpha_under(*p))
-		assert_error("Variable must starts with alphabetic character or underscore.");
-	append_char(&name, *p++);
-	while (is_alpha_num_under(*p))
-		append_char(&name, *p++);
+	current_word++;
+	name = append_variable_name(&current_word, current_word);
 	value = getenv(name);
-	free(name);
-	if (value)
+	if (value != NULL)
+	{
 		while (*value)
-			append_char(dst, *value++);
-	*rest = p;
+		{
+			append_char(new_word, *value);
+			value++;
+		}
+	}
+	free(name);
+	*rest = current_word;
 }
 
-void	append_single_quote(char **dst, char **rest, char *p)
+void	append_single_quote(char **new_word, char **rest, char *current_word)
 {
-	if (*p == SINGLE_QUOTE_CHAR)
+	if (*current_word == SINGLE_QUOTE_CHAR)
 	{
-		// skip quote
-		append_char(dst, *p++);
-		while (*p != SINGLE_QUOTE_CHAR)
+		append_char(new_word, *current_word);
+		current_word++;
+		while (*current_word != SINGLE_QUOTE_CHAR)
 		{
-			if (*p == '\0')
+			if (*current_word == '\0')
 				assert_error("Unclosed single quote");
-			append_char(dst, *p++);
+			append_char(new_word, *current_word++);
 		}
-		// skip quote
-		append_char(dst, *p++);
-		*rest = p;
+		append_char(new_word, *current_word);
+		current_word++;
+		*rest = current_word;
 	}
 	else
 		assert_error("Expected single quote");
 }
 
-void	append_double_quote(char **dst, char **rest, char *p)
+void	append_double_quote(char **new_word, char **rest, char *current_word)
 {
-	if (*p == DOUBLE_QUOTE_CHAR)
+	if (*current_word == DOUBLE_QUOTE_CHAR)
 	{
-		// skip quote
-		append_char(dst, *p++);
-		while (*p != DOUBLE_QUOTE_CHAR)
+		append_char(new_word, *current_word);
+		current_word++;
+		while (*current_word != DOUBLE_QUOTE_CHAR)
 		{
-			if (*p == '\0')
+			if (*current_word == '\0')
 				assert_error("Unclosed double quote");
-			else if (is_variable(p))
-				expand_variable_str(dst, &p, p);
+			else if (is_variable(current_word))
+				expand_variable_str(new_word, &current_word, current_word);
 			else
-				append_char(dst, *p++);
+				append_char(new_word, *current_word++);
 		}
-		// skip quote
-		append_char(dst, *p++);
-		*rest = p;
+		append_char(new_word, *current_word);
+		current_word++;
+		*rest = current_word;
 	}
 	else
 		assert_error("Expected double quote");
 }
+
 
 void	expand_variable_token(t_token *token)
 {
@@ -132,6 +150,61 @@ void	expand_variable_token(t_token *token)
 	}
 	// printf("finish expand_variable_token\n");
 }
+void	expand_variable(t_node *node)
+{
+	// printf("start expand_variable\n");
+	while (node != NULL)
+	{
+		// printf("node->kind: %d\n", node->kind);
+		// if (node->next != NULL)
+		// 	node = node->next;
+		if (node->command != NULL)
+		{
+			// printf("expand command\n");
+			expand_variable_token(node->command->args);
+		}
+		if (node->command->redirects != NULL)
+		{
+			// printf("expand redirects\n");
+			expand_variable_token(node->command->redirects->filename);
+		}
+		node = node->next;
+		// printf("finish expand_variable\n");
+	}
+}
+
+// void	expand_variable_str(char **new_word, char **rest, char *current_word)
+// {
+// 	char	*name;
+// 	char	*value;
+// 
+// 	name = calloc(1, sizeof(char));
+// 	if (name == NULL)
+// 		fatal_error("calloc");
+// 	if (*current_word != '$')
+// 		assert_error("Expected dollar sign");
+// 	current_word++;
+// 	if (!is_alpha_under(*current_word))
+// 		assert_error("Variable must starts with alphabetic character or underscore.");
+// 	append_char(&name, *current_word);
+// 	current_word++;
+// 	while (is_alpha_num_under(*current_word))
+// 	{
+// 		append_char(&name, *current_word);
+// 		current_word++;
+// 	}
+// 	value = getenv(name);
+// 	free(name);
+// 	if (value)
+// 	{
+// 		while (*value)
+// 		{
+// 			append_char(new_word, *value);
+// 			value++;
+// 		}
+// 	}
+// 	*rest = current_word;
+// }
 
 // void	expand_variable_token(t_token *tok)
 // {
@@ -159,29 +232,6 @@ void	expand_variable_token(t_token *token)
 // 	tok->word = new_word;
 // 	expand_variable_token(tok->next);
 // }
-
-void	expand_variable(t_node *node)
-{
-	// printf("start expand_variable\n");
-	while (node != NULL)
-	{
-		// printf("node->kind: %d\n", node->kind);
-		// if (node->next != NULL)
-		// 	node = node->next;
-		if (node->command != NULL)
-		{
-			// printf("expand command\n");
-			expand_variable_token(node->command->args);
-		}
-		if (node->command->redirects != NULL)
-		{
-			// printf("expand redirects\n");
-			expand_variable_token(node->command->redirects->filename);
-		}
-		node = node->next;
-		// printf("finish expand_variable\n");
-	}
-}
 
 // void	expand_variable(t_node *node)
 // {
