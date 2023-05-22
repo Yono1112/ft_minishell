@@ -113,8 +113,15 @@
 
 
 ##doc
-- [readlineとsignal by 42soul](https://intrepidgeeks.com/tutorial/minishell-readline)
-- [minishellの概要 by 42soul](https://techdebt.tistory.com/33?category=833728)
-- [個人開発でGithubのissue,プルリクを活用する方法](https://qiita.com/usayamadausako/items/375bdae07e381745e6eb)
-- [git clone の際に submodule の clone を忘れたときの対処法](https://qiita.com/kentarosasaki/items/3e670567c0512b9d411e)
-- [シェルスクリプトの $ は･･･変数の接頭辞ではなく展開するときの記号](https://qiita.com/ko1nksm/items/1864aa2db8ce7bcf332d)
+- minishell
+	- [man bash](https://linuxjm.osdn.jp/html/GNU_bash/man1/bash.1.html)
+	- [minishellの作り方(usami-sanのminishell解説)](https://usatie.notion.site/minishell-29921d3ea13447ad897349acd5733d5e)
+	- [minishellの作り方で出てくるコード例のrepository](https://github.com/usatie/minishell_v2/tree/livecoding)
+	- [readlineとsignal by 42soul](https://intrepidgeeks.com/tutorial/minishell-readline)
+	- [minishellの概要 by 42soul](https://techdebt.tistory.com/33?category=833728)
+	- [シェルスクリプトの $ は･･･変数の接頭辞ではなく展開するときの記号(expand解説)](https://qiita.com/ko1nksm/items/1864aa2db8ce7bcf332d)
+- git
+	- [個人開発でGithubのissue,プルリクを活用する方法](https://qiita.com/usayamadausako/items/375bdae07e381745e6eb)
+	- [git clone の際に submodule の clone を忘れたときの対処法](https://qiita.com/kentarosasaki/items/3e670567c0512b9d411e)
+	- [git reset 解説](https://qiita.com/forest1/items/f7c821565a7a7d64d60f)
+	- [DiscordのチャンネルにGitHubの通知を送るには？](https://mekurun.com/tips/discord-github/)
