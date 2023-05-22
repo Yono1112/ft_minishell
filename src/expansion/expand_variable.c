@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/20 21:29:34 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:20:34 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,47 +101,94 @@ void	append_double_quote(char **dst, char **rest, char *p)
 		assert_error("Expected double quote");
 }
 
-void	expand_variable_token(t_token *tok)
+// void	expand_variable_token(t_token *tok)
+// {
+// 	char	*new_word;
+// 	char	*p;
+// 
+// 	if (tok == NULL || tok->kind != TK_WORD || tok->word == NULL)
+// 		return ;
+// 	p = tok->word;
+// 	new_word = calloc(1, sizeof(char));
+// 	if (new_word == NULL)
+// 		fatal_error("calloc");
+// 	while (*p && !is_metacharacter(*p))
+// 	{
+// 		if (*p == SINGLE_QUOTE_CHAR)
+// 			append_single_quote(&new_word, &p, p);
+// 		else if (*p == DOUBLE_QUOTE_CHAR)
+// 			append_double_quote(&new_word, &p, p);
+// 		else if (is_variable(p))
+// 			expand_variable_str(&new_word, &p, p);
+// 		else
+// 			append_char(&new_word, *p++);
+// 	}
+// 	free(tok->word);
+// 	tok->word = new_word;
+// 	expand_variable_token(tok->next);
+// }
+
+void	expand_variable_token(t_token *token)
 {
 	char	*new_word;
-	char	*p;
+	char	*current_word;
 
-	if (tok == NULL || tok->kind != TK_WORD || tok->word == NULL)
-		return ;
-	p = tok->word;
-	new_word = calloc(1, sizeof(char));
-	if (new_word == NULL)
-		fatal_error("calloc");
-	while (*p && !is_metacharacter(*p))
+	 printf("start expand_variable_token\n");
+	if (token != NULL && token->kind == TK_WORD && token->word != NULL)
 	{
-		if (*p == SINGLE_QUOTE_CHAR)
-			append_single_quote(&new_word, &p, p);
-		else if (*p == DOUBLE_QUOTE_CHAR)
-			append_double_quote(&new_word, &p, p);
-		else if (is_variable(p))
-			expand_variable_str(&new_word, &p, p);
-		else
-			append_char(&new_word, *p++);
+		// printf("token_kind: %d\n", token->kind);
+		current_word = token->word;
+		new_word = calloc(1, sizeof(char));
+		if (new_word == NULL)
+			fatal_error("calloc");
+		while (*current_word && !is_metacharacter(*current_word))
+		{
+			if (*current_word == SINGLE_QUOTE_CHAR)
+				append_single_quote(&new_word, &current_word, current_word);
+			else if (*current_word == DOUBLE_QUOTE_CHAR)
+				append_double_quote(&new_word, &current_word, current_word);
+			else if (is_variable(current_word))
+				expand_variable_str(&new_word, &current_word, current_word);
+			else
+				append_char(&new_word, *current_word++);
+		}
+		free(token->word);
+		token->word = new_word;
+		// token = token->next;
 	}
-	free(tok->word);
-	tok->word = new_word;
-	expand_variable_token(tok->next);
+	printf("finish expand_variable_token\n");
 }
 
 void	expand_variable(t_node *node)
 {
-	if (node->command != NULL)
-		expand_variable_token(node->command->args);
-	if (node->command->redirects != NULL)
-		expand_variable_token(node->redirects->filename);
-	if (node->next != NULL)
-		expand_variable(node->next);
+	printf("start expand_variable\n");
+	while (node != NULL)
+	{
+		printf("node->kind: %d\n", node->kind);
+		// if (node->next != NULL)
+		// 	node = node->next;
+		if (node->command != NULL)
+		{
+			printf("expand command\n");
+			expand_variable_token(node->command->args);
+			// exit(0);
+		}
+		if (node->command->redirects != NULL)
+		{
+			printf("expand redirects\n");
+			// exit(0);
+			expand_variable_token(node->command->redirects->filename);
+		}
+		node = node->next;
+		// printf("finish expand_variable\n");
+	}
 }
 
 // void	expand_variable(t_node *node)
 // {
 // 	if (node == NULL)
 // 		return ;
+// 	printf("node->kind: %d\n", node->kind);
 // 	expand_variable_token(node->args);
 // 	expand_variable_token(node->filename);
 // 	// do not expand heredoc delimiter

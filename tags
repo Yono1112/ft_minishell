@@ -33,7 +33,8 @@ expand	src/expansion/expand.c	/^void	expand(t_node *node)$/
 expand_quote_removal	src/expansion/remove_quote.c	/^void	expand_quote_removal(t_node *node)$/
 expand_variable	src/expansion/expand_variable.c	/^void	expand_variable(t_node *node)$/
 expand_variable_str	src/expansion/expand_variable.c	/^void	expand_variable_str(char **dst, char **rest, /
-expand_variable_tok	src/expansion/expand_variable.c	/^void	expand_variable_tok(t_token *tok)$/
+expand_variable_tok	usatie_minishell/src/expand.c	/^void	expand_variable_tok(t_token *tok)$/
+expand_variable_token	src/expansion/expand_variable.c	/^void	expand_variable_token(t_token *tok)$/
 fatal_error	src/output_error/output_error.c	/^void	fatal_error(const char *str)$/
 free_argv	src/free.c	/^void	free_argv(char **argv)$/
 free_node	src/free.c	/^void	free_node(t_node *node)$/
