@@ -69,9 +69,11 @@
 			- 所有者に対して読み書きの権限を、グループおよび他のユーザーに対しては読み取りのみの権限を与えることを意味します。
 - step10 pipe
 - step11 expand
-	- 展開 (expansion) とは変数などの中身をそれが使われてる場所に入れ込むこと
-	- 今回は変数展開(環境変数使用時に必要？)とパラメータ展開の$?を実装する 
-	- $は展開したいときにしか使用しない。そのためexportやdeclareなどの変数宣言時には不必要
+	- 展開 (expansion) とは変数などの中身をそれが使われてる場所に入れ込むこと。
+	- 今回は変数展開(環境変数使用時に必要？)とパラメータ展開の$?を実装する。
+	- $は展開したいときにしか使用しない。そのためexportやdeclareなどの変数宣言時には不必要。
+	- $?(special parametar)
+		- 最後に実行されたフォアグラウンドのパイプラインの 終了ステータスに展開されます。 
 
 | 名前 | 展開・置換の意味 |
 | --- | ------------- |
@@ -125,3 +127,4 @@
 	- [git clone の際に submodule の clone を忘れたときの対処法](https://qiita.com/kentarosasaki/items/3e670567c0512b9d411e)
 	- [git reset 解説](https://qiita.com/forest1/items/f7c821565a7a7d64d60f)
 	- [DiscordのチャンネルにGitHubの通知を送るには？](https://mekurun.com/tips/discord-github/)
+	- [［GitHub］一人開発でもissueベース/セルフプルリクエストを使って開発する](https://qiita.com/braveryk7/items/5208263cd06a8878f0c2)
