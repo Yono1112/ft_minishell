@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/16 17:00:40 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/20 18:47:34 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/readline.h>
 # include <sys/wait.h>
 # include <stddef.h>
+# include <ctype.h>
 
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '\"'
@@ -103,6 +104,9 @@ bool	is_blank(char c);
 void	skip_blank(char **skip_line, char *line);
 // expansion
 void	expand(t_node *node);
+void	expand_quote_removal(t_node *node);
+void	append_char(char **s, char c);
+void	expand_variable(t_node *node);
 // parser
 t_node	*parse(t_token *token);
 void	free_node(t_node *node);
