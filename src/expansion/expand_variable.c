@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/22 17:28:42 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:38:42 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,7 @@ void	expand_variable_token(t_token *token)
 	char	*current_word;
 
 	// printf("start expand_variable_token\n");
-	// heredocはfilenameがNULLなのでif文は必要
-	while (token != NULL && token->kind == TK_WORD && token->word != NULL)
+	if (token != NULL && token->kind == TK_WORD && token->word != NULL)
 	{
 		// printf("token_kind: %d\n", token->kind);
 		// printf("token_word: %s\n", token->word);
