@@ -36,6 +36,7 @@
 # define STDIN_FILENO 0
 # define CHILD_PID 0
 
+extern int	last_status;
 extern bool	syntax_error;
 
 typedef enum e_token_kind

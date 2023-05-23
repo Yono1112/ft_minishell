@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/22 19:49:27 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/23 14:59:12 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,33 @@ bool	is_variable(char *s)
 {
 	return (s[0] == '$' && is_alpha_under(s[1]));
 }
+
+bool	is_special_parametar(char *str)
+{
+	return (str[0] == '$' && str[1] == '?');
+}
+
+void	append_num(char **new_word, unsigned int num)
+{
+	if (num == 0)
+		append_char(new_word, '0');
+	else
+	{
+		if (num / 10 != 0)
+			append_num(new_word, num / 10);
+		append_char(new_word, (num % 10) + '0');
+	}
+}
+
+void	expand_parameter_str(char **new_word, char **rest, char *current_word)
+{
+	if (!is_special_parametar(current_word))
+		assert_error("Expected special parameter");
+	current_word += 2;
+	append_num(new_word, last_status);
+	*rest = current_word;
+}
+
 char	*append_variable_name(char **rest, char *current_word)
 {
 	char	*variable_name;
@@ -107,6 +134,8 @@ void	append_double_quote(char **new_word, char **rest, char *current_word)
 				assert_error("Unclosed double quote");
 			else if (is_variable(current_word))
 				expand_variable_str(new_word, &current_word, current_word);
+			else if (is_special_parametar(current_word))
+				expand_parameter_str(new_word, &current_word, current_word);
 			else
 				append_char(new_word, *current_word++);
 		}
@@ -117,7 +146,6 @@ void	append_double_quote(char **new_word, char **rest, char *current_word)
 	else
 		assert_error("Expected double quote");
 }
-
 
 void	expand_variable_token(t_token *token)
 {
@@ -141,6 +169,8 @@ void	expand_variable_token(t_token *token)
 				append_double_quote(&new_word, &current_word, current_word);
 			else if (is_variable(current_word))
 				expand_variable_str(&new_word, &current_word, current_word);
+			else if (is_special_parametar(current_word))
+				expand_parameter_str(&new_word, &current_word, current_word);
 			else
 				append_char(&new_word, *current_word++);
 		}
