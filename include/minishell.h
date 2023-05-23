@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/20 18:47:34 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/22 20:32:54 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@
 # define ERROR_TOKENIZE 258
 # define ERROR_PARSE 258
 # define ERROR_OPEN_REDIR 1
-# define ERROR_PARSE 258
 # define STDOUT_FILENO 1
 # define STDIN_FILENO 0
 # define CHILD_PID 0
 
+extern int	last_status;
 extern bool	syntax_error;
 
 typedef enum e_token_kind

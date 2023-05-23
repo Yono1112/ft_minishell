@@ -19,6 +19,8 @@
 #include <limits.h>
 #include <readline/history.h>
 
+int	last_status;
+
 bool	check_is_filename(const char *path)
 {
 	if (path == NULL)
@@ -178,9 +180,8 @@ void	interpret(char *const line, int *status)
 int	main(void)
 {
 	char	*line;
-	int		status;
 
-	status = 0;
+	last_status = 0;
 	rl_outstream = stderr;
 	while (1)
 	{
@@ -189,8 +190,8 @@ int	main(void)
 			break ;
 		if (*line)
 			add_history(line);
-		interpret(line, &status);
+		interpret(line, &last_status);
 		free(line);
 	}
-	exit (status);
+	exit (last_status);
 }
