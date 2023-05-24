@@ -15,6 +15,7 @@ SRCS =	src/main.c	\
 		src/expansion/expand.c	\
 		src/expansion/remove_quote.c	\
 		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
 		src/parser/parse.c	\
 		src/redirection/redirect.c	\
 		src/pipeline/pipe.c

@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/22 20:32:54 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/24 20:18:51 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_node
 	t_token			*delimiter;
 	int				filefd;
 	int				stashed_targetfd;
+	bool			is_delimiter_quote;
 	// PINELINE
 	struct s_node	*command;
 	int				inpipe[2];
@@ -107,6 +108,11 @@ void	expand(t_node *node);
 void	expand_quote_removal(t_node *node);
 void	append_char(char **s, char c);
 void	expand_variable(t_node *node);
+char	*expand_heredoc_line(char *line);
+bool	is_variable(char *s);
+void	expand_parameter_str(char **new_word, char **rest, char *current_word);
+void	expand_variable_str(char **new_word, char **rest, char *current_word);
+bool	is_special_parametar(char *str);
 // parser
 t_node	*parse(t_token *token);
 void	free_node(t_node *node);
