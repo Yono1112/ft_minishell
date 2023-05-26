@@ -124,6 +124,9 @@ assert 'cat <<EOF\nhello\nworld\nEOF\nNOPRINT'
 assert 'cat <<EOF<<eof\nhello\nworld\nEOF\neof\nNOPRINT'
 assert 'cat <<EOF\nhello\nworld'
 assert 'cat <<E"O"F\nhello\nworld\nEOF\nNOPRINT'
+export EOF="eof"
+assert 'cat <<$EOF         \neof\n$EOF\nEOF'
+assert 'cat <<"$EOF"       \neof\n$EOF\nEOF'
 
 # Pipe
 assert 'cat Makefile | grep minishell'

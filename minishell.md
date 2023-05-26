@@ -74,6 +74,9 @@
 	- $は展開したいときにしか使用しない。そのためexportやdeclareなどの変数宣言時には不必要。
 	- $?(special parametar)
 		- 最後に実行されたフォアグラウンドのパイプラインの 終了ステータスに展開されます。 
+	- heredoc時のexpand
+		- delimiter(cat << EOFでいうとEOFがdelimiter)がquoteに囲まれていた場合は、heredoc時に入力されるlineに変数($から始まる変数)が入ったとしても展開されない
+		- 逆にdelimiterがquoteに囲まれていなかったら、変数はexpandされる
 
 | 名前 | 展開・置換の意味 |
 | --- | ------------- |

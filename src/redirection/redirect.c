@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/17 18:24:01 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/24 20:43:57 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ static int	stashfd(int fd)
 	return (stashfd);
 }
 
-int	read_heredoc(const char *delimiter)
+int	read_heredoc(const char *delimiter, bool is_delimiter_quote)
 {
 	char	*line;
 	int		pfd[2];
 
 	// printf("delimiter: %s\n", delimiter);
+	// printf("is_delimiter_quote: %d\n", is_delimiter_quote);
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
 	// printf("pfd[0]: %d\n", pfd[0]);
@@ -49,6 +50,8 @@ int	read_heredoc(const char *delimiter)
 			free(line);
 			break ;
 		}
+		if (is_delimiter_quote)
+			line = expand_heredoc_line(line);
 		dprintf(pfd[1], "%s\n", line);
 		free(line);
 	}
@@ -95,7 +98,7 @@ int	open_redirect_file(t_node *node)
 		}
 		else if (node->kind == ND_REDIR_HEREDOC)
 		{
-			node->filefd = read_heredoc(node->delimiter->word);
+			node->filefd = read_heredoc(node->delimiter->word, node->is_delimiter_quote);
 			// printf("node_kind is ND_REDIR_HEREDOC, filefd: %d\n", node->filefd);
 		}
 		else

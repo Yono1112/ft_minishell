@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/17 18:22:49 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/24 18:30:00 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ t_node	*create_new_redirect_heredoc(t_token **rest, t_token *token)
 	node = create_new_node_list(ND_REDIR_HEREDOC);
 	node->delimiter = tokendup(token->next);
 	node->targetfd = STDIN_FILENO;
+	if (strchr(node->delimiter->word, SINGLE_QUOTE_CHAR) == NULL
+		&& strchr(node->delimiter->word, DOUBLE_QUOTE_CHAR) == NULL)
+		node->is_delimiter_quote = true;
 	*rest = token->next->next;
 	return (node);
 }

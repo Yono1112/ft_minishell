@@ -36,5 +36,5 @@ void	append_char(char **s, char c)
 void	expand(t_node *node)
 {
 	expand_variable(node);
-	expand_quote_removal(node);
+	remove_quote(node);
 }

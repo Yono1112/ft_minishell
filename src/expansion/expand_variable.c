@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/23 14:59:12 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:56:59 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void	expand_variable_token(t_token *token)
 	}
 	// printf("finish expand_variable_token\n");
 }
+
 void	expand_variable(t_node *node)
 {
 	// printf("start expand_variable\n");
