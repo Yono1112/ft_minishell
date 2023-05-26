@@ -35,6 +35,7 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote)
 	int		pfd[2];
 
 	// printf("delimiter: %s\n", delimiter);
+	// printf("is_delimiter_quote: %d\n", is_delimiter_quote);
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
 	// printf("pfd[0]: %d\n", pfd[0]);

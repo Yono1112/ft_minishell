@@ -74,12 +74,27 @@ static void	remove_quote(t_token *token)
 
 void	expand_quote_removal(t_node *node)
 {
-	if (node == NULL)
-		return ;
-	remove_quote(node->args);
-	remove_quote(node->filename);
-	remove_quote(node->delimiter);
-	expand_quote_removal(node->redirects);
-	expand_quote_removal(node->command);
-	expand_quote_removal(node->next);
+	while (node != NULL)
+	{
+		if (node->command != NULL)
+			remove_quote(node->args);
+		if (node->command->redirects != NULL)
+		{
+			remove_quote(node->command->redirects->filename);
+			remove_quote(node->command->redirects->delimiter);
+		}
+		node = node->next;
+	}
 }
+
+// void	expand_quote_removal(t_node *node)
+// {
+// 	if (node == NULL)
+// 		return ;
+// 	remove_quote(node->args);
+// 	remove_quote(node->filename);
+// 	remove_quote(node->delimiter);
+// 	expand_quote_removal(node->redirects);
+// 	expand_quote_removal(node->command);
+// 	expand_quote_removal(node->next);
+// }
