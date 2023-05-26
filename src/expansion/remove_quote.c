@@ -48,13 +48,14 @@ void	remove_single_quote(char **dst, char **rest, char *p)
 		assert_error("Expected single quote");
 }
 
-static void	remove_quote(t_token *token)
+static void	remove_quote_token(t_token *token)
 {
 	char	*p;
 	char	*new_word;
 
 	while (token != NULL && token->kind == TK_WORD && token->word != NULL)
 	{
+		// printf("token->word: %s\n", token->word);
 		p = token->word;
 		new_word = NULL;
 		while (*p != '\0')
@@ -68,20 +69,21 @@ static void	remove_quote(t_token *token)
 		}
 		free(token->word);
 		token->word = new_word;
+		// printf("remove_quote token->word: %s\n", token->word);
 		token = token->next;
 	}
 }
 
-void	expand_quote_removal(t_node *node)
+void	remove_quote(t_node *node)
 {
 	while (node != NULL)
 	{
 		if (node->command != NULL)
-			remove_quote(node->args);
+			remove_quote_token(node->command->args);
 		if (node->command->redirects != NULL)
 		{
-			remove_quote(node->command->redirects->filename);
-			remove_quote(node->command->redirects->delimiter);
+			remove_quote_token(node->command->redirects->filename);
+			remove_quote_token(node->command->redirects->delimiter);
 		}
 		node = node->next;
 	}

@@ -105,7 +105,7 @@ bool	is_blank(char c);
 void	skip_blank(char **skip_line, char *line);
 // expansion
 void	expand(t_node *node);
-void	expand_quote_removal(t_node *node);
+void	remove_quote(t_node *node);
 void	append_char(char **s, char c);
 void	expand_variable(t_node *node);
 char	*expand_heredoc_line(char *line);
