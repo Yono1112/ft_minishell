@@ -6,66 +6,98 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:46:09 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/18 22:46:12 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:40:44 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	remove_double_quote(char **dst, char **rest, char *p)
-{
-	if (*p == DOUBLE_QUOTE_CHAR)
-	{
-		p++;
-		while (*p != DOUBLE_QUOTE_CHAR)
-		{
-			if (*p == '\0')
-				assert_error("Unclosed double quote");
-			append_char(dst, *p++);
-		}
-		p++;
-		*rest = p;
-	}
-	else
-		assert_error("Expected double quote");
-}
+// void	remove_double_quote(char **new_word, char **rest, char *current_word)
+// {
+// 	if (*current_word == DOUBLE_QUOTE_CHAR)
+// 	{
+// 		current_word++;
+// 		while (*current_word != DOUBLE_QUOTE_CHAR)
+// 		{
+// 			if (*current_word == '\0')
+// 				assert_error("Unclosed double quote");
+// 			append_char(new_word, *current_word++);
+// 		}
+// 		current_word++;
+// 		*rest = current_word;
+// 	}
+// 	else
+// 		assert_error("Expected double quote");
+// }
+// 
+// void	remove_single_quote(char **new_word, char **rest, char *current_word)
+// {
+// 	if (*current_word == SINGLE_QUOTE_CHAR)
+// 	{
+// 		current_word++;
+// 		while (*current_word != SINGLE_QUOTE_CHAR)
+// 		{
+// 			if (*current_word == '\0')
+// 				assert_error("Unclosed single quote");
+// 			append_char(new_word, *current_word++);
+// 		}
+// 		current_word++;
+// 		*rest = current_word;
+// 	}
+// 	else
+// 		assert_error("Expected single quote");
+// }
 
-void	remove_single_quote(char **dst, char **rest, char *p)
+void	remove_single_double_quote(char **new_word, char **rest, char *current_word)
 {
-	if (*p == SINGLE_QUOTE_CHAR)
+	if (*current_word == SINGLE_QUOTE_CHAR)
 	{
-		p++;
-		while (*p != SINGLE_QUOTE_CHAR)
+		current_word++;
+		while (*current_word != SINGLE_QUOTE_CHAR)
 		{
-			if (*p == '\0')
+			if (*current_word == '\0')
 				assert_error("Unclosed single quote");
-			append_char(dst, *p++);
+			append_char(new_word, *current_word++);
 		}
-		p++;
-		*rest = p;
+		current_word++;
+		*rest = current_word;
+	}
+	else if (*current_word == DOUBLE_QUOTE_CHAR)
+	{
+		current_word++;
+		while (*current_word != DOUBLE_QUOTE_CHAR)
+		{
+			if (*current_word == '\0')
+				assert_error("Unclosed double quote");
+			append_char(new_word, *current_word++);
+		}
+		current_word++;
+		*rest = current_word;
 	}
 	else
-		assert_error("Expected single quote");
+		assert_error("Expected quote");
 }
 
 static void	remove_quote_token(t_token *token)
 {
-	char	*p;
+	char	*current_word;
 	char	*new_word;
 
 	while (token != NULL && token->kind == TK_WORD && token->word != NULL)
 	{
 		// printf("token->word: %s\n", token->word);
-		p = token->word;
+		current_word = token->word;
 		new_word = NULL;
-		while (*p != '\0')
+		while (*current_word != '\0')
 		{
-			if (*p == SINGLE_QUOTE_CHAR)
-				remove_single_quote(&new_word, &p, p);
-			else if (*p == DOUBLE_QUOTE_CHAR)
-				remove_double_quote(&new_word, &p, p);
+			//if (*current_word == SINGLE_QUOTE_CHAR)
+			//	remove_single_quote(&new_word, &current_word, current_word);
+			//else if (*current_word == DOUBLE_QUOTE_CHAR)
+			//	remove_double_quote(&new_word, &current_word, current_word);
+			if (*current_word == SINGLE_QUOTE_CHAR || *current_word == DOUBLE_QUOTE_CHAR)
+				remove_single_double_quote(&new_word, &current_word, current_word);
 			else
-				append_char(&new_word, *p++);
+				append_char(&new_word, *current_word++);
 		}
 		free(token->word);
 		token->word = new_word;

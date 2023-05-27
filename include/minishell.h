@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/24 20:18:51 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/27 18:08:53 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ bool	is_variable(char *s);
 void	expand_parameter_str(char **new_word, char **rest, char *current_word);
 void	expand_variable_str(char **new_word, char **rest, char *current_word);
 bool	is_special_parametar(char *str);
+void	split_word(t_node *node);
 // parser
 t_node	*parse(t_token *token);
 void	free_node(t_node *node);

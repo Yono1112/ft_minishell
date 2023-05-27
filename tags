@@ -52,6 +52,7 @@ is_blank	src/lexer/blank.c	/^bool	is_blank(char c)$/
 is_control_operator	src/parser/parse.c	/^bool	is_control_operator(t_token *token)$/
 is_metacharacter	src/expansion/expand_variable.c	/^bool	is_metacharacter(char c)$/
 is_operator	src/lexer/operator.c	/^bool	is_operator(char *line)$/
+is_quote_after_dollar	src/expansion/expand_variable.c	/^bool	is_quote_after_dollar(char *str)$/
 is_redirect	src/redirection/redirect.c	/^bool	is_redirect(t_node *redirect)$/
 is_special_parametar	src/expansion/expand_variable.c	/^bool	is_special_parametar(char *str)$/
 is_special_parameter	usatie_minishell/src/expand.c	/^bool	is_special_parameter(char *s)$/
@@ -82,6 +83,7 @@ reset_redirect	src/redirection/redirect.c	/^void	reset_redirect(t_node *redirect
 search_path	usatie_minishell/src/exec.c	/^char	*search_path(const char *filename)$/
 simple_command	src/parser/parse.c	/^t_node	*simple_command(t_token **rest, t_token *to/
 skip_blank	src/lexer/blank.c	/^void	skip_blank(char **skip_line, char *line)$/
+split_word	src/expansion/split_word.c	/^void	split_word(t_node *node)$/
 startswith	usatie_minishell/src/tokenize.c	/^bool	startswith(const char *s, const char *keyword/
 stashfd	src/redirection/redirect.c	/^static int	stashfd(int fd)$/
 tail_recursive	usatie_minishell/src/tokenize.c	/^char	**tail_recursive(t_token *tok, int nargs, cha/

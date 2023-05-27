@@ -78,6 +78,9 @@
 	- heredoc時のexpand
 		- delimiter(cat << EOFでいうとEOFがdelimiter)がquoteに囲まれていた場合は、heredoc時に入力されるlineに変数($から始まる変数)が入ったとしても展開されない
 		- 逆にdelimiterがquoteに囲まれていなかったら、変数はexpandされる
+	- echo $"SHELL"やecho $"?"など$の後にquoteがあった場合、＄は表示されない
+		- expand_variable_token内のis_quote_after_dollar関数でチェックしている
+		- usashellは対応していなかった
 
 | 名前 | 展開・置換の意味 |
 | --- | ------------- |
