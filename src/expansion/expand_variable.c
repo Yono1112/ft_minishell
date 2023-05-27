@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/24 16:56:59 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/27 17:43:35 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ bool	is_variable(char *s)
 bool	is_special_parametar(char *str)
 {
 	return (str[0] == '$' && str[1] == '?');
+}
+
+bool	is_quote_after_dollar(char *str)
+{
+	return (str[0] == '$' && (str[1] == SINGLE_QUOTE_CHAR || str[1] == DOUBLE_QUOTE_CHAR));
 }
 
 void	append_num(char **new_word, unsigned int num)
@@ -171,6 +176,8 @@ void	expand_variable_token(t_token *token)
 				expand_variable_str(&new_word, &current_word, current_word);
 			else if (is_special_parametar(current_word))
 				expand_parameter_str(&new_word, &current_word, current_word);
+			else if (is_quote_after_dollar(current_word))
+				current_word++;
 			else
 				append_char(&new_word, *current_word++);
 		}
