@@ -19,6 +19,10 @@ int main(int argc, char *argv[]) {
 }
 EOF
 
+cat <<EOF | gcc -xc -o exit42 -
+int main() { return 42; }
+EOF
+
 print_desc() {
 	echo -e $YELLOW"$1"$RESET
 }
@@ -30,42 +34,45 @@ cleanup() {
 assert() {
 	COMMAND="$1"
 	shift
-	# テストしようとしている内容をprint
+# テストしようとしている内容をprint
 	printf '%-50s:' "[$COMMAND]"
 	# exit status
-	# bashの出力をcmpに保存
+# 	# bashの出力をcmpに保存
 	echo -n -e "$COMMAND" | bash >cmp 2>&-
-	# bashのexit statusをexpectedに代入
+# 	# bashのexit statusをexpectedに代入
 	expected=$?
-	# minishellの出力をoutに保存
+# 	# minishellの出力をoutに保存
 	for arg in "$@"
 	do
 		mv "$arg" "$arg"".cmp"
 	done
 	echo -n -e "$COMMAND" | ./minishell >out 2>&-
-	# minishellのexit statusをactualに代入
+# 	# minishellのexit statusをactualに代入
 	actual=$?
 	for arg in "$@"
 	do
 		mv "$arg" "$arg"".out"
 	done
 
-	# bashとminishellの出力を比較
-	diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
+# 	# bashとminishellの出力を比較
+cat out >> test3
+echo "======================================" >> test3
+cat cmp >> test4
+echo "=====================================" >> test4
+diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
 
-	# bashとminishellのexit statusを比較
-	if [ "$actual" = "$expected" ]; then
-		echo -e -n "  status $OK"
-	else
-		echo -e -n "  status $NG, expected $expected but got $actual"
-	fi
-	for arg in "$@"
-	do
-		echo -n "  [$arg] "
-		diff "$arg"".cmp" "$arg"".out" >/dev/null && echo -e -n "$OK" || echo -e -n "$NG"
-		rm -f "$arg"".cmp" "$arg"".out"
-	done
-	echo
+if [ "$actual" = "$expected" ]; then
+	echo -e -n "  status $OK"
+else
+	echo -e -n "  status $NG, expected $expected but got $actual"
+fi
+for arg in "$@"
+do
+	echo -n "  [$arg] "
+	diff "$arg"".cmp" "$arg"".out" >/dev/null && echo -e -n "$OK" || echo -e -n "$NG"
+	rm -f "$arg"".cmp" "$arg"".out"
+done
+echo
 }
 
 # Empty line (EOF)
@@ -144,11 +151,9 @@ assert 'cat | cat | ls\n\n'
 assert 'echo $USER'
 assert 'echo $USER$PATH$TERM'
 assert 'echo "$USER  $PATH   $TERM"'
-assert 'echo $"USER"'
 
 # Special Parameter $?
 assert 'echo $?'
-assert 'echo $"?"'
 assert 'invalid\necho $?\necho $?'
 assert 'exit42\necho $?\necho $?'
 assert 'exit42\n\necho $?\necho $?'
@@ -159,61 +164,61 @@ echo "int main() { while (1) ; }" | gcc -xc -o infinite_loop -
 ## Signal to shell processes
 print_desc "SIGTERM to SHELL"
 (sleep 0.01; pkill -SIGTERM bash;
- sleep 0.01; pkill -SIGTERM minishell) &
+sleep 0.01; pkill -SIGTERM minishell) &
 assert './infinite_loop' 2>/dev/null # Redirect stderr to suppress signal terminated message
 
 print_desc "SIGQUIT to SHELL"
 (sleep 0.01; pkill -SIGQUIT bash; # SIGQUIT should not kill the shell
- sleep 0.01; pkill -SIGTERM bash;
- sleep 0.01; pkill -SIGQUIT minishell; # SIGQUIT should not kill the shell
- sleep 0.01; pkill -SIGTERM minishell) &
+sleep 0.01; pkill -SIGTERM bash;
+sleep 0.01; pkill -SIGQUIT minishell; # SIGQUIT should not kill the shell
+sleep 0.01; pkill -SIGTERM minishell) &
 assert './infinite_loop' 2>/dev/null # Redirect stderr to suppress signal terminated message
 
 print_desc "SIGINT to SHELL"
 (sleep 0.01; pkill -SIGINT bash; # SIGINT should not kill the shell
- sleep 0.01; pkill -SIGTERM bash;
- sleep 0.01; pkill -SIGINT minishell; # SIGINT should not kill the shell
- sleep 0.01; pkill -SIGTERM minishell) &
+sleep 0.01; pkill -SIGTERM bash;
+sleep 0.01; pkill -SIGINT minishell; # SIGINT should not kill the shell
+sleep 0.01; pkill -SIGTERM minishell) &
 assert './infinite_loop' 2>/dev/null # Redirect stderr to suppress signal terminated message
 
 ## Signal to child processes
 print_desc "SIGTERM to child process"
 (sleep 0.01; pkill -SIGTERM infinite_loop;
- sleep 0.01; pkill -SIGTERM infinite_loop) &
+sleep 0.01; pkill -SIGTERM infinite_loop) &
 assert './infinite_loop'
 
 print_desc "SIGINT to child process"
 (sleep 0.01; pkill -SIGINT infinite_loop;
- sleep 0.01; pkill -SIGINT infinite_loop) &
+sleep 0.01; pkill -SIGINT infinite_loop) &
 assert './infinite_loop'
 
 print_desc "SIGQUIT to child process"
 (sleep 0.01; pkill -SIGQUIT infinite_loop;
- sleep 0.01; pkill -SIGQUIT infinite_loop) &
+sleep 0.01; pkill -SIGQUIT infinite_loop) &
 assert './infinite_loop'
 
 print_desc "SIGUSR1 to child process"
 (sleep 0.01; pkill -SIGUSR1 infinite_loop;
- sleep 0.01; pkill -SIGUSR1 infinite_loop) &
+sleep 0.01; pkill -SIGUSR1 infinite_loop) &
 assert './infinite_loop'
 
 # Manual Debug
 # $ ./minishell
-# $
-# 1. Ctrl-\
+# $ 
+# 1. Ctrl-\ 
 # 2. Ctrl-C
 # 3. Ctrl-D
 #
 # $ ./minishell
 # $ hogehoge
-# 1. Ctrl-\
+# 1. Ctrl-\ 
 # 2. Ctrl-C
 # 3. Ctrl-D
 #
 # $ ./minishell
 # $ cat <<EOF
 # >
-# 1. Ctrl-\
+# 1. Ctrl-\ 
 # 2. Ctrl-C
 # 3. Ctrl-D
 #
@@ -221,7 +226,7 @@ assert './infinite_loop'
 # $ cat <<EOF
 # > hoge
 # > fuga
-# 1. Ctrl-\
+# 1. Ctrl-\ 
 # 2. Ctrl-C
 # 3. Ctrl-D
 

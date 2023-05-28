@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/28 17:39:52 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/28 21:16:29 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 int	last_status;
 
-void	interpret(char *const line, int *status)
+void	interpret(char* const line, int *status)
 {
 	t_token	*token;
 	t_node	*node;
@@ -48,13 +48,17 @@ int	main(void)
 {
 	char	*line;
 
+	rl_outstream = stderr;
 	last_status = 0;
-	// rl_outstream = stderr;
+	// signal(SIGINT, handle_signal);
 	while (1)
 	{
 		line = readline("minishell$ ");
 		if (line == NULL)
+		{
+			// printf("Ctrl + D\n");
 			break ;
+		}
 		if (*line)
 			add_history(line);
 		interpret(line, &last_status);

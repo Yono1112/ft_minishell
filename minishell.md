@@ -16,6 +16,8 @@
 	- add_history
 		- `int add_history(const char *);`
 		- 引数に入れた文字列をhistoryとして保存します。プロンプトが開いている状態でキーボードの方向キー上下で今までプロンプトに入力した文字列を呼び出すことができます。
+	- rl_outstream
+		- bashのコマンドプロンプトはデフォルトだとstderrに対して出力している。minishellでも同じ挙動にするために、readline関数で出力するプロンプト(今回は"minishell$ ")をrl_outstream = stderrでstderrに設定している。rl_outstreamを記述しないと標準出力に設定されている(実際に`exec 2>&-`してからbashを開くとプロンプトが表示されなくなる)
 - step.2 Build and Test
 - step.3 Exec Path
 	- fork

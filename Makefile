@@ -1,8 +1,9 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -lreadline
-# RLDIR = `brew --prefix readline`
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+# LDFLAGS = -lreadline
 RM = rm -rf
 SRCS =	src/main.c	\
 		src/free.c	\
@@ -25,7 +26,7 @@ SRCS =	src/main.c	\
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-INC = -I include
+INC = -I include -I$(RLDIR)/include
 
 DEBUG_FLAG = -fsanitize=address
 

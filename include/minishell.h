@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/28 17:39:41 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/28 21:04:43 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 # include <limits.h>
 // limits.h PATH_MAX
 # include <stdbool.h>
+# include <readline/rltypedefs.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/wait.h>
 # include <stddef.h>
 # include <ctype.h>
+# include <signal.h>
 
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '\"'
@@ -126,5 +128,7 @@ void	reset_redirect(t_node *redirect);
 void	prepare_pipe(t_node *node);
 void	prepare_pipe_child(t_node *node);
 void	prepare_pipe_parent(t_node *node);
+// signal
+void	handle_signal(int signal_num);
 
 #endif
