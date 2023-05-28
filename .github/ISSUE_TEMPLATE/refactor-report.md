@@ -1,7 +1,7 @@
 ---
 name: Refactor report
 about: Propose what you want to refactor
-title: ''
+title: 'Refact: '
 labels: ''
 assignees: ''
 
