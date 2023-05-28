@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/24 20:43:57 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:54:29 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ void	do_redirect(t_node *redirect)
 		if (is_redirect(redirect))
 		{
 			// printf("redirect->targetfd: %d\n", redirect->targetfd);
-			redirect->stashed_targetfd = stashfd(redirect->targetfd);
+			if (redirect->stashed_targetfd != STDIN_FILENO)
+				redirect->stashed_targetfd = stashfd(redirect->targetfd);
 			// printf("redirect->stashed_targetfd: %d\n", redirect->stashed_targetfd);
 			if (dup2(redirect->filefd, redirect->targetfd) < 0)
 			{
