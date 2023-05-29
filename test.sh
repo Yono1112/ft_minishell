@@ -54,13 +54,13 @@ assert() {
 		mv "$arg" "$arg"".out"
 	done
 
-# 	# bashとminishellの出力を比較
-cat out >> test3
-echo "======================================" >> test3
-cat cmp >> test4
-echo "=====================================" >> test4
-diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
+# cat out >> test3
+# echo "======================================" >> test3
+# cat cmp >> test4
+# echo "=====================================" >> test4
+# diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
 
+# 	# bashとminishellの出力を比較
 if [ "$actual" = "$expected" ]; then
 	echo -e -n "  status $OK"
 else
