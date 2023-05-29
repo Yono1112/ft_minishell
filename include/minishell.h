@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/29 17:10:14 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 19:18:52 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 
 extern int	last_status;
 extern bool	syntax_error;
+extern bool	readline_interrupted;
+volatile sig_atomic_t	sig;
 
 typedef enum e_token_kind
 {

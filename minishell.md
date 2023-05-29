@@ -122,6 +122,8 @@
 		1. シグナルハンドラ
 			- シグナル受信すると、ユーザが定義した動作を実行します。
 			- (設定するには、後述の sigaction() などで sa_handler へユーザ定義の関数を指定する)
+	- _rl_echo_control_chars
+		- _rl_echo_control_charsは、readlineライブラリが提供する変数の一つで、受信したシグナルに対応する文字を表示するかどうかを制御します。この変数が非ゼロの場合、ユーザーが表示を希望する限り、対応する文字が表示されます​。
 
 | シグナル名 | シグナル番号 (x86_64) | 標準動作 | 意味 |
 | -------- | ------------------- | ------- | --- |
@@ -150,6 +152,9 @@
 	- [シェルスクリプトの $ は･･･変数の接頭辞ではなく展開するときの記号(expand解説)](https://qiita.com/ko1nksm/items/1864aa2db8ce7bcf332d)
 	- [Bashの$@,$#などの$から始まる特殊な変数について](https://linuxcommand.net/bash-special-parameters/)
 	- [Linux シグナルの基本と仕組み (カーネル v5.5 時点) ](https://qiita.com/Kernel_OGSun/items/e96cef5487e25517a576#3-%E3%82%B7%E3%82%B0%E3%83%8A%E3%83%AB%E7%95%AA%E5%8F%B7%E3%81%A8%E3%82%B7%E3%82%B0%E3%83%8A%E3%83%AB%E5%90%8D)
+	- [readlineライブラリの関数一覧](https://web.mit.edu/gnu/doc/html/rlman_2.html)
+	- [sig_atomic_t](https://programming-place.net/ppp/contents/c/appendix/reference/sig_atomic_t.html)
+	- [【C言語】volatileの使いどころについて](https://tubasa-blog.com/about-volatile/)
 - git
 	- [個人開発でGithubのissue,プルリクを活用する方法](https://qiita.com/usayamadausako/items/375bdae07e381745e6eb)
 	- [git clone の際に submodule の clone を忘れたときの対処法](https://qiita.com/kentarosasaki/items/3e670567c0512b9d411e)

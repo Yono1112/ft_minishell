@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/29 16:21:31 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 17:39:55 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	main(void)
 		if (*line)
 			add_history(line);
 		interpret(line, &last_status);
-		free(line);
+		if (line)
+			free(line);
 	}
 	exit (last_status);
 }

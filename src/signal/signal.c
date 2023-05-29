@@ -6,12 +6,11 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/29 17:18:07 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 19:19:07 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/history.h>
 
 volatile sig_atomic_t	sig = 0;
 
@@ -26,6 +25,18 @@ void	handle_signal(int signal_num)
 	sig = signal_num;
 }
 
+// void	handle_signal(int signal_num)
+// {
+// 	(void)signal_num;
+// 		// sig = 0;
+// 		// readline_interrupted = true;
+// 		rl_replace_line("", 0);
+// 		// rl_crlf();
+// 		rl_on_new_line();
+// 		rl_redisplay();
+// 		rl_done = 1;
+// }
+
 int	check_state(void)
 {
 	// if (sig == 0)
@@ -33,9 +44,10 @@ int	check_state(void)
 	if (sig == SIGINT)
 	{
 		sig = 0;
-		// readline_interrupted = true;
+		readline_interrupted = true;
+		rl_replace_line("", 0);
+		// rl_crlf();
 		rl_on_new_line();
-		rl_replace_line("", 1);
 		rl_redisplay();
 		rl_done = 1;
 	}

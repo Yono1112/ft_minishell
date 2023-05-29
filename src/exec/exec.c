@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/29 17:10:49 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 18:35:51 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,20 @@ int	wait_pipeline(pid_t last_child_pid)
 	{
 		wait_pid = wait(&wstatus);
 		if (wait_pid == last_child_pid)
-			status = WEXITSTATUS(wstatus);
+		{
+			if (WIFSIGNALED(wstatus))
+				status = 128 + WTERMSIG(wstatus);
+			else
+				status = WEXITSTATUS(wstatus);
+		}
 		else if (wait_pid < 0)
 		{
 			if (errno == ECHILD)
 				break ;
+			else if (errno == EINTR)
+				continue ;
+			else
+				fatal_error("wait");
 		}
 	}
 	// printf("finish wait_pipeline\n");
