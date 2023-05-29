@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/29 19:19:07 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 20:45:08 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	set_signal(void)
 	rl_outstream = stderr;
 	if (isatty(STDIN_FILENO))
 		rl_event_hook = check_state;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_signal);
+	if (signal(SIGQUIT, SIG_IGN))
+		fatal_error("signal");
+	if (signal(SIGINT, handle_signal))
+		fatal_error("signal");
 }
