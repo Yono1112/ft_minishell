@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/29 20:45:08 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 21:15:23 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ volatile sig_atomic_t	sig = 0;
 void	reset_signal(void)
 {
 	signal(SIGQUIT, SIG_DFL);
-	signal(SIGINT, SIG_DFL);
+	// signal(SIGINT, SIG_DFL);
 }
 
 void	handle_signal(int signal_num)
 {
-	sig = signal_num;
+		sig = signal_num;
+	// printf("handle_signal\n");
+	// fflush(stdout);
 }
 
 // void	handle_signal(int signal_num)
@@ -62,8 +64,8 @@ void	set_signal(void)
 	rl_outstream = stderr;
 	if (isatty(STDIN_FILENO))
 		rl_event_hook = check_state;
-	if (signal(SIGQUIT, SIG_IGN))
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		fatal_error("signal");
-	if (signal(SIGINT, handle_signal))
+	if (signal(SIGINT, handle_signal) == SIG_ERR)
 		fatal_error("signal");
 }
