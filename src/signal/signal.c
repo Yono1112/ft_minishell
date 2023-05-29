@@ -14,9 +14,10 @@
 
 void	handle_signal(int signal_num)
 {
-	if (signal_num == SIGINT)
+	if (signal_num != SIGINT)
 		return ;
-	printf("Ctrl + C\n");
-	rl_done = 1;
+	// printf("Ctrl + C\n");
+	rl_on_new_line();
 	rl_replace_line("", 1);
+	rl_redisplay();
 }

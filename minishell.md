@@ -17,7 +17,7 @@
 		- `int add_history(const char *);`
 		- 引数に入れた文字列をhistoryとして保存します。プロンプトが開いている状態でキーボードの方向キー上下で今までプロンプトに入力した文字列を呼び出すことができます。
 	- rl_outstream
-		- bashのコマンドプロンプトはデフォルトだとstderrに対して出力している。minishellでも同じ挙動にするために、readline関数で出力するプロンプト(今回は"minishell$ ")をrl_outstream = stderrでstderrに設定している。rl_outstreamを記述しないと標準出力に設定されている(実際に`exec 2>&-`してからbashを開くとプロンプトが表示されなくなる)
+		- bashのコマンドプロンプトはデフォルトだとstderrに対して出力している(実際に`exec 2>&-`してからbashを開くとプロンプトが表示されなくなる)。minishellでも同じ挙動にするために、readline関数で出力するプロンプト(今回は"minishell$ ")をrl_outstream = stderrでstderrに設定している。rl_outstreamを記述しないと標準出力に設定されている
 - step.2 Build and Test
 - step.3 Exec Path
 	- fork
@@ -54,6 +54,9 @@
 	- metacharcter(メタ文字)
 		- コマンドやシェルスクリプト内で特別な意味を持つ文字のことで、ワードの区切りや引用符の扱い、リダイレクションの指定などに使われる。
 	- メタ文字は文字列の解釈に関わる特別な意味を持つ文字であり、オペレータはシェルコマンドや構文の構成要素となる記号やキーワードであるという違いがある。
+- step.6 tokenizer error
+- step.7 parser
+- step.8 parser er
 - step.9 redirection
 	- dup2
 		- `int dup2(int oldfd, int newfd)`
@@ -116,6 +119,9 @@
 				1. Stop プロセス一時停止 (TASK_STOPPED 状態に遷移させる)
 				1. Cont 一時停止したプロセスの再開 (TASK_STOPPED 状態からの復帰)
 			- 1 から 31 番までの標準シグナルは、各々に紐づく標準動作を持ちます。(使用頻度の高いものだけ記述)
+		1. シグナルハンドラ
+			- シグナル受信すると、ユーザが定義した動作を実行します。
+			- (設定するには、後述の sigaction() などで sa_handler へユーザ定義の関数を指定する)
 
 | シグナル名 | シグナル番号 (x86_64) | 標準動作 | 意味 |
 | -------- | ------------------- | ------- | --- |
@@ -127,10 +133,6 @@
 | SIGTSTP | 20 | Stop | 制御端末からの停止 (Ctrl + Z) |
 
 \
-		3. シグナルハンドラ
-			- シグナル受信すると、ユーザが定義した動作を実行します。
-			- (設定するには、後述の sigaction() などで sa_handler へユーザ定義の関数を指定する)
-	- 
 - step13 environ
 - step14 builtin
 

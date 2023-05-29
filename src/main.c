@@ -50,7 +50,7 @@ int	main(void)
 
 	rl_outstream = stderr;
 	last_status = 0;
-	// signal(SIGINT, handle_signal);
+	signal(SIGINT, handle_signal);
 	while (1)
 	{
 		line = readline("minishell$ ");
