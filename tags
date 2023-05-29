@@ -14,8 +14,8 @@ append_tok	usatie_minishell/src/parse.c	/^void	append_tok(t_token **tok, t_token
 append_variable_name	src/expansion/expand_variable.c	/^char	*append_variable_name(char **rest, char *curr/
 assert_error	src/output_error/output_error.c	/^void	assert_error(const char *str)$/
 at_eof	usatie_minishell/src/parse.c	/^bool	at_eof(t_token *tok)$/
-check_cmd_path	src/main.c	/^char	*check_cmd_path(const char *filename)$/
-check_is_filename	src/main.c	/^bool	check_is_filename(const char *path)$/
+check_cmd_path	src/exec/exec.c	/^char	*check_cmd_path(const char *filename)$/
+check_is_filename	src/exec/exec.c	/^bool	check_is_filename(const char *path)$/
 check_operator	src/parser/parse.c	/^bool	check_operator(t_token *token, char *op)$/
 check_state	usatie_minishell/src/signal.c	/^int	check_state(void)$/
 consume_blank	usatie_minishell/src/tokenize.c	/^bool	consume_blank(char **rest, char *line)$/
@@ -29,8 +29,8 @@ create_new_token_list	src/lexer/tokenize.c	/^t_token	*create_new_token_list(char
 do_redirect	src/redirection/redirect.c	/^void	do_redirect(t_node *redirect)$/
 equal_op	usatie_minishell/src/parse.c	/^bool	equal_op(t_token *tok, char *op)$/
 err_exit	src/output_error/output_error.c	/^void	err_exit(const char *location, const char *ms/
-exec	src/main.c	/^int	exec(t_node *node)$/
-exec_cmd	src/main.c	/^pid_t	exec_cmd(t_node *node)$/
+exec	src/exec/exec.c	/^int	exec(t_node *node)$/
+exec_cmd	src/exec/exec.c	/^pid_t	exec_cmd(t_node *node)$/
 exec_pipeline	usatie_minishell/src/exec.c	/^pid_t	exec_pipeline(t_node *node)$/
 expand	src/expansion/expand.c	/^void	expand(t_node *node)$/
 expand_heredoc_line	src/expansion/expand_heredoc_line.c	/^char	*expand_heredoc_line(char *line)$/
@@ -48,7 +48,7 @@ free_tok	usatie_minishell/src/destructor.c	/^void	free_tok(t_token *tok)$/
 free_token	src/free.c	/^void	free_token(t_token *token)$/
 handler	usatie_minishell/src/signal.c	/^void	handler(int signum)$/
 ignore_sig	usatie_minishell/src/signal.c	/^void	ignore_sig(int signum)$/
-interpret	src/main.c	/^void	interpret(char *const line, int *status)$/
+interpret	src/main.c	/^void	interpret(char* const line, int *status)$/
 is_alpha_num_under	src/expansion/expand_variable.c	/^bool	is_alpha_num_under(char c)$/
 is_alpha_under	src/expansion/expand_variable.c	/^bool	is_alpha_under(char c)$/
 is_blank	src/lexer/blank.c	/^bool	is_blank(char c)$/
@@ -86,6 +86,7 @@ reset_redirect	src/redirection/redirect.c	/^void	reset_redirect(t_node *redirect
 reset_sig	usatie_minishell/src/signal.c	/^void	reset_sig(int signum)$/
 reset_signal	usatie_minishell/src/signal.c	/^void	reset_signal(void)$/
 search_path	usatie_minishell/src/exec.c	/^char	*search_path(const char *filename)$/
+set_signal	src/signal/signal.c	/^void	set_signal(void)$/
 setup_sigint	usatie_minishell/src/signal.c	/^void	setup_sigint(void)$/
 setup_signal	usatie_minishell/src/signal.c	/^void	setup_signal(void)$/
 simple_command	src/parser/parse.c	/^t_node	*simple_command(t_token **rest, t_token *to/
@@ -101,6 +102,6 @@ tokendup	src/parser/parse.c	/^t_token	*tokendup(t_token *token)$/
 tokenize	src/lexer/tokenize.c	/^t_token	*tokenize(char	*line)$/
 tokenize_error	src/output_error/output_error.c	/^void	tokenize_error(const char *location, char **r/
 validate_access	usatie_minishell/src/exec.c	/^void	validate_access(const char *path, const char /
-wait_pipeline	src/main.c	/^int	wait_pipeline(pid_t last_child_pid)$/
+wait_pipeline	src/exec/exec.c	/^int	wait_pipeline(pid_t last_child_pid)$/
 word	usatie_minishell/src/tokenize.c	/^t_token	*word(char **rest, char *line)$/
 xperror	src/output_error/output_error.c	/^void	xperror(const char *location)$/

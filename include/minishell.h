@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/28 21:04:43 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 17:10:14 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define STDOUT_FILENO 1
 # define STDIN_FILENO 0
 # define CHILD_PID 0
+# define NOT_CONTROL_CHARS 0
 
 extern int	last_status;
 extern bool	syntax_error;
@@ -129,6 +130,7 @@ void	prepare_pipe(t_node *node);
 void	prepare_pipe_child(t_node *node);
 void	prepare_pipe_parent(t_node *node);
 // signal
-void	handle_signal(int signal_num);
+void	set_signal(void);
+void	reset_signal(void);
 
 #endif

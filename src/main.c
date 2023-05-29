@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/28 21:16:29 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 16:21:31 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ void	interpret(char* const line, int *status)
 
 int	main(void)
 {
-	char	*line;
+	char		*line;
 
 	rl_outstream = stderr;
 	last_status = 0;
-	signal(SIGINT, handle_signal);
+	set_signal();
+	// signal(SIGINT, SIG_DFL);
 	while (1)
 	{
 		line = readline("minishell$ ");

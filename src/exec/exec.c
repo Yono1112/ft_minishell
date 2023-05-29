@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/28 17:33:57 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 17:10:49 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ pid_t	exec_cmd(t_node *node)
 	else if (pid == CHILD_PID)
 	{
 		// printf("start child_process\n");
+		reset_signal();
 		prepare_pipe_child(node);
 		do_redirect(node->command->redirects);
 		argv = add_token_to_argv(node->command->args);

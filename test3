@@ -1,0 +1,1180 @@
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+hello from a.out
+======================================
+======================================
+======================================
+Applications
+Library
+Network
+Previous Content
+System
+Users
+Volumes
+bin
+cores
+default.profraw
+dev
+etc
+exam
+goinfre
+home
+iSCSI
+installer.failurerequests
+net
+nfs
+opt
+private
+sbin
+sgoinfre
+tmp
+usr
+var
+======================================
+hello world
+======================================
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+"hello   world" 42Tokyo
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+'hello   world' 42Tokyo
+======================================
+hello      world
+======================================
+hello  world    42Tokyo  
+======================================
+======================================
+======================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+.PHONY: all clean fclean re test debug
+======================================
+42Tokyo
+======================================
+======================================
+======================================
+======================================
+hello
+world
+======================================
+======================================
+hello
+world
+======================================
+hello
+world
+======================================
+yuohno
+
+
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+eof
+======================================
+eof
+======================================
+NAME = minishell
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+yuohno
+======================================
+yuohno/Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/binxterm-256color
+======================================
+yuohno  /Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin   xterm-256color
+======================================
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+hello from a.out
+======================================
+======================================
+======================================
+Applications
+Library
+Network
+Previous Content
+System
+Users
+Volumes
+bin
+cores
+default.profraw
+dev
+etc
+exam
+goinfre
+home
+iSCSI
+installer.failurerequests
+net
+nfs
+opt
+private
+sbin
+sgoinfre
+tmp
+usr
+var
+======================================
+hello world
+======================================
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+"hello   world" 42Tokyo
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+'hello   world' 42Tokyo
+======================================
+hello      world
+======================================
+hello  world    42Tokyo  
+======================================
+======================================
+======================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+.PHONY: all clean fclean re test debug
+======================================
+42Tokyo
+======================================
+======================================
+======================================
+======================================
+hello
+world
+======================================
+======================================
+hello
+world
+======================================
+hello
+world
+======================================
+yuohno
+
+
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+eof
+======================================
+eof
+======================================
+NAME = minishell
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+yuohno
+======================================
+yuohno/Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/binxterm-256color
+======================================
+yuohno  /Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin   xterm-256color
+======================================
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+hello from a.out
+======================================
+======================================
+======================================
+Applications
+Library
+Network
+Previous Content
+System
+Users
+Volumes
+bin
+cores
+default.profraw
+dev
+etc
+exam
+goinfre
+home
+iSCSI
+installer.failurerequests
+net
+nfs
+opt
+private
+sbin
+sgoinfre
+tmp
+usr
+var
+======================================
+hello world
+======================================
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+"hello   world" 42Tokyo
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+'hello   world' 42Tokyo
+======================================
+hello      world
+======================================
+hello  world    42Tokyo  
+======================================
+======================================
+======================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+.PHONY: all clean fclean re test debug
+======================================
+42Tokyo
+======================================
+======================================
+======================================
+======================================
+hello
+world
+======================================
+======================================
+hello
+world
+======================================
+hello
+world
+======================================
+yuohno
+
+
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+eof
+======================================
+eof
+======================================
+NAME = minishell
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+yuohno
+======================================
+yuohno/Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/binxterm-256color
+======================================
+yuohno  /Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin   xterm-256color
+======================================
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+hello from a.out
+======================================
+======================================
+======================================
+Applications
+Library
+Network
+Previous Content
+System
+Users
+Volumes
+bin
+cores
+default.profraw
+dev
+etc
+exam
+goinfre
+home
+iSCSI
+installer.failurerequests
+net
+nfs
+opt
+private
+sbin
+sgoinfre
+tmp
+usr
+var
+======================================
+hello world
+======================================
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+"hello   world" 42Tokyo
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+'hello   world' 42Tokyo
+======================================
+hello      world
+======================================
+hello  world    42Tokyo  
+======================================
+======================================
+======================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+.PHONY: all clean fclean re test debug
+======================================
+42Tokyo
+======================================
+======================================
+======================================
+======================================
+hello
+world
+======================================
+======================================
+hello
+world
+======================================
+hello
+world
+======================================
+yuohno
+
+
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+eof
+======================================
+eof
+======================================
+NAME = minishell
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+yuohno
+======================================
+yuohno/Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/binxterm-256color
+======================================
+yuohno  /Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin   xterm-256color
+======================================
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+/Users/yuohno/Documents/42tokyo_learner/42Tokyo_minishell
+======================================
+
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+hello from a.out
+======================================
+======================================
+======================================
+Applications
+Library
+Network
+Previous Content
+System
+Users
+Volumes
+bin
+cores
+default.profraw
+dev
+etc
+exam
+goinfre
+home
+iSCSI
+installer.failurerequests
+net
+nfs
+opt
+private
+sbin
+sgoinfre
+tmp
+usr
+var
+======================================
+hello world
+======================================
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+"hello   world" 42Tokyo
+======================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+======================================
+hello   world 42Tokyo
+======================================
+'hello   world' 42Tokyo
+======================================
+hello      world
+======================================
+hello  world    42Tokyo  
+======================================
+======================================
+======================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+.PHONY: all clean fclean re test debug
+======================================
+42Tokyo
+======================================
+======================================
+======================================
+======================================
+hello
+world
+======================================
+======================================
+hello
+world
+======================================
+hello
+world
+======================================
+yuohno
+
+
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+======================================
+eof
+======================================
+eof
+======================================
+NAME = minishell
+======================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+test3
+test4
+usatie_minishell
+======================================
+yuohno
+======================================
+yuohno/Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/binxterm-256color
+======================================
+yuohno  /Users/yuohno/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin   xterm-256color
+======================================
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+127
+0
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
+======================================
