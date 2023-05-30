@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/30 16:42:34 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/30 20:09:08 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(void)
 		line = readline("minishell$ ");
 		if (line == NULL)
 		{
-			// printf("Ctrl + D\n");
+			printf("exit\n");
 			break ;
 		}
 		if (*line)
