@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/24 20:18:51 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 19:18:52 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 # include <limits.h>
 // limits.h PATH_MAX
 # include <stdbool.h>
+# include <readline/rltypedefs.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/wait.h>
 # include <stddef.h>
 # include <ctype.h>
+# include <signal.h>
 
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '\"'
@@ -35,9 +37,12 @@
 # define STDOUT_FILENO 1
 # define STDIN_FILENO 0
 # define CHILD_PID 0
+# define NOT_CONTROL_CHARS 0
 
 extern int	last_status;
 extern bool	syntax_error;
+extern bool	readline_interrupted;
+volatile sig_atomic_t	sig;
 
 typedef enum e_token_kind
 {
@@ -90,6 +95,8 @@ void	assert_error(const char *str);
 void	todo(const char *msg);
 void	err_exit(const char *location, const char *msg, int status);
 void	xperror(const char *location);
+// exec
+int	exec(t_node *node);
 // tokenizer
 t_token	*tokenize(char	*line);
 void	free_token(t_token *token);
@@ -124,5 +131,8 @@ void	reset_redirect(t_node *redirect);
 void	prepare_pipe(t_node *node);
 void	prepare_pipe_child(t_node *node);
 void	prepare_pipe_parent(t_node *node);
+// signal
+void	set_signal(void);
+void	reset_signal(void);
 
 #endif

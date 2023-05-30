@@ -6,12 +6,14 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/24 20:43:57 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/29 19:03:16 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <fcntl.h>
+
+bool	readline_interrupted = false;
 
 static int	stashfd(int fd)
 {
@@ -40,12 +42,13 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote)
 		fatal_error("pipe");
 	// printf("pfd[0]: %d\n", pfd[0]);
 	// printf("pfd[1]: %d\n", pfd[1]);
+	readline_interrupted = false;
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (strcmp(line, delimiter) == 0)
+		if (readline_interrupted || !strcmp(line, delimiter))
 		{
 			free(line);
 			break ;
@@ -54,6 +57,11 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote)
 			line = expand_heredoc_line(line);
 		dprintf(pfd[1], "%s\n", line);
 		free(line);
+	}
+	if (readline_interrupted)
+	{
+		close(pfd[0]);
+		return (-1);
 	}
 	close(pfd[1]);
 	return (pfd[0]);
@@ -105,7 +113,8 @@ int	open_redirect_file(t_node *node)
 			todo("open_node_file");
 		if (node->filefd < 0)
 		{
-			xperror(node->filename->word);
+			if (node->kind == ND_REDIR_IN || node->kind == ND_REDIR_OUT || node->kind == ND_REDIR_APPEND)
+				xperror(node->filename->word);
 			return (-1);
 		}
 		node->filefd = stashfd(node->filefd);
@@ -136,7 +145,8 @@ void	do_redirect(t_node *redirect)
 		if (is_redirect(redirect))
 		{
 			// printf("redirect->targetfd: %d\n", redirect->targetfd);
-			redirect->stashed_targetfd = stashfd(redirect->targetfd);
+			if (redirect->stashed_targetfd != STDIN_FILENO)
+				redirect->stashed_targetfd = stashfd(redirect->targetfd);
 			// printf("redirect->stashed_targetfd: %d\n", redirect->stashed_targetfd);
 			if (dup2(redirect->filefd, redirect->targetfd) < 0)
 			{
