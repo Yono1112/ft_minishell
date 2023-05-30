@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/29 20:57:32 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/30 18:25:51 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,22 +117,35 @@ int	wait_pipeline(pid_t last_child_pid)
 	int		wstatus;
 
 	// printf("start wait_pipeline\n");
+	// fflush(stdout);
+	// printf("sig: %d\n", sig);
+	// fflush(stdout);
+	// printf("last_child_pid:%d\n", last_child_pid);
+	// fflush(stdout);
 	while (1)
 	{
+		sig = 0;
 		wait_pid = wait(&wstatus);
+		// printf("wait_pid: %d", wait_pid);
 		if (wait_pid == last_child_pid)
 		{
 			if (WIFSIGNALED(wstatus))
-				status = 128 + WTERMSIG(wstatus);
+			{
+				if (isatty(STDIN_FILENO))
+					printf("\n");
+			 	status = 128 + WTERMSIG(wstatus);
+			}
 			else
 				status = WEXITSTATUS(wstatus);
 		}
 		else if (wait_pid < 0)
 		{
 			if (errno == ECHILD)
-				break ;
+					break ;
 			else if (errno == EINTR)
+			{
 				continue ;
+			}
 			else
 				fatal_error("wait");
 		}
