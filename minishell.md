@@ -155,6 +155,7 @@
 	- [readlineライブラリの関数一覧](https://web.mit.edu/gnu/doc/html/rlman_2.html)
 	- [sig_atomic_t](https://programming-place.net/ppp/contents/c/appendix/reference/sig_atomic_t.html)
 	- [【C言語】volatileの使いどころについて](https://tubasa-blog.com/about-volatile/)
+	- [【C言語】printfで文字の色や背景色を変更する](https://daeudaeu.com/c-printf-color/)
 - git
 	- [個人開発でGithubのissue,プルリクを活用する方法](https://qiita.com/usayamadausako/items/375bdae07e381745e6eb)
 	- [git clone の際に submodule の clone を忘れたときの対処法](https://qiita.com/kentarosasaki/items/3e670567c0512b9d411e)

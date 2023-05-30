@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/30 20:09:08 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/30 20:36:43 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	main(void)
 	rl_outstream = stderr;
 	last_status = 0;
 	set_signal();
-	// signal(SIGINT, SIG_DFL);
 	while (1)
 	{
-		line = readline("minishell$ ");
+		line = readline(SHELL_PROMPT);
+		// line = readline("minishell$ ");
 		if (line == NULL)
 		{
 			printf("exit\n");

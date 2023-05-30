@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/29 19:18:52 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/30 20:35:18 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define STDIN_FILENO 0
 # define CHILD_PID 0
 # define NOT_CONTROL_CHARS 0
+// # define SHELL_PROMPT "\x1b[96mminishell\x1b[0m$ "
 
 extern int	last_status;
 extern bool	syntax_error;

@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/30 18:25:51 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/05/30 20:23:07 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,8 @@ int	wait_pipeline(pid_t last_child_pid)
 		{
 			if (WIFSIGNALED(wstatus))
 			{
-				if (isatty(STDIN_FILENO))
-					printf("\n");
+				// if (isatty(STDIN_FILENO))
+				//  	printf("\n");
 			 	status = 128 + WTERMSIG(wstatus);
 			}
 			else
