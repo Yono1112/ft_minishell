@@ -38,12 +38,13 @@
 # define STDIN_FILENO 0
 # define CHILD_PID 0
 # define NOT_CONTROL_CHARS 0
-// # define SHELL_PROMPT "\x1b[96mminishell\x1b[0m$ "
+# define SHELL_PROMPT "\x1b[96mminishell\x1b[0m$ "
 
 extern int	last_status;
 extern bool	syntax_error;
 extern bool	readline_interrupted;
 volatile sig_atomic_t	sig;
+extern int	_rl_echo_control_chars;
 
 typedef enum e_token_kind
 {

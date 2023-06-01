@@ -53,8 +53,8 @@ int	main(void)
 	set_signal();
 	while (1)
 	{
-		// line = readline(SHELL_PROMPT);
-		line = readline("minishell$ ");
+		line = readline(SHELL_PROMPT);
+		// line = readline("minishell$ ");
 		if (line == NULL)
 		{
 			// printf("exit\n");
