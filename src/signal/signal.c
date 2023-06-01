@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/30 18:23:50 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/01 18:55:33 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	reset_signal(void)
 	// printf("reset_signal\n");
 	// printf("sig: %d\n", sig);
 	signal(SIGQUIT, SIG_DFL);
-	// signal(SIGINT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 }
 
 void	handle_signal(int signal_num)
@@ -50,9 +50,9 @@ int	check_state(void)
 		sig = 0;
 		// printf("sig: %d\n", sig);
 		readline_interrupted = true;
+		// rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		// rl_redisplay();
 		rl_done = 1;
 		// rl_crlf();
 		// printf("\n");

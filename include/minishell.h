@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/30 20:41:44 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/01 18:33:12 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,7 @@ void	prepare_pipe_parent(t_node *node);
 // signal
 void	set_signal(void);
 void	reset_signal(void);
+// builtin
+bool	is_builtin(t_node *node);
 
 #endif
