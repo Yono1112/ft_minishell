@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:07:45 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/31 17:12:48 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/03 20:44:08 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ char	**add_token_to_argv(t_token *token)
 	i = 0;
 	while (token && token->kind != TK_EOF)
 	{
+		// printf("token->kind: %d\n", token->kind);
 		if (token->kind == TK_WORD)
 		{
+			// printf("start add_token_to_argv\n");
 			argv[i] = strdup(token->word);
+			// printf("argv[%zu]: %s\n", i, argv[i]);
 			if (argv[i] == NULL)
 				fatal_error("strdup");
 			i++;

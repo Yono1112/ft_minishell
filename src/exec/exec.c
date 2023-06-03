@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/02 03:55:08 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/02 09:56:48 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,6 @@ int	wait_pipeline(pid_t last_child_pid)
 	int		status;
 	int		wstatus;
 
-	// printf("start wait_pipeline\n");
-	// fflush(stdout);
-	// printf("sig: %d\n", sig);
-	// fflush(stdout);
-	// printf("last_child_pid:%d\n", last_child_pid);
-	// fflush(stdout);
 	while (1)
 	{
 		sig = 0;
@@ -146,17 +140,14 @@ int	exec_cmd(t_node *node)
 			prepare_pipe_child(node);
 			if (node->command->redirects != NULL)
 				do_redirect(node->command->redirects);
-			// if (is_builtin(node))
-			// 	exit(exec_builtin_cmd(node));
-			// else
+			if (is_builtin(node))
+			 	exit(exec_builtin_cmd(node));
+			else
 				exec_simple_cmd(node);
 		}
-		else
-		{
-			// printf("start parent_process\n");
-			prepare_pipe_parent(node);
-			status = wait_pipeline(pid);
-		}
+		// printf("start parent_process\n");
+		prepare_pipe_parent(node);
+		status = wait_pipeline(pid);
 		node = node->next;
 	}
 	return (status);
@@ -168,8 +159,11 @@ int	exec(t_node *node)
 
 	if (open_redirect_file(node) < 0)
 		return (ERROR_OPEN_REDIR);
-	// if (node->next == NULL && is_builtin(node))
-	// 	exec_builtin(node);
+	if (node->next == NULL && is_builtin(node))
+	{
+		// printf("exec_builtin_cmd in parent process\n");
+	 	exec_builtin_cmd(node);
+	}
 	// printf("finish open_redirect\n");
 	status = exec_cmd(node);
 	// printf("finish exec_cmd\n");
