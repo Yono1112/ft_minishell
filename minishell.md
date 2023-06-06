@@ -1,11 +1,72 @@
 # minishell
-## Flow
+## General flow
+- bashの大まかな処理の流れは1.input from readline 2. tokenize and parse 3. expand 4. exec commandの4つに分けられる
 1. input from readline
-1. lexer(tokenizer) and parser
-	1. lexer
-	1. parser
+	- ユーザーから任意のコマンドを受け取る。
+	- 該当章
+		- Step1. Readline Loop
+		- Step12. Signal
+1. tokenize and parse
+	- 受け取った文字列をシェルが 1 単位とみなす文字の並び(token)に分割し(tokenize)、各トークンが全体としてどのような命令であるのかを解釈する(parse)。
+	- 該当章
+		- Step5. Tokenizer
+		- Step6. Tokenize Error
+		- Step7. Parser（Simple Command）
+		- Step8. Parse Error
+		- Step9. Redirection
+		- Step10. Pipe
+	1. tokenize
+		- 単語(token)は、単純な文字列("echo"など)スペース(` `)やタブ(`\t`)などの単純な区切り文字や、セミコロンやアンパサンドなどの制御機能を持つトークン(`|| & && ; ;; ( ) | |& <newline>`など)、メタ文字で区切られた文字の連続(`| & ; ( ) < > space tab`)がある。
+		- 例えば`echo "$PATH" | grep "bin" > test.txt`だった場合、`echo`,`"$PATH"`,`|`,`grep`,`"bin"`,`>`,`test.txt`に分割する
+	1. parse
+		- tokenizeで分割された各単語(token)がそれぞれどのように関連しているのかを解釈する
 1. expand
-1. exec cmd
+	- 環境変数(`$PATH`など)や特殊パラメーター(`$?`など)を任意の文字列に変換する。囲まれているシングルクォーテーション、ダブルクォーテーションもここの処理で削除する
+	- 該当章
+		- Step11. Expand（Parameter）
+1. exec command
+	- 設定されているnodeリストの順番でcommandを処理する
+	- 該当章
+		- Step9. Redirection
+		- Step10. Pipe
+		- Step12. Signal
+		- Step13. Environ/Hashmap
+		- Step14. Builtin
+
+## Code flow
+1. input from readline
+	1. readline中のsignalの動作を設定する(`set_signal()`)
+	1. ユーザーから文字列を受け取るまで待機する(`readline()`)
+	1. 受け取った文字列がNULLではなければ以降の処理に進む(`interpret()`)
+1. tokenize
+	1. blankがある場合はblankをスキップする(`skip_blank()`)
+	1. operatorである場合はoperatorの種類としてt_tokenリストの最後の要素にt_token_kindをoperatorとして格納する(`add_operator_to_list()`)
+	1. wordである場合はt_tokenリストの最後の要素にt_token_kindをwordとして格納する(`add_word_to_list()`)
+	1. 入力された文字列の最後まで処理を続ける(文字列がまだある場合は1に戻る)
+1. parse
+	1. t_node_kindがpipelineのnodeリストを作成する(`pipeline()`)
+	1. t_node_kindがcommandのnodeリストを作成する(`simple_command()`)
+		1. tokenがwordである場合はcommadリストのargsリスト(これはtokenリスト)にwordを格納する(`add_token_to_node()`)
+		1. tokenがredirectである場合はcommandリストにredirectを格納する(`add_operator_to-node()`)
+		1. tokenリストの最後までor制御機能を持つトークン(pipeとか)が来るまで処理を続ける
+	1. tokenの文字列がpipeである場合はparseの最初の処理に戻る
+1. expand
+	1. 変数や特殊パラメーターがあれば展開する(`expand_variable()`)
+	1. シングルクォーテーション、ダブルクォーテーションがあれば削除する(`remove_quote`)
+1. exec command(`exec()`)
+	1. redirectがあればファイルをオープンする(`open_redirect_file`)
+	1. コマンドが組み込みコマンド(builtin command)のみの場合は親プロセス上でそのコマンドを実行する(`exec_builtin_cmd()`)
+	1. builtinではなければ子プロセス上でコマンドを実行する(`exec_cmd`)
+		1. pipeがあればpipeを展開する(`prepare_pipe()`)
+		1. forkして子プロセスを生成する(`fork()`)
+		1. 子プロセスの場合かつbuiltinコマンドであれば、そのプロセス上でコマンドを実行した後にexitする(`exit(exec_builtin_cmd())`)
+		1. 子プロセスでbuiltinコマンドでなければ、そのプロセス上でコマンドを実行する(コマンドの実行が成功すればexitする)(`exec_simple_cmd()`)
+			1. tokenをargv(charのダブルポインタ型)に変換する(`add_token_to_argv()`)
+			1. コマンドが絶対パスでなければパスをコマンドの前に連結する(`check_cmd_path()`)
+			1. パスが通ったコマンドがあれば実行、なければ"command not found"を出力する(`execve()`)
+	1. 親プロセスはnodeリストの最後まで処理を続ける(pipeがあれば3(`exec_cmd()`)に戻る)
+	1. 親プロセスで子プロセスが全てコマンドを実行してexitするまで待機する(`wait_pipeline()`)
+	1. コマンドの終了ステータス(コマンドは実行を終了したら終了ステータスを返す)をmainプロセスからreturnする
 
 ## Note for each step
 - step.1 Readline Loop
@@ -56,7 +117,7 @@
 	- メタ文字は文字列の解釈に関わる特別な意味を持つ文字であり、オペレータはシェルコマンドや構文の構成要素となる記号やキーワードであるという違いがある。
 - step.6 tokenizer error
 - step.7 parser
-- step.8 parser er
+- step.8 parser error
 - step.9 redirection
 	- dup2
 		- `int dup2(int oldfd, int newfd)`
@@ -138,7 +199,7 @@
 - step13 environ
 - step14 builtin
 
-##doc
+## doc
 - minishell
 	- [man bash](https://linuxjm.osdn.jp/html/GNU_bash/man1/bash.1.html)
 	- [minishellの作り方(usami-sanのminishell解説)](https://usatie.notion.site/minishell-29921d3ea13447ad897349acd5733d5e)

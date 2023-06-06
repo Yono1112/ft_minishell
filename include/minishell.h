@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/02 09:46:27 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/06 22:14:12 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 extern int	last_status;
 extern bool	syntax_error;
 extern bool	readline_interrupted;
-volatile sig_atomic_t	sig;
+extern volatile sig_atomic_t	sig;
 extern int	_rl_echo_control_chars;
 
 typedef enum e_token_kind
@@ -91,6 +91,9 @@ typedef struct s_node
 	int				outpipe[2];
 }	t_node;
 
+// free
+void	free_node(t_node *node);
+void	free_argv(char **argv);
 // error
 void	fatal_error(const char *str);
 void	assert_error(const char *str);
@@ -124,7 +127,6 @@ void	expand_variable_str(char **new_word, char **rest, char *current_word);
 bool	is_special_parametar(char *str);
 // parser
 t_node	*parse(t_token *token);
-void	free_node(t_node *node);
 // redirection
 int		open_redirect_file(t_node *redirect);
 void	do_redirect(t_node *redirect);

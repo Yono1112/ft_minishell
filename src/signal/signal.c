@@ -6,13 +6,13 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/02 03:52:44 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/06 22:14:47 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t	sig = 0;
+volatile sig_atomic_t	sig;
 extern int	_rl_echo_control_chars;
 
 void	reset_signal_to_default(void)

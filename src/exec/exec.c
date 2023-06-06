@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/02 09:56:48 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/06 19:29:35 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	wait_pipeline(pid_t last_child_pid)
 			if (WIFSIGNALED(wstatus))
 			{
 				if (isatty(STDIN_FILENO))
-				  	printf("\n");
+					printf("\n");
 			 	status = 128 + WTERMSIG(wstatus);
 			}
 			else
@@ -117,6 +117,7 @@ void	exec_simple_cmd(t_node *node)
 	if (!check_is_filename(path))
 		err_exit(argv[0], "command not found", 127);
 	execve(path, argv, environ);
+	free_argv(argv);
 	fatal_error("execve");
 }
 
@@ -141,15 +142,15 @@ int	exec_cmd(t_node *node)
 			if (node->command->redirects != NULL)
 				do_redirect(node->command->redirects);
 			if (is_builtin(node))
-			 	exit(exec_builtin_cmd(node));
+				exit(exec_builtin_cmd(node));
 			else
 				exec_simple_cmd(node);
 		}
 		// printf("start parent_process\n");
 		prepare_pipe_parent(node);
-		status = wait_pipeline(pid);
 		node = node->next;
 	}
+	status = wait_pipeline(pid);
 	return (status);
 }
 
@@ -162,7 +163,7 @@ int	exec(t_node *node)
 	if (node->next == NULL && is_builtin(node))
 	{
 		// printf("exec_builtin_cmd in parent process\n");
-	 	exec_builtin_cmd(node);
+		exec_builtin_cmd(node);
 	}
 	// printf("finish open_redirect\n");
 	status = exec_cmd(node);

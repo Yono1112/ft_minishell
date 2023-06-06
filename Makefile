@@ -1,8 +1,12 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
 RLDIR = $(shell brew --prefix readline)
 LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
 # LDFLAGS = -lreadline
 RM = rm -rf
 SRCS =	src/main.c	\
@@ -31,7 +35,7 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 INC = -I include -I$(RLDIR)/include
 
-DEBUG_FLAG = -fsanitize=address
+DEBUG_FLAG = -fsanitize=address,leak
 
 all: $(NAME)
 
