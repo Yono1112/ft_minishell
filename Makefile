@@ -1,8 +1,12 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
 RLDIR = $(shell brew --prefix readline)
 LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
 # LDFLAGS = -lreadline
 RM = rm -rf
 SRCS =	src/main.c	\
@@ -21,14 +25,17 @@ SRCS =	src/main.c	\
 		src/redirection/redirect.c	\
 		src/pipeline/pipe.c	\
 		src/exec/exec.c	\
-		src/signal/signal.c
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 INC = -I include -I$(RLDIR)/include
 
-DEBUG_FLAG = -fsanitize=address
+DEBUG_FLAG = -fsanitize=address,leak
 
 all: $(NAME)
 
@@ -40,6 +47,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
+	$(RM) $(OBJS)
 	$(RM) $(OBJ_DIR)
 
 fclean: clean

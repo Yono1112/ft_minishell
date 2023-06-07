@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/29 19:18:52 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/06 22:14:12 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@
 # define STDIN_FILENO 0
 # define CHILD_PID 0
 # define NOT_CONTROL_CHARS 0
+# define SHELL_PROMPT "\x1b[96mminishell\x1b[0m$ "
 
 extern int	last_status;
 extern bool	syntax_error;
 extern bool	readline_interrupted;
-volatile sig_atomic_t	sig;
+extern volatile sig_atomic_t	sig;
+extern int	_rl_echo_control_chars;
 
 typedef enum e_token_kind
 {
@@ -89,6 +91,9 @@ typedef struct s_node
 	int				outpipe[2];
 }	t_node;
 
+// free
+void	free_node(t_node *node);
+void	free_argv(char **argv);
 // error
 void	fatal_error(const char *str);
 void	assert_error(const char *str);
@@ -122,7 +127,6 @@ void	expand_variable_str(char **new_word, char **rest, char *current_word);
 bool	is_special_parametar(char *str);
 // parser
 t_node	*parse(t_token *token);
-void	free_node(t_node *node);
 // redirection
 int		open_redirect_file(t_node *redirect);
 void	do_redirect(t_node *redirect);
@@ -133,6 +137,10 @@ void	prepare_pipe_child(t_node *node);
 void	prepare_pipe_parent(t_node *node);
 // signal
 void	set_signal(void);
-void	reset_signal(void);
+void	reset_signal_to_default(void);
+// builtin
+bool	is_builtin(t_node *node);
+int		exec_builtin_cmd(t_node *node);
+int		exec_builtin_exit(char **argv);
 
 #endif

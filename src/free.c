@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:05:12 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/18 19:36:23 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/06 22:15:01 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	free_node(t_node *node)
 	free_token(node->filename);
 	free_token(node->delimiter);
 	free_node(node->redirects);
-	free_node(node->command);
 	free_node(node->next);
+	free_node(node->command);
 	free(node);
 }
 
@@ -31,7 +31,8 @@ void	free_token(t_token *token)
 		return ;
 	if (token->word)
 		free(token->word);
-	free(token->next);
+	if (token->next)
+		free_token(token->next);
 	free(token);
 }
 

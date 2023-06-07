@@ -58,7 +58,7 @@ assert() {
 # echo "======================================" >> test3
 # cat cmp >> test4
 # echo "=====================================" >> test4
-# diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
+diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
 
 # 	# bashとminishellの出力を比較
 if [ "$actual" = "$expected" ]; then
@@ -229,5 +229,14 @@ assert './infinite_loop'
 # 1. Ctrl-\ 
 # 2. Ctrl-C
 # 3. Ctrl-D
+
+# Builtin
+## exit
+assert 'exit'
+assert 'exit 42'
+assert 'exit ""'
+assert 'exit hello'
+assert 'exit 42Tokyo'
+assert 'exit 1 2'
 
 cleanup

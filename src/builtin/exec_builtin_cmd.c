@@ -1,0 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_builtin_cmd.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/02 09:33:42 by yuohno            #+#    #+#             */
+/*   Updated: 2023/06/07 19:41:07 by yuohno           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int	exec_builtin_cmd(t_node *node)
+{
+	int		status;
+	char	**argv;
+
+	// printf("start exec_builtin_cmd\n");
+	status = 0;
+	argv = NULL;
+	if (node->command->args)
+		argv = add_token_to_argv(node->command->args);
+	if (strcmp(argv[0], "exit") == 0)
+	{
+		// printf("exit\n");
+		// status = exec_builtin_exit(argv);
+	}
+	else
+		todo("exec_builtin");
+	free_argv(argv);
+	reset_redirect(node->command->redirects);
+	return (status);
+}

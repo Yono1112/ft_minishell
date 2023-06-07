@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/30 18:25:51 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/06 19:29:35 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,60 +68,12 @@ char	*check_cmd_path(const char *filename)
 	return (NULL);
 }
 
-pid_t	exec_cmd(t_node *node)
-{
-	extern char	**environ;
-	char		*path;
-	pid_t		pid;
-	char		**argv;
-
-	// printf("start exec_cmd\n");
-	if (node == NULL)
-		return (-1);
-	prepare_pipe(node);
-	pid = fork();
-	// printf("fork=============================================\n");
-	if (pid < 0)
-		fatal_error("fork");
-	else if (pid == CHILD_PID)
-	{
-		// printf("start child_process\n");
-		reset_signal();
-		prepare_pipe_child(node);
-		do_redirect(node->command->redirects);
-		argv = add_token_to_argv(node->command->args);
-		path = argv[0];
-		if (strchr(path, '/') == NULL)
-			path = check_cmd_path(path);
-		if (!check_is_filename(path))
-			err_exit(argv[0], "command not found", 127);
-		execve(path, argv, environ);
-		// reset_redirect(node->redirects);
-		fatal_error("execve");
-	}
-	else
-	{
-		// printf("start parent_process\n");
-		prepare_pipe_parent(node);
-	}
-	if (node->next)
-		return (exec_cmd(node->next));
-	else
-		return (pid);
-}
-
 int	wait_pipeline(pid_t last_child_pid)
 {
 	pid_t	wait_pid;
 	int		status;
 	int		wstatus;
 
-	// printf("start wait_pipeline\n");
-	// fflush(stdout);
-	// printf("sig: %d\n", sig);
-	// fflush(stdout);
-	// printf("last_child_pid:%d\n", last_child_pid);
-	// fflush(stdout);
 	while (1)
 	{
 		sig = 0;
@@ -143,9 +95,7 @@ int	wait_pipeline(pid_t last_child_pid)
 			if (errno == ECHILD)
 					break ;
 			else if (errno == EINTR)
-			{
 				continue ;
-			}
 			else
 				fatal_error("wait");
 		}
@@ -154,16 +104,83 @@ int	wait_pipeline(pid_t last_child_pid)
 	return (status);
 }
 
+void	exec_simple_cmd(t_node *node)
+{
+	extern char	**environ;
+	char		*path;
+	char		**argv;
+
+	argv = add_token_to_argv(node->command->args);
+	path = argv[0];
+	if (strchr(path, '/') == NULL)
+		path = check_cmd_path(path);
+	if (!check_is_filename(path))
+		err_exit(argv[0], "command not found", 127);
+	execve(path, argv, environ);
+	free_argv(argv);
+	fatal_error("execve");
+}
+
+int	exec_cmd(t_node *node)
+{
+	pid_t		pid;
+	int			status;
+
+	while (node != NULL)
+	{
+		// printf("start exec_cmd\n");
+		prepare_pipe(node);
+		pid = fork();
+		// printf("fork=============================================\n");
+		if (pid < 0)
+			fatal_error("fork");
+		else if (pid == CHILD_PID)
+		{
+			// printf("start child_process\n");
+			reset_signal_to_default();
+			prepare_pipe_child(node);
+			if (node->command->redirects != NULL)
+				do_redirect(node->command->redirects);
+			if (is_builtin(node))
+				exit(exec_builtin_cmd(node));
+			else
+				exec_simple_cmd(node);
+		}
+		// printf("start parent_process\n");
+		prepare_pipe_parent(node);
+		node = node->next;
+	}
+	status = wait_pipeline(pid);
+	return (status);
+}
+
 int	exec(t_node *node)
 {
 	int		status;
-	pid_t	last_child_pid;
 
 	if (open_redirect_file(node) < 0)
 		return (ERROR_OPEN_REDIR);
+	if (node->next == NULL && is_builtin(node))
+	{
+		// printf("exec_builtin_cmd in parent process\n");
+		exec_builtin_cmd(node);
+	}
 	// printf("finish open_redirect\n");
-	last_child_pid = exec_cmd(node);
+	status = exec_cmd(node);
 	// printf("finish exec_cmd\n");
-	status = wait_pipeline(last_child_pid);
 	return (status);
 }
+
+// int	exec(t_node *node)
+// {
+// 	int		status;
+// 	pid_t	last_child_pid;
+// 
+// 	if (open_redirect_file(node) < 0)
+// 		return (ERROR_OPEN_REDIR);
+// 	// printf("finish open_redirect\n");
+// 	last_child_pid = exec_cmd(node);
+// 	// printf("finish exec_cmd\n");
+// 	status = wait_pipeline(last_child_pid);
+// 	return (status);
+// }

@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/30 16:42:34 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/06 22:15:28 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@
 // #include <readline/history.h>
 
 int	last_status;
+
+void	print_token(t_token *token)
+{
+	while (token && token->kind != TK_EOF)
+	{
+		printf("token_word: %s\n", token->word);
+		token = token->next;
+	}
+}
 
 void	interpret(char* const line, int *status)
 {
@@ -41,6 +50,7 @@ void	interpret(char* const line, int *status)
 		}
 		free_node(node);
 	}
+	// print_token(token);
 	free_token(token);
 }
 
@@ -51,13 +61,13 @@ int	main(void)
 	rl_outstream = stderr;
 	last_status = 0;
 	set_signal();
-	// signal(SIGINT, SIG_DFL);
 	while (1)
 	{
-		line = readline("minishell$ ");
+		line = readline(SHELL_PROMPT);
+		// line = readline("minishell$ ");
 		if (line == NULL)
 		{
-			// printf("Ctrl + D\n");
+			// printf("exit\n");
 			break ;
 		}
 		if (*line)
