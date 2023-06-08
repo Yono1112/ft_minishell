@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/06 22:14:12 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/07 20:22:01 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,6 @@ void	reset_signal_to_default(void);
 bool	is_builtin(t_node *node);
 int		exec_builtin_cmd(t_node *node);
 int		exec_builtin_exit(char **argv);
+int		exec_builtin_echo(char **argv);
 
 #endif

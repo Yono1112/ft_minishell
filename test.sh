@@ -239,4 +239,16 @@ assert 'exit hello'
 assert 'exit 42Tokyo'
 assert 'exit 1 2'
 
+## echo
+assert 'echo'
+assert 'echo hello'
+assert 'echo hello "    " world'
+assert 'echo -n'
+assert 'echo -a'
+assert 'echo -n hello'
+assert 'echo -n hello world'
+assert 'echo hello -n'
+assert 'echo -nnnnn hello'
+assert 'echo -na hello'
+
 cleanup

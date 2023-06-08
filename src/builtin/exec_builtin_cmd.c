@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:33:42 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/07 19:41:07 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/07 20:43:07 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int	exec_builtin_cmd(t_node *node)
 	{
 		// printf("exit\n");
 		// status = exec_builtin_exit(argv);
+	}
+	else if (strcmp(argv[0], "echo") == 0)
+	{
+		// printf("echo\n");
+		status = exec_builtin_echo(argv);
 	}
 	else
 		todo("exec_builtin");

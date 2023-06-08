@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/06 19:29:35 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/07 20:43:30 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,15 @@ int	exec_cmd(t_node *node)
 			if (node->command->redirects != NULL)
 				do_redirect(node->command->redirects);
 			if (is_builtin(node))
+			{
+				// printf("exec_builtin_cmd\n");
 				exit(exec_builtin_cmd(node));
+			}
 			else
+			{
+				// printf("exec_simple_cmd\n");
 				exec_simple_cmd(node);
+			}
 		}
 		// printf("start parent_process\n");
 		prepare_pipe_parent(node);
@@ -158,6 +164,7 @@ int	exec(t_node *node)
 {
 	int		status;
 
+	status = 0;
 	if (open_redirect_file(node) < 0)
 		return (ERROR_OPEN_REDIR);
 	if (node->next == NULL && is_builtin(node))
@@ -165,9 +172,11 @@ int	exec(t_node *node)
 		// printf("exec_builtin_cmd in parent process\n");
 		exec_builtin_cmd(node);
 	}
-	// printf("finish open_redirect\n");
-	status = exec_cmd(node);
-	// printf("finish exec_cmd\n");
+	else
+	{
+		// printf("finish exec_cmd\n");
+		status = exec_cmd(node);
+	}
 	return (status);
 }
 
