@@ -5,21 +5,16 @@ add_token_to_argv	src/lexer/add_token_to_argv.c	/^char	**add_token_to_argv(t_tok
 add_token_to_node	src/parser/parse.c	/^void	add_token_to_node(t_token **node_token, t_tok/
 add_word_to_list	src/lexer/word.c	/^t_token	*add_word_to_list(char **rest_line, char */
 append_char	src/expansion/expand.c	/^void	append_char(char **s, char c)$/
-append_command_element	usatie_minishell/src/parse.c	/^void	append_command_element(t_node *command, t_tok/
 append_double_quote	src/expansion/expand_variable.c	/^void	append_double_quote(char **new_word, char **r/
-append_node	usatie_minishell/src/parse.c	/^void	append_node(t_node **node, t_node *elm)$/
 append_num	src/expansion/expand_variable.c	/^void	append_num(char **new_word, unsigned int num)/
 append_single_quote	src/expansion/expand_variable.c	/^void	append_single_quote(char **new_word, char **r/
-append_tok	usatie_minishell/src/parse.c	/^void	append_tok(t_token **tok, t_token *elm)$/
 append_variable_name	src/expansion/expand_variable.c	/^char	*append_variable_name(char **rest, char *curr/
+argcount	src/builtin/exec_builtin_echo.c	/^int	argcount(char **argv)$/
 assert_error	src/output_error/output_error.c	/^void	assert_error(const char *str)$/
-at_eof	usatie_minishell/src/parse.c	/^bool	at_eof(t_token *tok)$/
 check_cmd_path	src/exec/exec.c	/^char	*check_cmd_path(const char *filename)$/
 check_is_filename	src/exec/exec.c	/^bool	check_is_filename(const char *path)$/
 check_operator	src/parser/parse.c	/^bool	check_operator(t_token *token, char *op)$/
-check_state	usatie_minishell/src/signal.c	/^int	check_state(void)$/
-consume_blank	usatie_minishell/src/tokenize.c	/^bool	consume_blank(char **rest, char *line)$/
-cpy_pipe	usatie_minishell/src/pipe.c	/^static void	cpy_pipe(int dst[2], int src[2])$/
+check_state	src/signal/signal.c	/^int	check_state(void)$/
 create_new_node_list	src/parser/parse.c	/^t_node	*create_new_node_list(t_node_kind kind)$/
 create_new_redirect_append	src/parser/parse.c	/^t_node	*create_new_redirect_append(t_token **rest,/
 create_new_redirect_heredoc	src/parser/parse.c	/^t_node	*create_new_redirect_heredoc(t_token **rest/
@@ -27,45 +22,37 @@ create_new_redirect_in	src/parser/parse.c	/^t_node	*create_new_redirect_in(t_tok
 create_new_redirect_out	src/parser/parse.c	/^t_node	*create_new_redirect_out(t_token **rest, t_/
 create_new_token_list	src/lexer/tokenize.c	/^t_token	*create_new_token_list(char *word, t_token/
 do_redirect	src/redirection/redirect.c	/^void	do_redirect(t_node *redirect)$/
-equal_op	usatie_minishell/src/parse.c	/^bool	equal_op(t_token *tok, char *op)$/
 err_exit	src/output_error/output_error.c	/^void	err_exit(const char *location, const char *ms/
 exec	src/exec/exec.c	/^int	exec(t_node *node)$/
-exec_cmd	src/exec/exec.c	/^pid_t	exec_cmd(t_node *node)$/
-exec_pipeline	usatie_minishell/src/exec.c	/^pid_t	exec_pipeline(t_node *node)$/
+exec_builtin_cmd	src/builtin/exec_builtin_cmd.c	/^int	exec_builtin_cmd(t_node *node)$/
+exec_builtin_echo	src/builtin/exec_builtin_echo.c	/^int	exec_builtin_echo(char **argv)$/
+exec_cmd	src/exec/exec.c	/^int	exec_cmd(t_node *node)$/
+exec_simple_cmd	src/exec/exec.c	/^void	exec_simple_cmd(t_node *node)$/
 expand	src/expansion/expand.c	/^void	expand(t_node *node)$/
 expand_heredoc_line	src/expansion/expand_heredoc_line.c	/^char	*expand_heredoc_line(char *line)$/
 expand_parameter_str	src/expansion/expand_variable.c	/^void	expand_parameter_str(char **new_word, char **/
-expand_quote_removal	usatie_minishell/src/expand.c	/^void	expand_quote_removal(t_node *node)$/
-expand_special_parameter_str	usatie_minishell/src/expand.c	/^void	expand_special_parameter_str(char **dst, char/
 expand_variable	src/expansion/expand_variable.c	/^void	expand_variable(t_node *node)$/
 expand_variable_str	src/expansion/expand_variable.c	/^void	expand_variable_str(char **new_word, char **r/
-expand_variable_tok	usatie_minishell/src/expand.c	/^void	expand_variable_tok(t_token *tok)$/
 expand_variable_token	src/expansion/expand_variable.c	/^void	expand_variable_token(t_token *token)$/
 fatal_error	src/output_error/output_error.c	/^void	fatal_error(const char *str)$/
 free_argv	src/free.c	/^void	free_argv(char **argv)$/
 free_node	src/free.c	/^void	free_node(t_node *node)$/
-free_tok	usatie_minishell/src/destructor.c	/^void	free_tok(t_token *tok)$/
 free_token	src/free.c	/^void	free_token(t_token *token)$/
-handler	usatie_minishell/src/signal.c	/^void	handler(int signum)$/
-ignore_sig	usatie_minishell/src/signal.c	/^void	ignore_sig(int signum)$/
+handle_signal	src/signal/signal.c	/^void	handle_signal(int signal_num)$/
 interpret	src/main.c	/^void	interpret(char* const line, int *status)$/
 is_alpha_num_under	src/expansion/expand_variable.c	/^bool	is_alpha_num_under(char c)$/
 is_alpha_under	src/expansion/expand_variable.c	/^bool	is_alpha_under(char c)$/
 is_blank	src/lexer/blank.c	/^bool	is_blank(char c)$/
+is_builtin	src/builtin/is_builtin.c	/^bool	is_builtin(t_node *node)$/
 is_control_operator	src/parser/parse.c	/^bool	is_control_operator(t_token *token)$/
 is_metacharacter	src/expansion/expand_variable.c	/^bool	is_metacharacter(char c)$/
 is_operator	src/lexer/operator.c	/^bool	is_operator(char *line)$/
 is_quote_after_dollar	src/expansion/expand_variable.c	/^bool	is_quote_after_dollar(char *str)$/
 is_redirect	src/redirection/redirect.c	/^bool	is_redirect(t_node *redirect)$/
 is_special_parametar	src/expansion/expand_variable.c	/^bool	is_special_parametar(char *str)$/
-is_special_parameter	usatie_minishell/src/expand.c	/^bool	is_special_parameter(char *s)$/
 is_variable	src/expansion/expand_variable.c	/^bool	is_variable(char *s)$/
 is_word	src/lexer/word.c	/^bool	is_word(char *line)$/
-new_node	usatie_minishell/src/parse.c	/^t_node	*new_node(t_node_kind kind)$/
-new_token	usatie_minishell/src/tokenize.c	/^t_token	*new_token(char *word, t_token_kind kind)$/
-open_redir_file	usatie_minishell/src/redirect.c	/^int	open_redir_file(t_node *node)$/
 open_redirect_file	src/redirection/redirect.c	/^int	open_redirect_file(t_node *node)$/
-operator	usatie_minishell/src/tokenize.c	/^t_token	*operator(char **rest, char *line)$/
 parse	src/parser/parse.c	/^t_node	*parse(t_token *token)$/
 parse_error	src/output_error/output_error.c	/^void	parse_error(const char *location, t_token **r/
 perror_prefix	src/output_error/output_error.c	/^static void	perror_prefix(void)$/
@@ -73,35 +60,22 @@ pipeline	src/parser/parse.c	/^t_node	*pipeline(t_token **rest, t_token *token)$/
 prepare_pipe	src/pipeline/pipe.c	/^void	prepare_pipe(t_node *node)$/
 prepare_pipe_child	src/pipeline/pipe.c	/^void	prepare_pipe_child(t_node *node)$/
 prepare_pipe_parent	src/pipeline/pipe.c	/^void	prepare_pipe_parent(t_node *node)$/
+print_token	src/main.c	/^void	print_token(t_token *token)$/
 read_heredoc	src/redirection/redirect.c	/^int	read_heredoc(const char *delimiter, bool is_de/
-redirect_append	usatie_minishell/src/parse.c	/^t_node	*redirect_append(t_token **rest, t_token *t/
-redirect_heredoc	usatie_minishell/src/parse.c	/^t_node	*redirect_heredoc(t_token **rest, t_token */
-redirect_in	usatie_minishell/src/parse.c	/^t_node	*redirect_in(t_token **rest, t_token *tok)$/
-redirect_out	usatie_minishell/src/parse.c	/^t_node	*redirect_out(t_token **rest, t_token *tok)/
 remove_double_quote	src/expansion/remove_quote.c	/^void	remove_double_quote(char **dst, char **rest, /
 remove_quote	src/expansion/remove_quote.c	/^void	remove_quote(t_node *node)$/
 remove_quote_token	src/expansion/remove_quote.c	/^static void	remove_quote_token(t_token *token)$/
 remove_single_quote	src/expansion/remove_quote.c	/^void	remove_single_quote(char **dst, char **rest, /
 reset_redirect	src/redirection/redirect.c	/^void	reset_redirect(t_node *redirect)$/
-reset_sig	usatie_minishell/src/signal.c	/^void	reset_sig(int signum)$/
-reset_signal	usatie_minishell/src/signal.c	/^void	reset_signal(void)$/
-search_path	usatie_minishell/src/exec.c	/^char	*search_path(const char *filename)$/
+reset_signal_to_default	src/signal/signal.c	/^void	reset_signal_to_default(void)$/
 set_signal	src/signal/signal.c	/^void	set_signal(void)$/
-setup_sigint	usatie_minishell/src/signal.c	/^void	setup_sigint(void)$/
-setup_signal	usatie_minishell/src/signal.c	/^void	setup_signal(void)$/
 simple_command	src/parser/parse.c	/^t_node	*simple_command(t_token **rest, t_token *to/
 skip_blank	src/lexer/blank.c	/^void	skip_blank(char **skip_line, char *line)$/
-startswith	usatie_minishell/src/tokenize.c	/^bool	startswith(const char *s, const char *keyword/
 stashfd	src/redirection/redirect.c	/^static int	stashfd(int fd)$/
-tail_recursive	usatie_minishell/src/tokenize.c	/^char	**tail_recursive(t_token *tok, int nargs, cha/
 todo	src/output_error/output_error.c	/^void	todo(const char *msg)$/
-tokdup	usatie_minishell/src/parse.c	/^t_token	*tokdup(t_token *tok)$/
-token_list_to_argv	usatie_minishell/src/tokenize.c	/^char	**token_list_to_argv(t_token *tok)$/
 token_lstsize	src/lexer/add_token_to_argv.c	/^static size_t	token_lstsize(t_token *token)$/
 tokendup	src/parser/parse.c	/^t_token	*tokendup(t_token *token)$/
 tokenize	src/lexer/tokenize.c	/^t_token	*tokenize(char	*line)$/
 tokenize_error	src/output_error/output_error.c	/^void	tokenize_error(const char *location, char **r/
-validate_access	usatie_minishell/src/exec.c	/^void	validate_access(const char *path, const char /
 wait_pipeline	src/exec/exec.c	/^int	wait_pipeline(pid_t last_child_pid)$/
-word	usatie_minishell/src/tokenize.c	/^t_token	*word(char **rest, char *line)$/
 xperror	src/output_error/output_error.c	/^void	xperror(const char *location)$/

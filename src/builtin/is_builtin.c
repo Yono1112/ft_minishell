@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 18:28:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/02 09:57:30 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/07 20:18:20 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_builtin(t_node *node)
 {
-	char *const	builtin_commands[] = {"exit"};
+	char *const	builtin_commands[] = {"exit", "echo"};
 	size_t		i;
 	size_t		builtin_len;
 	char		*builtin_command;
