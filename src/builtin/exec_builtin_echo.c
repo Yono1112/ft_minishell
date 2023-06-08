@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include "minishell.h"
 
-static int	argcount(char **argv)
+static int	count_arg(char **argv)
 {
 	int i;
 
@@ -13,7 +13,7 @@ static int	argcount(char **argv)
 	return i;
 }
 
-static int	valid_option(char *second_arg)
+static int	check_valid_option(char *second_arg)
 {
 	int i;
 
@@ -48,7 +48,7 @@ int	exec_builtin_echo(char **argv)
 
 	i = 0;
 	flag = 0;
-	argc = argcount(argv);
+	argc = count_arg(argv);
 	if (argc == 1)
 	{
 		printf("\n");
@@ -56,7 +56,7 @@ int	exec_builtin_echo(char **argv)
 	}
 	if ('-' == argv[1][0])
 	{
-		if (!valid_option(argv[1]))
+		if (!check_valid_option(argv[1]))
 			flag = 1;
 	}
 	i = flag + 1;
