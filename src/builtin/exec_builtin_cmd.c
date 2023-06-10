@@ -29,7 +29,7 @@ int	exec_builtin_cmd(t_node *node)
 	}
 	if (strcmp(argv[0], "exit") == 0)
 	{
-		printf("exit\n");
+		// printf("exit\n");
 		status = exec_builtin_exit(argv);
 	}
 	else if (strcmp(argv[0], "echo") == 0)
