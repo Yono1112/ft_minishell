@@ -28,7 +28,7 @@ bool	is_builtin(t_node *node)
 		i = 0;
 		while (i < builtin_len)
 		{
-			if (!strncmp(builtin_command, builtin_commands[i], strlen(builtin_commands[i])))
+			if (!strcmp(builtin_command, builtin_commands[i]))
 			{
 				// printf("true is_builtin\n");
 				return (true);
