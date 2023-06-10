@@ -173,7 +173,7 @@ int	exec(t_node *node)
 	if (node->next == NULL && is_builtin(node))
 	{
 		// printf("exec_builtin_cmd in parent process\n");
-		exec_builtin_cmd(node);
+		status = exec_builtin_cmd(node);
 	}
 	else
 	{
