@@ -91,6 +91,7 @@ typedef struct s_node
 	int				outpipe[2];
 }	t_node;
 
+void	print_token(t_token *token);
 // free
 void	free_node(t_node *node);
 void	free_argv(char **argv);

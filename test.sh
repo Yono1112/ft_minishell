@@ -241,6 +241,8 @@ assert 'exit 1 2'
 
 ## echo
 assert 'echo'
+assert 'echo ""'
+assert "echo ''"
 assert 'echo hello'
 assert 'echo hello "    " world'
 assert 'echo -n'
