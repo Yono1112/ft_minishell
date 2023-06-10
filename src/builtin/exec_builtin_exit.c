@@ -12,50 +12,42 @@
 
 #include "minishell.h"
 
-// int	exec_builtin_exit(char **argv)
-// {
-// 	int	argc;	
-// 
-// 	argc = count_argc(argv);
-// 	if (argc > 2)
-// 		printf("to many argument\n");
-// 	printf("%d\n", argc);
-// 	return (0);
-// }
-bool	is_numeric(char *s)
+bool	is_num(char *str)
 {
-	if (!isdigit(*s))
+	size_t	i;
+
+	i = 0;
+	if (str[i] == '\0')
 		return (false);
-	while (*s)
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
 	{
-		if (!isdigit(*s))
+		if (!isdigit(str[i]))
 			return (false);
-		s++;
+		i++;
 	}
 	return (true);
 }
 
 int	exec_builtin_exit(char **argv)
 {
-	long	res;
-	char	*arg;
-	char	*endptr;
+	int	argc;	
 
-	if (argv[1] == NULL)
+	argc = count_argc(argv);
+	if (argc == 1)
 		exit(last_status);
-	if (argv[2])
+	else if (argc == 2)
 	{
+		if (is_num(argv[1]))
+			exit(atoi(argv[1]));
+		else
+		{
+			xperror("exit: numeric argument required");
+			exit(255);
+		}
+	}
+	else if (argc > 2)
 		xperror("exit: too many arguments");
-		return (1);
-	}
-	arg = argv[1];
-	if (is_numeric(arg))
-	{
-		errno = 0;
-		res = strtol(arg, &endptr, 10);
-		if (errno == 0 && *endptr == '\0')
-			exit((int)res);
-	}
-	xperror("exit: numeric argument required");
-	exit(255);
+	return (1);
 }
