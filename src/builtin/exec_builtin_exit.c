@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:44:33 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/07 19:41:21 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/11 15:05:07 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_builtin_exit(char **argv)
 	else if (argc == 2)
 	{
 		if (is_num(argv[1]))
-			exit(atoi(argv[1]));
+			exit(atol(argv[1]));
 		else
 		{
 			xperror("exit: numeric argument required");
