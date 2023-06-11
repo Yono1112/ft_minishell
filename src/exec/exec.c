@@ -110,7 +110,11 @@ void	exec_simple_cmd(t_node *node)
 	char		*path;
 	char		**argv;
 
-	argv = add_token_to_argv(node->command->args);
+	argv = NULL;
+	if (node->command->redirects != NULL)
+		do_redirect(node->command->redirects);
+	if (node->command->args != NULL)
+		argv = add_token_to_argv(node->command->args);
 	path = argv[0];
 	if (strchr(path, '/') == NULL)
 		path = check_cmd_path(path);
@@ -139,12 +143,11 @@ int	exec_cmd(t_node *node)
 			// printf("start child_process\n");
 			reset_signal_to_default();
 			prepare_pipe_child(node);
-			if (node->command->redirects != NULL)
-				do_redirect(node->command->redirects);
 			if (is_builtin(node))
 			{
 				// printf("exec_builtin_cmd\n");
-				exit(exec_builtin_cmd(node));
+				status = exec_builtin_cmd(node);
+				exit(status);
 			}
 			else
 			{
@@ -170,7 +173,7 @@ int	exec(t_node *node)
 	if (node->next == NULL && is_builtin(node))
 	{
 		// printf("exec_builtin_cmd in parent process\n");
-		exec_builtin_cmd(node);
+		status = exec_builtin_cmd(node);
 	}
 	else
 	{

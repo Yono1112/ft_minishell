@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-static int	count_argc(char **argv)
+int	count_argc(char **argv)
 {
 	int i;
 
@@ -32,7 +32,7 @@ static void	write_str(char *str)
 	i = 0;
 	while (str[i])
 	{
-		write(1, &str[i], 1);
+		write(STDOUT_FILENO, &str[i], 1);
 		i++;
 	}
 }
@@ -48,7 +48,7 @@ int	exec_builtin_echo(char **argv)
 	is_option = 0;
 	argc = count_argc(argv);
 	if (argc == 1)
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 	else
 	{
 		if ('-' == argv[1][0] && check_valid_option(argv[1]))
@@ -62,7 +62,7 @@ int	exec_builtin_echo(char **argv)
 			i++;
 		}
 		if (!is_option)
-			printf("\n");
+			write(STDOUT_FILENO, "\n", 1);
 	}
 	return (0);
 }

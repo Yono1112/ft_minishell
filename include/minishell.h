@@ -91,6 +91,7 @@ typedef struct s_node
 	int				outpipe[2];
 }	t_node;
 
+void	print_token(t_token *token);
 // free
 void	free_node(t_node *node);
 void	free_argv(char **argv);
@@ -140,8 +141,9 @@ void	set_signal(void);
 void	reset_signal_to_default(void);
 // builtin
 bool	is_builtin(t_node *node);
-int		exec_builtin_cmd(t_node *node);
-int		exec_builtin_exit(char **argv);
-int		exec_builtin_echo(char **argv);
+int	exec_builtin_cmd(t_node *node);
+int	exec_builtin_exit(char **argv);
+int	exec_builtin_echo(char **argv);
+int	count_argc(char **argv);
 
 #endif

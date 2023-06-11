@@ -55,9 +55,10 @@ static void	remove_quote_token(t_token *token)
 
 	while (token != NULL && token->kind == TK_WORD && token->word != NULL)
 	{
-		// printf("token->word: %s\n", token->word);
 		p = token->word;
-		new_word = NULL;
+		new_word = calloc(1, sizeof(char));
+		if (new_word == NULL)
+			fatal_error("calloc");
 		while (*p != '\0')
 		{
 			if (*p == SINGLE_QUOTE_CHAR)
@@ -69,7 +70,6 @@ static void	remove_quote_token(t_token *token)
 		}
 		free(token->word);
 		token->word = new_word;
-		// printf("remove_quote token->word: %s\n", token->word);
 		token = token->next;
 	}
 }

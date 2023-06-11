@@ -234,13 +234,22 @@ assert './infinite_loop'
 ## exit
 assert 'exit'
 assert 'exit 42'
+assert 'exit -42'
+assert 'exit -257'
+assert 'exit --42'
+assert 'exit +42'
+assert 'exit +++42'
 assert 'exit ""'
 assert 'exit hello'
 assert 'exit 42Tokyo'
 assert 'exit 1 2'
+assert 'exit 1111111111'
+assert 'exit 99999999999999999999'
 
 ## echo
 assert 'echo'
+assert 'echo ""'
+assert "echo ''"
 assert 'echo hello'
 assert 'echo hello "    " world'
 assert 'echo -n'
