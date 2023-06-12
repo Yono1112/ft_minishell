@@ -56,7 +56,7 @@ typedef enum e_token_kind
 
 typedef struct s_token
 {
-	char			*word;
+	char		*word;
 	t_token_kind	kind;
 	struct s_token	*next;
 }	t_token;
@@ -90,6 +90,13 @@ typedef struct s_node
 	int				inpipe[2];
 	int				outpipe[2];
 }	t_node;
+
+typedef struct s_env
+{
+	char		*key;
+	char		*value;
+	struct s_map	*next;
+}	t_env;
 
 void	print_token(t_token *token);
 // free
@@ -145,5 +152,7 @@ int	exec_builtin_cmd(t_node *node);
 int	exec_builtin_exit(char **argv);
 int	exec_builtin_echo(char **argv);
 int	count_argc(char **argv);
+// environ
+void	init_env(void);
 
 #endif

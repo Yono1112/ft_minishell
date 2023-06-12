@@ -60,6 +60,7 @@ int	main(void)
 
 	rl_outstream = stderr;
 	last_status = 0;
+	init_env();
 	set_signal();
 	while (1)
 	{
