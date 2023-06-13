@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/27 17:43:35 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/13 13:20:22 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	is_alpha_num_under(char c)
 	return (is_alpha_under(c) || isdigit(c));
 }
 
-bool	is_variable(char *s)
+bool	is_expand_variable(char *s)
 {
 	return (s[0] == '$' && is_alpha_under(s[1]));
 }
@@ -137,7 +137,7 @@ void	append_double_quote(char **new_word, char **rest, char *current_word)
 		{
 			if (*current_word == '\0')
 				assert_error("Unclosed double quote");
-			else if (is_variable(current_word))
+			else if (is_expand_variable(current_word))
 				expand_variable_str(new_word, &current_word, current_word);
 			else if (is_special_parametar(current_word))
 				expand_parameter_str(new_word, &current_word, current_word);
@@ -172,7 +172,7 @@ void	expand_variable_token(t_token *token)
 				append_single_quote(&new_word, &current_word, current_word);
 			else if (*current_word == DOUBLE_QUOTE_CHAR)
 				append_double_quote(&new_word, &current_word, current_word);
-			else if (is_variable(current_word))
+			else if (is_expand_variable(current_word))
 				expand_variable_str(&new_word, &current_word, current_word);
 			else if (is_special_parametar(current_word))
 				expand_parameter_str(&new_word, &current_word, current_word);

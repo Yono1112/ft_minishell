@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/07 20:22:01 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/13 15:37:28 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ typedef struct s_node
 
 typedef struct s_env
 {
-	char		*key;
-	char		*value;
-	struct s_map	*next;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
 }	t_env;
 
 void	print_token(t_token *token);
@@ -133,6 +133,8 @@ bool	is_variable(char *s);
 void	expand_parameter_str(char **new_word, char **rest, char *current_word);
 void	expand_variable_str(char **new_word, char **rest, char *current_word);
 bool	is_special_parametar(char *str);
+bool	is_alpha_num_under(char c);
+bool	is_alpha_under(char c);
 // parser
 t_node	*parse(t_token *token);
 // redirection
@@ -148,11 +150,11 @@ void	set_signal(void);
 void	reset_signal_to_default(void);
 // builtin
 bool	is_builtin(t_node *node);
-int	exec_builtin_cmd(t_node *node);
-int	exec_builtin_exit(char **argv);
-int	exec_builtin_echo(char **argv);
-int	count_argc(char **argv);
+int		exec_builtin_cmd(t_node *node);
+int		exec_builtin_exit(char **argv);
+int		exec_builtin_echo(char **argv);
+int		count_argc(char **argv);
 // environ
-void	init_env(void);
+t_env	*init_env_list(char **envp);
 
-#endif
+# endif

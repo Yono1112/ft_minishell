@@ -226,6 +226,8 @@
 	- [【C言語】volatileの使いどころについて](https://tubasa-blog.com/about-volatile/)
 	- [【C言語】printfで文字の色や背景色を変更する](https://daeudaeu.com/c-printf-color/)
 - git
+	- [A successful Git branching model](https://qiita.com/homhom44/items/9f13c646fa2619ae63d0)
+	- [github flow](https://docs.github.com/ja/get-started/quickstart/github-flow)
 	- [個人開発でGithubのissue,プルリクを活用する方法](https://qiita.com/usayamadausako/items/375bdae07e381745e6eb)
 	- [git clone の際に submodule の clone を忘れたときの対処法](https://qiita.com/kentarosasaki/items/3e670567c0512b9d411e)
 	- [git reset 解説](https://qiita.com/forest1/items/f7c821565a7a7d64d60f)
