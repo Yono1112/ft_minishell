@@ -138,7 +138,7 @@ bool	is_alpha_under(char c);
 // parser
 t_node	*parse(t_token *token);
 // redirection
-int		open_redirect_file(t_node *redirect);
+int	open_redirect_file(t_node *redirect);
 void	do_redirect(t_node *redirect);
 void	reset_redirect(t_node *redirect);
 // pipeline
@@ -150,11 +150,15 @@ void	set_signal(void);
 void	reset_signal_to_default(void);
 // builtin
 bool	is_builtin(t_node *node);
-int		exec_builtin_cmd(t_node *node);
-int		exec_builtin_exit(char **argv);
-int		exec_builtin_echo(char **argv);
-int		count_argc(char **argv);
+int	exec_builtin_cmd(t_node *node);
+int	exec_builtin_exit(char **argv);
+int	exec_builtin_echo(char **argv);
+int	count_argc(char **argv);
 // environ
+void	print_env(t_env *env);
 t_env	*init_env_list(char **envp);
+t_env	*add_key_value_to_env(t_env *env, char *key, char *value);
+t_env	*set_env_list(t_env *env, char *str);
+void	add_key_value_to_env_double(t_env **env, char *key, char *value);
 
 # endif

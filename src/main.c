@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/13 20:53:38 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/19 21:53:13 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ int	main(int argc, char **argv, char **envp)
 	rl_outstream = stderr;
 	env = init_env_list(envp);
 	print_env(env);
+	add_key_value_to_env_double(&env, "USER", "rnaka");
+	print_env(env);
+	add_key_value_to_env_double(&env, "TEST", "test");
+	print_env(env);
+	add_key_value_to_env_double(&env, "9TESE", "test");
+	print_env(env);
+	// exit(0);
 	set_signal();
 	while (1)
 	{
