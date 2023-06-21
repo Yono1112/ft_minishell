@@ -32,7 +32,7 @@ bool	is_num(char *str)
 
 int	exec_builtin_exit(char **argv)
 {
-	int	argc;	
+	int	argc;
 
 	argc = count_argc(argv);
 	if (argc == 1)

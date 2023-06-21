@@ -21,7 +21,7 @@ bool	check_is_filename(const char *path)
 	return (true);
 }
 
-char	*check_cmd_path(const char *filename)
+char	*check_cmd_path(const char *filename, t_env *env)
 {
 	char	path[PATH_MAX];
 	char	*value;
@@ -29,7 +29,7 @@ char	*check_cmd_path(const char *filename)
 	char	*dup;
 	size_t	path_len;
 
-	value = getenv("PATH");
+	value = ft_getenv("PATH", env);
 	if (!value)
 	{
 		fprintf(stderr, "Error: PATH environment variable is not set\n");
@@ -104,9 +104,47 @@ int	wait_pipeline(pid_t last_child_pid)
 	return (status);
 }
 
-void	exec_simple_cmd(t_node *node)
+size_t	env_len(t_env *env)
 {
-	extern char	**environ;
+	size_t	len;
+
+	len = 0;
+	while (env != NULL)
+	{
+		if (env->value != NULL)
+			len++;
+		env = env->next;
+	}
+	return (len);
+}
+
+char	**change_env_to_environ(t_env *env)
+{
+	char	**environ;
+	size_t	len;
+	size_t	i;
+
+	len = env_len(env);
+	environ = calloc(len + 1, sizeof(char *));
+	if (environ == NULL)
+		fatal_error("calloc");
+	i = 0;
+	while (env)
+	{
+		if (env->value != NULL)
+		{
+			environ[i] = env->value;
+			i++;
+		}
+		env = env->next;
+	}
+	environ[i] = NULL;
+	return (environ);
+}
+
+void	exec_simple_cmd(t_node *node, t_env *env)
+{
+	char		**environ;
 	char		*path;
 	char		**argv;
 
@@ -117,15 +155,16 @@ void	exec_simple_cmd(t_node *node)
 		argv = add_token_to_argv(node->command->args);
 	path = argv[0];
 	if (strchr(path, '/') == NULL)
-		path = check_cmd_path(path);
+		path = check_cmd_path(path, env);
 	if (!check_is_filename(path))
 		err_exit(argv[0], "command not found", 127);
+	environ = change_env_to_environ(env);
 	execve(path, argv, environ);
 	free_argv(argv);
 	fatal_error("execve");
 }
 
-int	exec_cmd(t_node *node)
+int	exec_cmd(t_node *node, t_env *env)
 {
 	pid_t		pid;
 	int			status;
@@ -146,13 +185,13 @@ int	exec_cmd(t_node *node)
 			if (is_builtin(node))
 			{
 				// printf("exec_builtin_cmd\n");
-				status = exec_builtin_cmd(node);
+				status = exec_builtin_cmd(node, env);
 				exit(status);
 			}
 			else
 			{
 				// printf("exec_simple_cmd\n");
-				exec_simple_cmd(node);
+				exec_simple_cmd(node, env);
 			}
 		}
 		// printf("start parent_process\n");
@@ -163,22 +202,22 @@ int	exec_cmd(t_node *node)
 	return (status);
 }
 
-int	exec(t_node *node)
+int	exec(t_node *node, t_env *env)
 {
 	int		status;
 
 	status = 0;
-	if (open_redirect_file(node) < 0)
+	if (open_redirect_file(node, env) < 0)
 		return (ERROR_OPEN_REDIR);
 	if (node->next == NULL && is_builtin(node))
 	{
 		// printf("exec_builtin_cmd in parent process\n");
-		status = exec_builtin_cmd(node);
+		status = exec_builtin_cmd(node, env);
 	}
 	else
 	{
 		// printf("finish exec_cmd\n");
-		status = exec_cmd(node);
+		status = exec_cmd(node, env);
 	}
 	return (status);
 }

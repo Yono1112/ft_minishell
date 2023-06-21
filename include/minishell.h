@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/07 20:22:01 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/13 15:37:28 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef enum e_token_kind
 
 typedef struct s_token
 {
-	char			*word;
+	char		*word;
 	t_token_kind	kind;
 	struct s_token	*next;
 }	t_token;
@@ -91,6 +91,13 @@ typedef struct s_node
 	int				outpipe[2];
 }	t_node;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 void	print_token(t_token *token);
 // free
 void	free_node(t_node *node);
@@ -102,7 +109,7 @@ void	todo(const char *msg);
 void	err_exit(const char *location, const char *msg, int status);
 void	xperror(const char *location);
 // exec
-int	exec(t_node *node);
+int	exec(t_node *node, t_env *env);
 // tokenizer
 t_token	*tokenize(char	*line);
 void	free_token(t_token *token);
@@ -117,19 +124,22 @@ t_token	*add_operator_to_list(char **rest_line, char *line);
 bool	is_blank(char c);
 void	skip_blank(char **skip_line, char *line);
 // expansion
-void	expand(t_node *node);
+void	expand(t_node *node, t_env *env);
 void	remove_quote(t_node *node);
 void	append_char(char **s, char c);
-void	expand_variable(t_node *node);
-char	*expand_heredoc_line(char *line);
+void	expand_variable(t_node *node, t_env *env);
+char	*expand_heredoc_line(char *line, t_env *env);
 bool	is_variable(char *s);
 void	expand_parameter_str(char **new_word, char **rest, char *current_word);
-void	expand_variable_str(char **new_word, char **rest, char *current_word);
+void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env *env);
 bool	is_special_parametar(char *str);
+bool	is_alpha_num_under(char c);
+bool	is_alpha_under(char c);
+bool	is_expand_variable(char *s);
 // parser
 t_node	*parse(t_token *token);
 // redirection
-int		open_redirect_file(t_node *redirect);
+int	open_redirect_file(t_node *redirect, t_env *env);
 void	do_redirect(t_node *redirect);
 void	reset_redirect(t_node *redirect);
 // pipeline
@@ -141,9 +151,16 @@ void	set_signal(void);
 void	reset_signal_to_default(void);
 // builtin
 bool	is_builtin(t_node *node);
-int	exec_builtin_cmd(t_node *node);
+int	exec_builtin_cmd(t_node *node, t_env *env);
 int	exec_builtin_exit(char **argv);
 int	exec_builtin_echo(char **argv);
 int	count_argc(char **argv);
+// environ
+void	print_env(t_env *env);
+t_env	*init_env_list(char **envp);
+void	add_key_value_to_env(t_env **env, char *key, char *value);
+int	set_env_list(t_env **env, char *str, bool is_export);
+void	add_key_value_to_env_double(t_env **env, char *key, char *value);
+char	*ft_getenv(char *path_key, t_env *env);
 
-#endif
+# endif
