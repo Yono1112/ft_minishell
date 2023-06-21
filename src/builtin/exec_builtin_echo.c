@@ -16,6 +16,8 @@ static bool	check_valid_option(char *second_arg)
 	int	i;
 
 	i = 1;
+	if (second_arg[i] == '\0')
+		return (false);
 	while (second_arg[i])
 	{
 		if (second_arg[i] != 'n')
