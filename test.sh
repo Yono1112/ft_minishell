@@ -262,5 +262,7 @@ assert 'echo -n hello world'
 assert 'echo hello -n'
 assert 'echo -nnnnn hello'
 assert 'echo -na hello'
+assert 'echo - n'
+assert 'echo - hello'
 
 cleanup
