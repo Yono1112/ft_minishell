@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:33:42 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/07 20:43:07 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/22 02:31:00 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ int	exec_builtin_cmd(t_node *node)
 	{
 		// printf("echo\n");
 		status = exec_builtin_echo(argv);
+	}
+	else if (strcmp(argv[0], "cd") == 0)
+	{
+		// printf("echo\n");
+		status = exec_builtin_cd(argv);
+	}
+	else if (strcmp(argv[0], "pwd") == 0)
+	{
+		// printf("echo\n");
+		status = exec_builtin_pwd(argv);
 	}
 	else
 		todo("exec_builtin");
