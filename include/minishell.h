@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/13 15:37:28 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/22 02:11:53 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,9 @@ int	count_argc(char **argv);
 void	print_env(t_env *env);
 t_env	*init_env_list(char **envp);
 void	add_key_value_to_env(t_env **env, char *key, char *value);
-int	set_env_list(t_env **env, char *str, bool is_export);
-void	add_key_value_to_env_double(t_env **env, char *key, char *value);
+int		set_env_list(t_env **env, char *str, bool is_export);
 char	*ft_getenv(char *path_key, t_env *env);
+t_env	*create_new_env_list(char *key, char *value);
+bool	is_variable(char *str);
 
 # endif

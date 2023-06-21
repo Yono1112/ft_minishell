@@ -1,71 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   set_env_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 21:40:13 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/21 16:32:14 by yumaohno         ###   ########.fr       */
+/*   Created: 2023/06/22 02:08:43 by yumaohno          #+#    #+#             */
+/*   Updated: 2023/06/22 02:09:01 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static void	print_envp(char **envp)
-// {
-// 	size_t	i;
-// 
-// 	i = 0;
-// 	while (envp[i])
-// 	{
-// 		printf("envp[%zu]: %s\n", i, envp[i]);
-// 		i++;
-// 	}
-// }
-
-char	*ft_getenv(char *path_key, t_env *env)
-{
-	if (path_key == NULL)
-		return (NULL);
-	while (env != NULL)
-	{
-		if (strcmp(env->key, path_key) == 0)
-			return (env->value);
-		env = env->next;
-	}
-	return (NULL);
-}
-
-bool	is_variable(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!is_alpha_under(str[i]))
-		return (false);
-	i++;
-	while (str[i])
-	{
-		if (!is_alpha_num_under(str[i]))
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-static t_env	*create_new_env_list(char *key, char *value)
-{
-	t_env	*env;
-
-	// env = calloc(1, sizeof(*env));
-	env = calloc(1, sizeof(*env));
-	if (env == NULL)
-		fatal_error("calloc");
-	env->key = key;
-	env->value = value;
-	return (env);
-}
 
 void	update_value_to_env(t_env **env, char *key, char *value)
 {
@@ -173,24 +118,4 @@ int	set_env_list(t_env **env, char *str, bool is_export)
 	free(key);
 	free(value);
 	return (0);
-}
-
-t_env	*init_env_list(char **envp)
-{
-	t_env	*env;
-	size_t	i;
-
-	// printf("start create_env_list\n");
-	// print_envp(envp);
-	i = 0;
-	env = NULL;
-	while (envp[i] != NULL)
-	{
-		// printf("===============================\n");
-	 	// printf("envp[%zu]: %s\n", i, envp[i]);
-		set_env_list(&env, envp[i], false);
-		// printf("env->key:%s, env->value:%s\n", env->key, env->value);
-		i++;
-	}
-	return (env);
 }

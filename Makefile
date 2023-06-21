@@ -30,7 +30,10 @@ SRCS =	src/main.c	\
 		src/builtin/exec_builtin_cmd.c	\
 		src/builtin/exec_builtin_exit.c	\
 		src/builtin/exec_builtin_echo.c	\
-		src/environ/env.c
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
