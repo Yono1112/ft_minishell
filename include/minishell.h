@@ -157,8 +157,8 @@ int	count_argc(char **argv);
 // environ
 void	print_env(t_env *env);
 t_env	*init_env_list(char **envp);
-t_env	*add_key_value_to_env(t_env *env, char *key, char *value);
-t_env	*set_env_list(t_env *env, char *str);
+void	add_key_value_to_env(t_env **env, char *key, char *value);
+int	set_env_list(t_env **env, char *str, bool is_export);
 void	add_key_value_to_env_double(t_env **env, char *key, char *value);
 
 # endif

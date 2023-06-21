@@ -74,14 +74,14 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	rl_outstream = stderr;
 	env = init_env_list(envp);
+	printf("-------------------------------------------\n");
 	print_env(env);
-	add_key_value_to_env_double(&env, "USER", "rnaka");
+	set_env_list(&env, "USER=rnaka", true);
+	printf("-------------------------------------------\n");
 	print_env(env);
-	add_key_value_to_env_double(&env, "TEST", "test");
+	printf("-------------------------------------------\n");
+	set_env_list(&env, "USER", true);
 	print_env(env);
-	add_key_value_to_env_double(&env, "9TESE", "test");
-	print_env(env);
-	// exit(0);
 	set_signal();
 	while (1)
 	{
