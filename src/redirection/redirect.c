@@ -31,7 +31,7 @@ static int	stashfd(int fd)
 	return (stashfd);
 }
 
-int	read_heredoc(const char *delimiter, bool is_delimiter_quote)
+int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env *env)
 {
 	char	*line;
 	int		pfd[2];
@@ -54,7 +54,7 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote)
 			break ;
 		}
 		if (is_delimiter_quote)
-			line = expand_heredoc_line(line);
+			line = expand_heredoc_line(line, env);
 		dprintf(pfd[1], "%s\n", line);
 		free(line);
 	}
@@ -67,7 +67,7 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote)
 	return (pfd[0]);
 }
 
-int	open_redirect_file(t_node *node)
+int	open_redirect_file(t_node *node, t_env *env)
 {
 	// printf("start open_redirect\n");
 	t_node *start_node;
@@ -106,7 +106,7 @@ int	open_redirect_file(t_node *node)
 		}
 		else if (node->kind == ND_REDIR_HEREDOC)
 		{
-			node->filefd = read_heredoc(node->delimiter->word, node->is_delimiter_quote);
+			node->filefd = read_heredoc(node->delimiter->word, node->is_delimiter_quote, env);
 			// printf("node_kind is ND_REDIR_HEREDOC, filefd: %d\n", node->filefd);
 		}
 		else
@@ -123,7 +123,7 @@ int	open_redirect_file(t_node *node)
 		node = node->next;
 	}
 	if (start_node->next != NULL && start_node->next->kind == ND_PIPELINE)
-		open_redirect_file(start_node->next);
+		open_redirect_file(start_node->next, env);
 	return (0);
 }
 

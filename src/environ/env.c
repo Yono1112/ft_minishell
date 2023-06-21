@@ -24,6 +24,19 @@
 // 	}
 // }
 
+char	*ft_getenv(char *path_key, t_env *env)
+{
+	if (path_key == NULL)
+		return (NULL);
+	while (env != NULL)
+	{
+		if (strcmp(env->key, path_key) == 0)
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
+}
+
 bool	is_variable(char *str)
 {
 	size_t	i;
@@ -136,7 +149,7 @@ int	set_env_list(t_env **env, char *str, bool is_export)
 		end_key = strchr(str, '=');
 		if (end_key == NULL && is_export)
 		{
-			printf("value is NULL && true is_export\n");
+			// printf("value is NULL && true is_export\n");
 			return (-1);
 		}
 		key = strndup(str, end_key - str);
@@ -146,15 +159,15 @@ int	set_env_list(t_env **env, char *str, bool is_export)
 		if (value == NULL)
 			fatal_error("strndup");
 	}
-	printf("key:%s, value:%s\n", key, value);
+	// printf("key:%s, value:%s\n", key, value);
 	if (is_key_in_env(key, *env))
 	{
-		printf("true is_key_in_env\n");
+		// printf("true is_key_in_env\n");
 		update_value_to_env(env, key, value);
 	}
 	else
 	{
-		printf("false is_key_in_env\n");
+		// printf("false is_key_in_env\n");
 		add_key_value_to_env(env, key, value);
 	}
 	free(key);
@@ -167,16 +180,16 @@ t_env	*init_env_list(char **envp)
 	t_env	*env;
 	size_t	i;
 
-	printf("start create_env_list\n");
+	// printf("start create_env_list\n");
 	// print_envp(envp);
 	i = 0;
 	env = NULL;
 	while (envp[i] != NULL)
 	{
-		printf("===============================\n");
-	 	printf("envp[%zu]: %s\n", i, envp[i]);
+		// printf("===============================\n");
+	 	// printf("envp[%zu]: %s\n", i, envp[i]);
 		set_env_list(&env, envp[i], false);
-		printf("env->key:%s, env->value:%s\n", env->key, env->value);
+		// printf("env->key:%s, env->value:%s\n", env->key, env->value);
 		i++;
 	}
 	return (env);

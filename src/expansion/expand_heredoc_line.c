@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*expand_heredoc_line(char *line)
+char	*expand_heredoc_line(char *line, t_env *env)
 {
 	char	*current_word;
 	char	*new_word;
@@ -23,12 +23,19 @@ char	*expand_heredoc_line(char *line)
 		fatal_error("calloc");
 	while (*current_word)
 	{
-		if (is_variable(current_word))	
-			expand_variable_str(&new_word, &current_word, current_word);
+		if (is_expand_variable(current_word))
+		{
+			// printf("expand_variable_str\n");
+			expand_variable_str(&new_word, &current_word, current_word, env);
+		}
 		else if (is_special_parametar(current_word))
+		{
+			// printf("expand_parameter_str\n");
 			expand_parameter_str(&new_word, &current_word, current_word);
+		}
 		else
 		{
+			// printf("append_char\n");
 			append_char(&new_word, *current_word);
 			current_word++;
 		}

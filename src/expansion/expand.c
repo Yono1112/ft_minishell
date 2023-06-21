@@ -33,8 +33,8 @@ void	append_char(char **s, char c)
 	*s = new;
 }
 
-void	expand(t_node *node)
+void	expand(t_node *node, t_env *env)
 {
-	expand_variable(node);
+	expand_variable(node, env);
 	remove_quote(node);
 }

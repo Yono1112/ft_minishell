@@ -41,7 +41,7 @@ void	print_env(t_env *env)
 	}
 }
 
-void	interpret(char* const line, int *status)
+void	interpret(char* const line, int *status, t_env *env)
 {
 	t_token	*token;
 	t_node	*node;
@@ -56,8 +56,8 @@ void	interpret(char* const line, int *status)
 			*status = ERROR_PARSE;
 		else
 		{
-			expand(node);
-			*status = exec(node);
+			expand(node, env);
+			*status = exec(node, env);
 		}
 		free_node(node);
 	}
@@ -74,14 +74,14 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	rl_outstream = stderr;
 	env = init_env_list(envp);
-	printf("-------------------------------------------\n");
-	print_env(env);
-	set_env_list(&env, "USER=rnaka", true);
-	printf("-------------------------------------------\n");
-	print_env(env);
-	printf("-------------------------------------------\n");
-	set_env_list(&env, "USER", true);
-	print_env(env);
+	// printf("-------------------------------------------\n");
+	// print_env(env);
+	// set_env_list(&env, "USER=rnaka", true);
+	// printf("-------------------------------------------\n");
+	// print_env(env);
+	// printf("-------------------------------------------\n");
+	// set_env_list(&env, "USER", true);
+	// print_env(env);
 	set_signal();
 	while (1)
 	{
@@ -94,7 +94,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*line)
 			add_history(line);
-		interpret(line, &last_status);
+		interpret(line, &last_status, env);
 		if (line)
 			free(line);
 	}
