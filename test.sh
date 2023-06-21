@@ -265,4 +265,17 @@ assert 'echo -na hello'
 assert 'echo - n'
 assert 'echo - hello'
 
+## export
+assert 'export | grep nosuch | sort'
+assert 'export nosuch\n export | grep nosuch | sort'
+assert 'export nosuch=fuga\n export | grep nosuch | sort'
+assert 'export nosuch=fuga hoge=nosuch\n export | grep nosuch | sort'
+assert 'export [invalid]'
+assert 'export [invalid_nosuch]\n export | grep nosuch | sort'
+assert 'export [invalid]=nosuch\n export | grep nosuch | sort'
+assert 'export [invalid] nosuch hoge=nosuch\n export | grep nosuch | sort'
+assert 'export nosuch [invalid] hoge=nosuch\n export | grep nosuch | sort'
+assert 'export nosuch hoge=nosuch [invalid]\n export | grep nosuch | sort'
+assert 'export nosuch="nosuch2=hoge"\nexport $nosuch\n export | grep nosuch | sort'
+
 cleanup
