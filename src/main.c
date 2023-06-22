@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/06 22:15:28 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:48:22 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // #include <limits.h>
 // #include <readline/history.h>
 
-int	last_status;
+int	last_status = 0;
 
 void	print_token(t_token *token)
 {
@@ -30,7 +30,18 @@ void	print_token(t_token *token)
 	}
 }
 
-void	interpret(char* const line, int *status)
+void	print_env(t_env *env)
+{
+	printf("start print_env\n");
+	printf("=======================================================\n");
+	while (env)
+	{
+		printf("env->key:%s, env->value:%s\n", env->key, env->value);
+		env = env->next;
+	}
+}
+
+void	interpret(char* const line, int *status, t_env **env)
 {
 	t_token	*token;
 	t_node	*node;
@@ -45,8 +56,8 @@ void	interpret(char* const line, int *status)
 			*status = ERROR_PARSE;
 		else
 		{
-			expand(node);
-			*status = exec(node);
+			expand(node, env);
+			*status = exec(node, env);
 		}
 		free_node(node);
 	}
@@ -54,12 +65,24 @@ void	interpret(char* const line, int *status)
 	free_token(token);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
+	t_env		*env;
 
+	(void)argc;
+	(void)argv;
 	rl_outstream = stderr;
-	last_status = 0;
+	// print_envp(envp);
+	// printf("-------------------------------------------\n");
+	env = init_env_list(envp);
+	// print_env(env);
+	// set_env_list(&env, "USER=rnaka", true);
+	// printf("-------------------------------------------\n");
+	// print_env(env);
+	// printf("-------------------------------------------\n");
+	// set_env_list(&env, "USER", true);
+	// print_env(env);
 	set_signal();
 	while (1)
 	{
@@ -72,7 +95,7 @@ int	main(void)
 		}
 		if (*line)
 			add_history(line);
-		interpret(line, &last_status);
+		interpret(line, &last_status, &env);
 		if (line)
 			free(line);
 	}

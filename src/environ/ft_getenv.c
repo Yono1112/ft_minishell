@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 14:52:10 by yumaohno         ###   ########.fr       */
+/*   Created: 2023/06/22 02:09:54 by yumaohno          #+#    #+#             */
+/*   Updated: 2023/06/22 14:58:27 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	append_char(char **s, char c)
+char	*ft_getenv(char *path_key, t_env **env)
 {
-	size_t	len;
-	char	*new;
+	t_env *current;
 
-	if (*s)
-		len = strlen(*s) + 2;
-	else
-		len = 2;
-	new = malloc(len);
-	if (!new)
-		fatal_error("malloc");
-	if (*s)
-		strncpy(new, *s, len);
-	new[len - 2] = c;
-	new[len - 1] = '\0';
-	if (*s)
-		free(*s);
-	*s = new;
-}
-
-void	expand(t_node *node, t_env **env)
-{
-	expand_variable(node, env);
-	remove_quote(node);
+	// print_env(*env);
+	current = *env;
+	if (path_key == NULL)
+		return (NULL);
+	while (current != NULL)
+	{
+		if (strcmp(current->key, path_key) == 0)
+			return (current->value);
+		current = current->next;
+	}
+	return (NULL);
 }

@@ -32,22 +32,28 @@ bool	is_num(char *str)
 
 int	exec_builtin_exit(char **argv)
 {
-	int	argc;	
+	int	argc;
 
 	argc = count_argc(argv);
 	if (argc == 1)
 		exit(last_status);
-	else if (argc == 2)
+	else
 	{
 		if (is_num(argv[1]))
-			exit(atol(argv[1]));
+		{
+			if (argc == 2)
+				exit(atol(argv[1]));
+			else
+			{
+				xperror("exit: too many arguments");
+				return (1);
+			}
+		}
 		else
 		{
 			xperror("exit: numeric argument required");
 			exit(255);
 		}
 	}
-	else if (argc > 2)
-		xperror("exit: too many arguments");
 	return (1);
 }

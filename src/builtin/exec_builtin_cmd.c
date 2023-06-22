@@ -6,23 +6,18 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:33:42 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/22 21:00:35 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/22 23:31:04 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_builtin_cmd(t_node *node)
+int	exec_builtin_cmd(t_node *node, t_env **env)
 {
 	int		status;
 	char	**argv;
 
-	//************************************************************************************
-	//t_path path = {strdup(getenv("PWD")),strdup(getenv("OLDPWD"))};//pathの初期化、
-	t_path path = {strdup(""),strdup("")};
-	if (!path.pwd)
-		path.pwd = getcwd(NULL, 0);
-	//************************************************************************************
+	(void)env;
 	// printf("start exec_builtin_cmd\n");
 	status = 0;
 	argv = NULL;
@@ -45,15 +40,28 @@ int	exec_builtin_cmd(t_node *node)
 	}
 	else if (strcmp(argv[0], "cd") == 0)
 	{
-		// printf("cd\n");
-
-		status = exec_builtin_cd(argv, &path);
+		status = exec_builtin_cd(argv, env);
 	}
 	else if (strcmp(argv[0], "pwd") == 0)
 	{
-		// printf("pwd\n");
-		status = exec_builtin_pwd(argv, &path);
+		status = exec_builtin_pwd(argv, env);
 	}
+	else if (strcmp(argv[0], "export") == 0)
+	{
+		// printf("export\n");
+		// printf("print_env before export\n");
+		// print_env(env);
+		// set_env_list(&env, "USER=", true);
+		// printf("print_env after export\n");
+		// print_env(env);
+		status = exec_builtin_export(argv, env);
+	}
+	// else if (strcmp(argv[0], "env") == 0)
+	// {
+	// 	printf("env\n");
+	// 	print_env(env);
+	// 	// status = exec_builtin_export(argv);
+	// }
 	else
 		todo("exec_builtin");
 	free_argv(argv);

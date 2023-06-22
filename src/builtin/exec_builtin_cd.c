@@ -12,71 +12,70 @@ int	count_arg(char **argv)
 	return (argc);
 }
 
-int	cd_argv(char **argv, t_path *path)
+int	cd_argv(char **argv, t_env **env)
 {
 	int	status;
+	char	*save;
+	char	*cwd;
 
 	status = chdir(argv[1]);
 	if (status)
-	// ---------------------------------------------------
-	{
-		// error;
 		return (1);
-	}
-	//----------------------------------------------------
-	free(path->old);
-	path->old = path->pwd;
-	path->pwd = strdup(argv[1]);
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		return (1);
+	save = strdup(ft_getenv("PWD",env));
+	update_value_to_env(env, "PWD", cwd);
+	update_value_to_env(env, "OLDPWD", save);
+	free(cwd);
+	free(save);
 	return (status);
 }
 
-int	cd_home(t_path *path)
+int	cd_home(t_env **env)
 {
 	int	status;
 	char	*arg;
+	char	*save;
 
-	arg = getenv("HOME");//<-ここ書き換え！！！！！！！！！！！！！！！！！！！！！
+	arg = ft_getenv("HOME", env);
 	if (!arg)
 		return (1);
 	status = chdir(arg);
 	if (status)
-	// ---------------------------------------------------
-	{
-		// error;
 		return (1);
-	}
-	//----------------------------------------------------
-	free(path->old);
-	path->old = path->pwd;
-	path->pwd = strdup(arg);//<-ここ書き換え！！！！！！！！！！！！！！
+	save = strdup(ft_getenv("HOME",env));
+	update_value_to_env(env, "PWD", save);
+	free(save);
 	return (status);
 }
 
-int	cd_prev(t_path *path)
+int	cd_prev(t_env **env)
 {
 	int	status;
 	char	*save;
 
 	status = 0;
-	if (!path->old)
+	if (!ft_getenv("PWD",env))
 		return (1);
-	status = chdir(path->old);
-	if (!status)
+	status = chdir(ft_getenv("OLDPWD",env));
+	if (status)
 		return (status);
-	save = path->old;
-	path->old = path->pwd;
-	path->pwd = save;
+	save = strdup(ft_getenv("OLDPWD",env));
+	update_value_to_env(env, "OLDPWD", ft_getenv("PWD", env));
+	update_value_to_env(env, "PWD", save);
+	free(save);
 	return (status);
 }
 
-int	exec_builtin_cd(char **argv, t_path *path)
+int	exec_builtin_cd(char **argv, t_env **env)
 {
 	int argc;
 
 	argc = count_arg(argv);
-	if (argc == 2 && !strcmp(argv[1], "-"))
-		return (cd_prev(path));
-	else if(argc == 1)
-		cd_home(path);
-	return (cd_argv(argv, path));
+	if(argc == 1)
+		cd_home(env);
+	else if (!strcmp(argv[1], "-"))
+		return (cd_prev(env));
+	return (cd_argv(argv, env));
 }

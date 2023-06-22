@@ -56,6 +56,7 @@ int	check_state(void)
 		rl_done = 1;
 		// rl_crlf();
 		// printf("\n");
+		last_status = 1;
 	}
 	return (0);
 }
