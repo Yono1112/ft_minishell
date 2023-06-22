@@ -158,6 +158,7 @@ int		exec_builtin_exit(char **argv);
 int		exec_builtin_echo(char **argv);
 int		count_argc(char **argv);
 int		exec_builtin_export(char **argv, t_env **env);
+int	exec_builtin_unset(char **argv, t_env **env);
 // environ
 void	print_env(t_env *env);
 t_env	*init_env_list(char **envp);
@@ -166,5 +167,6 @@ int		set_env_list(t_env **env, char *str);
 char	*ft_getenv(char *path_key, t_env **env);
 t_env	*create_new_env_list(char *key, char *value);
 bool	is_variable(char *str);
+int	unset_env_list(t_env **env, char *str);
 
 # endif
