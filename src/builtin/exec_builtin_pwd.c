@@ -1,23 +1,17 @@
 #include "minishell.h"
 #include <unistd.h>
 
-int	exec_builtin_pwd(char **argv)
+int	exec_builtin_pwd(char **argv, t_path *path)
 {
-	char	*pwd;
-	char	cwd[PATH_MAX];
+	char	*cwd;
 
 	(void)argv;
-	pwd = getenv("PWD");
-	if (pwd)
-	{
-		write(STDOUT_FILENO, pwd, strlen(pwd));
-		write(STDOUT_FILENO, "\n", 1);
-		return (0);
-	}
-	if (getcwd(cwd,PATH_MAX) != NULL)
+	cwd = getcwd(NULL, 0);
+	if (cwd != NULL)
 	{
 		write(STDOUT_FILENO, cwd, strlen(cwd));
 		write(STDOUT_FILENO, "\n", 1);
+		path->pwd = cwd;
 		return (0);
 	}
 	return (1);

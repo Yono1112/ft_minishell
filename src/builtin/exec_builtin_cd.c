@@ -2,55 +2,6 @@
 #include<limits.h>
 #include"minishell.h"
 
-typedef struct s_path
-{
-	char	*pwd;
-	char	*old;
-}	t_path;
-
-
-int	cd_argv(char **argv, struct s_path *path)
-{
-	int	status;
-
-	(void)argv;
-	status = chdir(argv[1]);
-	if (status)
-	// ---------------------------------------------------
-	{
-		// error;
-		return (1);
-	}
-	//----------------------------------------------------
-	free(path->old);
-	path->old = path->pwd;
-	path->pwd = strdup(argv[1]);//NULLチェックは必要か？
-	return (status);
-}
-
-int	cd_home()
-{
-	char	*home;
-	
-	home = getenv("HOME");
-	if (!home)
-		return (1);
-	return (chdir(home));
-}
-
-int	cd_prev()
-{
-	char	*prev;
-	char	currentdir[PATH_MAX];
-
-	prev = getenv("OLDPWD");
-	getcwd(currentdir, PATH_MAX);
-	//printf("%s\n",currentdir);
-	if (!prev)
-		return (1);
-	return (chdir(prev));
-}
-
 int	count_arg(char **argv)
 {
 	int	argc;
@@ -61,26 +12,71 @@ int	count_arg(char **argv)
 	return (argc);
 }
 
-int	exec_builtin_cd(char **argv)
+int	cd_argv(char **argv, t_path *path)
 {
-	int i;
+	int	status;
+
+	status = chdir(argv[1]);
+	if (status)
+	// ---------------------------------------------------
+	{
+		// error;
+		return (1);
+	}
+	//----------------------------------------------------
+	free(path->old);
+	path->old = path->pwd;
+	path->pwd = strdup(argv[1]);
+	return (status);
+}
+
+int	cd_home(t_path *path)
+{
+	int	status;
+	char	*arg;
+
+	arg = getenv("HOME");//<-ここ書き換え！！！！！！！！！！！！！！！！！！！！！
+	if (!arg)
+		return (1);
+	status = chdir(arg);
+	if (status)
+	// ---------------------------------------------------
+	{
+		// error;
+		return (1);
+	}
+	//----------------------------------------------------
+	free(path->old);
+	path->old = path->pwd;
+	path->pwd = strdup(arg);//<-ここ書き換え！！！！！！！！！！！！！！
+	return (status);
+}
+
+int	cd_prev(t_path *path)
+{
+	int	status;
+	char	*save;
+
+	status = 0;
+	if (!path->old)
+		return (1);
+	status = chdir(path->old);
+	if (!status)
+		return (status);
+	save = path->old;
+	path->old = path->pwd;
+	path->pwd = save;
+	return (status);
+}
+
+int	exec_builtin_cd(char **argv, t_path *path)
+{
 	int argc;
 
-	// ----------------------------------------------------------------
-	// minishell実行時に以下の値を取得しておく
-	struct s_path path = {getenv("PWD"),getenv("OLDPWD")};
-	// printf("%s\n", path.pwd);
-	int j = 0;
-	// \while (argv[j])
-	// {j++;}
-	printf("%d\n",j);
-	return 0;
-	// ----------------------------------------------------------------
 	argc = count_arg(argv);
-	(void)i;
-	if (argc == 1)
-		 return (cd_home());
-	else if (!strcmp(argv[1], "-"))
-		 return (cd_prev());
-	return (cd_argv(argv, &path));
+	if (argc == 2 && !strcmp(argv[1], "-"))
+		return (cd_prev(path));
+	else if(argc == 1)
+		cd_home(path);
+	return (cd_argv(argv, path));
 }

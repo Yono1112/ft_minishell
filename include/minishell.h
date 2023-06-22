@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 02:19:51 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/22 19:02:21 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ typedef struct s_node
 	int				outpipe[2];
 }	t_node;
 
+typedef struct s_path
+{
+	char	*pwd;
+	char	*old;
+}	t_path;
+
+
 void	print_token(t_token *token);
 // free
 void	free_node(t_node *node);
@@ -145,7 +152,7 @@ int	exec_builtin_cmd(t_node *node);
 int	exec_builtin_exit(char **argv);
 int	exec_builtin_echo(char **argv);
 int	count_argc(char **argv);
-int	exec_builtin_pwd(char **argv);
-int	exec_builtin_cd(char **argv);
+int	exec_builtin_pwd(char **argv, t_path *path);
+int	exec_builtin_cd(char **argv, t_path *path);
 
 #endif
