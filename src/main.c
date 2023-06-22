@@ -73,8 +73,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	rl_outstream = stderr;
-	env = init_env_list(envp);
+	// print_envp(envp);
 	// printf("-------------------------------------------\n");
+	env = init_env_list(envp);
 	// print_env(env);
 	// set_env_list(&env, "USER=rnaka", true);
 	// printf("-------------------------------------------\n");

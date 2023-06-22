@@ -12,6 +12,42 @@
 
 #include "minishell.h"
 
+static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
+{
+	char	*str;
+	size_t	len;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	if (!s1 || !s2 || !s3)
+		return (NULL);
+	len = strlen(s1) + strlen(s2) + strlen(s3);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	k = 0;
+	while (s3[k])
+	{
+		str[i + j + k] = s3[k];
+		k++;
+	}
+	str[i + j + k] = '\0';
+	return (str);
+}
+
 bool	check_is_filename(const char *path)
 {
 	if (path == NULL)
@@ -131,11 +167,8 @@ char	**change_env_to_environ(t_env *env)
 	i = 0;
 	while (env)
 	{
-		if (env->value != NULL)
-		{
-			environ[i] = env->value;
-			i++;
-		}
+		environ[i] = ft_strjoin_three(env->key, "=", env->value);
+		i++;
 		env = env->next;
 	}
 	environ[i] = NULL;
@@ -159,6 +192,9 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	if (!check_is_filename(path))
 		err_exit(argv[0], "command not found", 127);
 	environ = change_env_to_environ(*env);
+	// printf("==============================\n");
+	// print_envp(environ);
+	// printf("==============================\n");
 	execve(path, argv, environ);
 	free_argv(argv);
 	fatal_error("execve");

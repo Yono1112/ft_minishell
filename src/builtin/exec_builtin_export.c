@@ -12,18 +12,58 @@
 
 #include "minishell.h"
 
+static void	swap_env(t_env *current, t_env *next)
+{
+	char	*tmp_key;
+	char	*tmp_value;
+
+	tmp_key = current->key;
+	current->key = next->key;
+	next->key = tmp_key;
+	tmp_value = current->value;
+	current->value = next->value;
+	next->value = tmp_value;
+}
+
+static t_env	*bubble_sort_env(t_env *env)
+{
+	t_env	*current_env;
+	t_env	*next_env;
+
+	current_env = env;
+	next_env = NULL;
+	while (current_env != NULL)
+	{
+		next_env = current_env->next;
+		while (next_env != NULL)
+		{
+			if (current_env->value != NULL && next_env->value != NULL && strcmp(current_env->key, next_env->key) > 0)
+				swap_env(current_env, next_env);
+			next_env = next_env->next;
+		}
+		current_env = current_env->next;
+	}
+	return (env);
+}
+
 static void	print_environ_variable(t_env **env)
 {
+	t_env	*sorted_env;
+
 	// printf("start print_environ_variable\n");
 	// if (env == NULL)
 	// 	printf("env is NULL\n");
-	while (*env != NULL)
+	// print_env(*env);
+	sorted_env = bubble_sort_env(*env);
+	// print_env(sorted_env);
+	// printf("========================================\n");
+	while (sorted_env != NULL)
 	{
-		if ((*env)->value != NULL)
-			printf("declare -x %s=\"%s\"\n", (*env)->key, (*env)->value);
+		if (sorted_env->value != NULL)
+			printf("declare -x %s=\"%s\"\n", sorted_env->key, sorted_env->value);
 		else
-			printf("declare -x %s\n", (*env)->key);
-		(*env) = (*env)->next;
+			printf("declare -x %s\n", sorted_env->key);
+		sorted_env = sorted_env->next;
 	}
 	// printf("finish print_environ_variable\n");
 }

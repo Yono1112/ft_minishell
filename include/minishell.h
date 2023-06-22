@@ -98,6 +98,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+void	print_envp(char **envp);
 void	print_token(t_token *token);
 // free
 void	free_node(t_node *node);
