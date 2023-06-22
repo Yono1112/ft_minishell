@@ -48,6 +48,11 @@ int	exec_builtin_cmd(t_node *node, t_env **env)
 		// print_env(env);
 		status = exec_builtin_export(argv, env);
 	}
+	else if (strcmp(argv[0], "unset") == 0)
+	{
+		// printf("unset\n");
+		status = exec_builtin_unset(argv, env);
+	}
 	// else if (strcmp(argv[0], "env") == 0)
 	// {
 	// 	printf("env\n");
