@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/13 13:20:22 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:54:44 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*append_variable_name(char **rest, char *current_word)
 	return (variable_name);
 }
 
-void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env *env)
+void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env **env)
 {
 	char	*name;
 	char	*value;
@@ -95,6 +95,7 @@ void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env
 	current_word++;
 	name = append_variable_name(&current_word, current_word);
 	// value = getenv(name);
+	// printf("name:%s\n", name);
 	value = ft_getenv(name, env);
 	// printf("value:%s\n", value);
 	if (value != NULL)
@@ -129,7 +130,7 @@ void	append_single_quote(char **new_word, char **rest, char *current_word)
 		assert_error("Expected single quote");
 }
 
-void	append_double_quote(char **new_word, char **rest, char *current_word, t_env *env)
+void	append_double_quote(char **new_word, char **rest, char *current_word, t_env **env)
 {
 	if (*current_word == DOUBLE_QUOTE_CHAR)
 	{
@@ -154,7 +155,7 @@ void	append_double_quote(char **new_word, char **rest, char *current_word, t_env
 		assert_error("Expected double quote");
 }
 
-void	expand_variable_token(t_token *token, t_env *env)
+void	expand_variable_token(t_token *token, t_env **env)
 {
 	char	*new_word;
 	char	*current_word;
@@ -190,7 +191,7 @@ void	expand_variable_token(t_token *token, t_env *env)
 	// printf("finish expand_variable_token\n");
 }
 
-void	expand_variable(t_node *node, t_env *env)
+void	expand_variable(t_node *node, t_env **env)
 {
 	// printf("start expand_variable\n");
 	while (node != NULL)

@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 02:08:43 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 02:09:01 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:19:51 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	update_value_to_env(t_env **env, char *key, char *value)
 {
 	t_env	*update_env;
 
+	if (value == NULL)
+		return ;
 	update_env = *env;
 	// if (update_env == NULL || update_env->key == NULL)
 	// 	return ;
@@ -28,14 +30,9 @@ void	update_value_to_env(t_env **env, char *key, char *value)
 	// if (update_env == NULL)
 	// 	return ;
 	free(update_env->value);
-	if (value == NULL)
-		update_env->value = NULL;
-	else
-	{
-		update_env->value = strdup(value);
-		if (update_env->value == NULL)
-			fatal_error("strdup");
-	}
+	update_env->value = strdup(value);
+	if (update_env->value == NULL)
+		fatal_error("strdup");
 }
 
 void	add_key_value_to_env(t_env **env, char *key, char *value)
@@ -43,6 +40,8 @@ void	add_key_value_to_env(t_env **env, char *key, char *value)
 	t_env	*new_env;
 	t_env	*last_env;
 
+	// printf("start add_key_value_to_env\n");
+	// printf("key:%s, value:%s\n", key, value);
 	if (value == NULL)
 	{
 		new_env = create_new_env_list(strdup(key), NULL);
@@ -80,7 +79,7 @@ bool	is_key_in_env(char *key, t_env *env)
 	return (false);
 }
 
-int	set_env_list(t_env **env, char *str, bool is_export)
+int	set_env_list(t_env **env, char *str)
 {
 	char	*key;
 	char	*value;
@@ -92,17 +91,24 @@ int	set_env_list(t_env **env, char *str, bool is_export)
 	else
 	{
 		end_key = strchr(str, '=');
-		if (end_key == NULL && is_export)
+		// printf("end_key:%s\n", end_key);
+		if (end_key != NULL)
 		{
-			// printf("value is NULL && true is_export\n");
-			return (-1);
+			// printf("end_key is not NULL\n");
+			key = strndup(str, end_key - str);
+			value = strdup(end_key + 1);
+			if (value == NULL)
+				fatal_error("strndup");
 		}
-		key = strndup(str, end_key - str);
-		if (key == NULL)
-			fatal_error("strndup");
-		value = strdup(end_key + 1);
-		if (value == NULL)
-			fatal_error("strndup");
+		else
+		{
+			// printf("end_key is NULL\n");
+			key = strdup(str);
+			if (key == NULL)
+				fatal_error("strndup");
+			value = NULL;
+		}
+		// printf("%ld\n", end_key - str);
 	}
 	// printf("key:%s, value:%s\n", key, value);
 	if (is_key_in_env(key, *env))
@@ -113,7 +119,14 @@ int	set_env_list(t_env **env, char *str, bool is_export)
 	else
 	{
 		// printf("false is_key_in_env\n");
+		if (!is_variable(key))
+		{
+			free(key);
+			free(value);
+			return (-1);
+		}
 		add_key_value_to_env(env, key, value);
+		// printf("env->key:%s, env->value:%s\n", (*env)->key, (*env)->value);
 	}
 	free(key);
 	free(value);

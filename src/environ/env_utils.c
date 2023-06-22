@@ -12,17 +12,17 @@
 
 #include "minishell.h"
 
-// static void	print_envp(char **envp)
-// {
-// 	size_t	i;
-// 
-// 	i = 0;
-// 	while (envp[i])
-// 	{
-// 		printf("envp[%zu]: %s\n", i, envp[i]);
-// 		i++;
-// 	}
-// }
+void	print_envp(char **envp)
+{
+	size_t	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		printf("envp[%zu]: %s\n", i, envp[i]);
+		i++;
+	}
+}
 
 bool	is_variable(char *str)
 {
