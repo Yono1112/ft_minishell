@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/23 00:55:44 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/23 01:17:03 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ int		exec_builtin_exit(char **argv);
 int		exec_builtin_echo(char **argv);
 int		count_argc(char **argv);
 int		exec_builtin_export(char **argv, t_env **env);
+int		get_cwd(t_env **env);
 // environ
 void	print_env(t_env *env);
 t_env	*init_env_list(char **envp);

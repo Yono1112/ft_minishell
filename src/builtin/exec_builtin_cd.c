@@ -2,6 +2,14 @@
 #include<limits.h>
 #include"minishell.h"
 
+void	cd_error(char *str)
+{
+	if (!strcmp(str, "OLDPWD"))
+		write(1, "cd: OLDPWD not set\n", 20);
+	else if (!strcmp(str, "HOME"))
+		write(1, "cd: HOME not set\n", 18);
+}
+
 int	count_arg(char **argv)
 {
 	int	argc;
@@ -25,8 +33,13 @@ int	cd_argv(char **argv, t_env **env)
 	if (cwd == NULL)
 		return (1);
 	save = strdup(ft_getenv("PWD",env));
+	if (!save)
+		return (1);
 	update_value_to_env(env, "PWD", cwd);
-	update_value_to_env(env, "OLDPWD", save);
+	if (!ft_getenv("OLDPWD", env))
+		add_key_value_to_env(env, "OLDPWD", save);
+	else
+		update_value_to_env(env, "OLDPWD", save);
 	free(cwd);
 	free(save);
 	return (status);
@@ -40,7 +53,10 @@ int	cd_home(t_env **env)
 
 	arg = ft_getenv("HOME", env);
 	if (!arg)
-		return (1);
+	{
+		cd_error("HOME");
+			return (1);
+	}
 	status = chdir(arg);
 	if (status)
 		return (1);
@@ -56,8 +72,11 @@ int	cd_prev(t_env **env)
 	char	*save;
 
 	status = 0;
-	if (!ft_getenv("PWD",env))
+	if (!ft_getenv("OLDPWD",env))
+	{
+		cd_error("OLDPWD");
 		return (1);
+	}
 	status = chdir(ft_getenv("OLDPWD",env));
 	if (status)
 		return (status);
@@ -72,6 +91,7 @@ int	exec_builtin_cd(char **argv, t_env **env)
 {
 	int argc;
 
+	get_cwd(env);
 	argc = count_arg(argv);
 	if(argc == 1)
 		cd_home(env);

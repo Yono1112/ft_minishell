@@ -19,3 +19,19 @@ int	exec_builtin_pwd(char **argv, t_env **env)
 	}
 	return (1);
 }
+
+int	get_cwd(t_env **env)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd != NULL)
+	{
+		if (!ft_getenv("PWD", env))
+			add_key_value_to_env(env, "PWD", cwd);
+		else
+			update_value_to_env(env, "PWD", cwd);
+		return (0);
+	}
+	return (1);
+}
