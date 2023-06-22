@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_variable_heredoc.c                          :+:      :+:    :+:   */
+/*   expand_heredoc_line.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:03:26 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/29 18:55:36 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:57:32 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_heredoc_line(char *line, t_env *env)
+char	*expand_heredoc_line(char *line, t_env **env)
 {
 	char	*current_word;
 	char	*new_word;

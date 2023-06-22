@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:33:42 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/07 20:43:07 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/22 14:50:21 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_builtin_cmd(t_node *node, t_env *env)
+int	exec_builtin_cmd(t_node *node, t_env **env)
 {
 	int		status;
 	char	**argv;
@@ -38,16 +38,16 @@ int	exec_builtin_cmd(t_node *node, t_env *env)
 		// printf("echo\n");
 		status = exec_builtin_echo(argv);
 	}
-	// else if (strcmp(argv[0], "export") == 0)
-	// {
-	// 	printf("export\n");
-	// 	printf("print_env before export\n");
-	// 	print_env(env);
-	// 	set_env_list(&env, "USER=", true);
-	// 	printf("print_env after export\n");
-	// 	print_env(env);
-	// 	// status = exec_builtin_export(argv);
-	// }
+	else if (strcmp(argv[0], "export") == 0)
+	{
+		// printf("export\n");
+		// printf("print_env before export\n");
+		// print_env(env);
+		// set_env_list(&env, "USER=", true);
+		// printf("print_env after export\n");
+		// print_env(env);
+		status = exec_builtin_export(argv, env);
+	}
 	// else if (strcmp(argv[0], "env") == 0)
 	// {
 	// 	printf("env\n");

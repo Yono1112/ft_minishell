@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/29 19:03:16 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:57:17 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	stashfd(int fd)
 	return (stashfd);
 }
 
-int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env *env)
+int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 {
 	char	*line;
 	int		pfd[2];
@@ -67,7 +67,7 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env *env)
 	return (pfd[0]);
 }
 
-int	open_redirect_file(t_node *node, t_env *env)
+int	open_redirect_file(t_node *node, t_env **env)
 {
 	// printf("start open_redirect\n");
 	t_node *start_node;

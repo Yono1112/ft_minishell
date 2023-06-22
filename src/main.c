@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/19 21:53:13 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:48:22 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_env(t_env *env)
 	}
 }
 
-void	interpret(char* const line, int *status, t_env *env)
+void	interpret(char* const line, int *status, t_env **env)
 {
 	t_token	*token;
 	t_node	*node;
@@ -94,7 +94,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*line)
 			add_history(line);
-		interpret(line, &last_status, env);
+		interpret(line, &last_status, &env);
 		if (line)
 			free(line);
 	}

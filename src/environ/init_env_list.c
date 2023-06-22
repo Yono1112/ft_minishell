@@ -25,7 +25,7 @@ t_env	*init_env_list(char **envp)
 	{
 		// printf("===============================\n");
 	 	// printf("envp[%zu]: %s\n", i, envp[i]);
-		set_env_list(&env, envp[i], false);
+		set_env_list(&env, envp[i]);
 		// printf("env->key:%s, env->value:%s\n", env->key, env->value);
 		i++;
 	}

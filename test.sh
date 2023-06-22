@@ -54,10 +54,11 @@ assert() {
 		mv "$arg" "$arg"".out"
 	done
 
-# cat out >> test3
-# echo "======================================" >> test3
-# cat cmp >> test4
-# echo "=====================================" >> test4
+# echo "====================================================" >> log.txt
+# cat out >> log.txt
+# echo "outoutoutoutoutoutoutoutoutoutoutout" >> log.txt
+# cat cmp >> log.txt
+# echo "cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp" >> log.txt
 diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
 
 # 	# bashとminishellの出力を比較
@@ -277,5 +278,6 @@ assert 'export [invalid] nosuch hoge=nosuch\n export | grep nosuch | sort'
 assert 'export nosuch [invalid] hoge=nosuch\n export | grep nosuch | sort'
 assert 'export nosuch hoge=nosuch [invalid]\n export | grep nosuch | sort'
 assert 'export nosuch="nosuch2=hoge"\nexport $nosuch\n export | grep nosuch | sort'
+assert 'export TEST=hoge1 TEST=hoge2 TEST\n export | grep TEST | sort'
 
 cleanup
