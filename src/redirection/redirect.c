@@ -103,7 +103,6 @@ int	open_redirect_file(t_node *node, t_env **env)
 		else if (node->kind == ND_REDIR_APPEND)
 		{
 			// printf("append\n");
-			node->filefd = open(node->filename->word, O_RDONLY);
 			node->filefd = open(node->filename->word,
 					O_CREAT | O_WRONLY | O_APPEND, 0644);
 			// printf("node_kind is ND_REDIR_APPEND, filefd: %d\n", node->filefd);

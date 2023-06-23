@@ -1,3 +1,0 @@
-finish do_redirect
-node->command->args is NULL
-exit
