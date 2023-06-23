@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/28 01:57:35 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/24 06:47:19 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ void	append_char(char **s, char c)
 	*s = new;
 }
 
-void	expand(t_node *node)
+void	expand(t_node *node, t_env **env)
 {
-	expand_variable(node);
-	// split_word(node);
+	expand_variable(node, env);
 	remove_quote(node);
 }

@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_variable_heredoc.c                          :+:      :+:    :+:   */
+/*   exec_builtin_env.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 18:03:26 by yuohno            #+#    #+#             */
-/*   Updated: 2023/05/24 20:06:32 by yuohno           ###   ########.fr       */
+/*   Created: 2023/06/23 04:20:46 by yumaohno          #+#    #+#             */
+/*   Updated: 2023/06/23 04:21:53 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_heredoc_line(char *line)
+int	exec_builtin_env(t_env **env)
 {
-	char	*current_word;
-	char	*new_word;
+	t_env	*current;
 
-
+	current = NULL;
+	if (*env != NULL)
+	{
+		current = *env;
+		while (current != NULL)
+		{
+			if (current->value != NULL)
+				printf("%s=%s\n", current->key, current->value);
+			current = current->next;
+		}
+	}
+	return (0);
 }

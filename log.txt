@@ -1,0 +1,4260 @@
+
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/pwd
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./a.out
+====================================================
+hello from a.out
+outoutoutoutoutoutoutoutoutoutoutout
+hello from a.out
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+a.out
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls /
+====================================================
+Applications
+Library
+System
+Users
+Volumes
+bin
+cores
+dev
+etc
+home
+opt
+private
+sbin
+tmp
+usr
+var
+outoutoutoutoutoutoutoutoutoutoutout
+Applications
+Library
+System
+Users
+Volumes
+bin
+cores
+dev
+etc
+home
+opt
+private
+sbin
+tmp
+usr
+var
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello world
+====================================================
+hello world
+outoutoutoutoutoutoutoutoutoutoutout
+hello world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile\n\n
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args 'hello world' '42Tokyo'
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo 'hello world' '42Tokyo'
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo '"hello world"' '42Tokyo'
+====================================================
+"hello   world" 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+"hello   world" 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args "hello world" "42Tokyo"
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "hello world" "42Tokyo"
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "'hello world'" "42Tokyo"
+====================================================
+'hello   world' 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+'hello   world' 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world'
+====================================================
+hello      world
+outoutoutoutoutoutoutoutoutoutoutout
+hello      world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world '" 42Tokyo "
+====================================================
+hello  world    42Tokyo  
+outoutoutoutoutoutoutoutoutoutoutout
+hello  world    42Tokyo  
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >hello.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >f1>f2>f3
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <Makefile
+====================================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <f1<f2<f3
+====================================================
+42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <hoge
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt \n pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF<<eof\nhello\nworld\nEOF\neof\nNOPRINT
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<E"O"F\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+rnaka
+
+
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"EOF" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EO"F" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<$EOF \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"$EOF" \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat Makefile | grep minishell
+====================================================
+NAME = minishell
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat | cat | ls\n\n
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER
+====================================================
+rnaka
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER$PATH$TERM
+====================================================
+rnaka/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-toolsxterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-toolsxterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "$USER $PATH $TERM"
+====================================================
+rnaka  /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools   xterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka  /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools   xterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $?
+====================================================
+0
+outoutoutoutoutoutoutoutoutoutoutout
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+invalid\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\n\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit -42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit -257
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit --42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit +42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit +++42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit ""
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit hello
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42Tokyo
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42a 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit a 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42 41
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 1 2
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 1111111111
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 99999999999999999999
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo ""
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo ''
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello
+====================================================
+hello
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello " " world
+====================================================
+hello      world
+outoutoutoutoutoutoutoutoutoutoutout
+hello      world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -a
+====================================================
+-a
+outoutoutoutoutoutoutoutoutoutoutout
+-a
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n hello
+====================================================
+hellooutoutoutoutoutoutoutoutoutoutoutout
+hellocmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n hello world
+====================================================
+hello worldoutoutoutoutoutoutoutoutoutoutoutout
+hello worldcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello -n
+====================================================
+hello -n
+outoutoutoutoutoutoutoutoutoutoutout
+hello -n
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -nnnnn hello
+====================================================
+hellooutoutoutoutoutoutoutoutoutoutoutout
+hellocmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -na hello
+====================================================
+-na hello
+outoutoutoutoutoutoutoutoutoutoutout
+-na hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo - n
+====================================================
+- n
+outoutoutoutoutoutoutoutoutoutoutout
+- n
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo - hello
+====================================================
+- hello
+outoutoutoutoutoutoutoutoutoutoutout
+- hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch=fuga\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch="fuga"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch=fuga hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch="fuga"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid]
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid_nosuch]\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid]=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid] nosuch hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch [invalid] hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch hoge=nosuch [invalid]\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch="nosuch2=hoge"\nexport $nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch2="hoge"
+declare -x nosuch="nosuch2=hoge"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export TEST=hoge1 TEST=hoge2 TEST\n export | grep TEST | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x TEST="hoge2"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd .
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ..
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ///
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp/
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp///
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /../../../././.././
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd src
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd \n echo $PWD
+====================================================
+/Users/rnaka
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd \n echo $PWD
+====================================================
+cd: HOME not set
+ /Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd .\n echo $PWD
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ..\n echo $PWD
+====================================================
+/Users/rnaka/Desktop
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ///\n echo $PWD
+====================================================
+/
+outoutoutoutoutoutoutoutoutoutoutout
+/
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp/\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp///\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /../../../././.././\n echo $PWD
+====================================================
+/
+outoutoutoutoutoutoutoutoutoutoutout
+/
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd src\n echo $PWD
+====================================================
+/Users/rnaka/Desktop/ft_minishell/src
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell/src
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/pwd
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./a.out
+====================================================
+hello from a.out
+outoutoutoutoutoutoutoutoutoutoutout
+hello from a.out
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+a.out
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls /
+====================================================
+Applications
+Library
+System
+Users
+Volumes
+bin
+cores
+dev
+etc
+home
+opt
+private
+sbin
+tmp
+usr
+var
+outoutoutoutoutoutoutoutoutoutoutout
+Applications
+Library
+System
+Users
+Volumes
+bin
+cores
+dev
+etc
+home
+opt
+private
+sbin
+tmp
+usr
+var
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello world
+====================================================
+hello world
+outoutoutoutoutoutoutoutoutoutoutout
+hello world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile\n\n
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args 'hello world' '42Tokyo'
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo 'hello world' '42Tokyo'
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo '"hello world"' '42Tokyo'
+====================================================
+"hello   world" 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+"hello   world" 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args "hello world" "42Tokyo"
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "hello world" "42Tokyo"
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "'hello world'" "42Tokyo"
+====================================================
+'hello   world' 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+'hello   world' 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world'
+====================================================
+hello      world
+outoutoutoutoutoutoutoutoutoutoutout
+hello      world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world '" 42Tokyo "
+====================================================
+hello  world    42Tokyo  
+outoutoutoutoutoutoutoutoutoutoutout
+hello  world    42Tokyo  
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >hello.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >f1>f2>f3
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <Makefile
+====================================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <f1<f2<f3
+====================================================
+42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <hoge
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt \n pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF<<eof\nhello\nworld\nEOF\neof\nNOPRINT
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<E"O"F\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+rnaka
+
+
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"EOF" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EO"F" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<$EOF \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"$EOF" \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat Makefile | grep minishell
+====================================================
+NAME = minishell
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat | cat | ls\n\n
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER
+====================================================
+rnaka
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER$PATH$TERM
+====================================================
+rnaka/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-toolsxterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-toolsxterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "$USER $PATH $TERM"
+====================================================
+rnaka  /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools   xterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka  /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools   xterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $?
+====================================================
+0
+outoutoutoutoutoutoutoutoutoutoutout
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+invalid\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\n\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit -42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit -257
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit --42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit +42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit +++42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit ""
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit hello
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42Tokyo
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42a 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit a 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42 41
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 1 2
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 1111111111
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 99999999999999999999
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo ""
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo ''
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello
+====================================================
+hello
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello " " world
+====================================================
+hello      world
+outoutoutoutoutoutoutoutoutoutoutout
+hello      world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -a
+====================================================
+-a
+outoutoutoutoutoutoutoutoutoutoutout
+-a
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n hello
+====================================================
+hellooutoutoutoutoutoutoutoutoutoutoutout
+hellocmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n hello world
+====================================================
+hello worldoutoutoutoutoutoutoutoutoutoutoutout
+hello worldcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello -n
+====================================================
+hello -n
+outoutoutoutoutoutoutoutoutoutoutout
+hello -n
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -nnnnn hello
+====================================================
+hellooutoutoutoutoutoutoutoutoutoutoutout
+hellocmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -na hello
+====================================================
+-na hello
+outoutoutoutoutoutoutoutoutoutoutout
+-na hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo - n
+====================================================
+- n
+outoutoutoutoutoutoutoutoutoutoutout
+- n
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo - hello
+====================================================
+- hello
+outoutoutoutoutoutoutoutoutoutoutout
+- hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch=fuga\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch="fuga"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch=fuga hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch="fuga"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid]
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid_nosuch]\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid]=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid] nosuch hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch [invalid] hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch hoge=nosuch [invalid]\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch="nosuch2=hoge"\nexport $nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch2="hoge"
+declare -x nosuch="nosuch2=hoge"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export TEST=hoge1 TEST=hoge2 TEST\n export | grep TEST | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x TEST="hoge2"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd .
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ..
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ///
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp/
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp///
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /../../../././.././
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd src
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd \n echo $PWD
+====================================================
+/Users/rnaka
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd \n echo $PWD
+====================================================
+cd: HOME not set
+ /Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd .\n echo $PWD
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ..\n echo $PWD
+====================================================
+/Users/rnaka/Desktop
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ///\n echo $PWD
+====================================================
+/
+outoutoutoutoutoutoutoutoutoutoutout
+/
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp/\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp///\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /../../../././.././\n echo $PWD
+====================================================
+/
+outoutoutoutoutoutoutoutoutoutoutout
+/
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd src\n echo $PWD
+====================================================
+/Users/rnaka/Desktop/ft_minishell/src
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell/src
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/pwd
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./a.out
+====================================================
+hello from a.out
+outoutoutoutoutoutoutoutoutoutoutout
+hello from a.out
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+a.out
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls /
+====================================================
+Applications
+Library
+System
+Users
+Volumes
+bin
+cores
+dev
+etc
+home
+opt
+private
+sbin
+tmp
+usr
+var
+outoutoutoutoutoutoutoutoutoutoutout
+Applications
+Library
+System
+Users
+Volumes
+bin
+cores
+dev
+etc
+home
+opt
+private
+sbin
+tmp
+usr
+var
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello world
+====================================================
+hello world
+outoutoutoutoutoutoutoutoutoutoutout
+hello world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile\n\n
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args 'hello world' '42Tokyo'
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo 'hello world' '42Tokyo'
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo '"hello world"' '42Tokyo'
+====================================================
+"hello   world" 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+"hello   world" 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args "hello world" "42Tokyo"
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "hello world" "42Tokyo"
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "'hello world'" "42Tokyo"
+====================================================
+'hello   world' 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+'hello   world' 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world'
+====================================================
+hello      world
+outoutoutoutoutoutoutoutoutoutoutout
+hello      world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world '" 42Tokyo "
+====================================================
+hello  world    42Tokyo  
+outoutoutoutoutoutoutoutoutoutoutout
+hello  world    42Tokyo  
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >hello.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >f1>f2>f3
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <Makefile
+====================================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <f1<f2<f3
+====================================================
+42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <hoge
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt \n pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF<<eof\nhello\nworld\nEOF\neof\nNOPRINT
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<E"O"F\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+rnaka
+
+
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"EOF" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EO"F" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<$EOF \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"$EOF" \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat Makefile | grep minishell
+====================================================
+NAME = minishell
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat | cat | ls\n\n
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER
+====================================================
+rnaka
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER$PATH$TERM
+====================================================
+rnaka/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-toolsxterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-toolsxterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "$USER $PATH $TERM"
+====================================================
+rnaka  /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools   xterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka  /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools:/Users/rnaka/Library/Python/3.8/bin:/Users/rnaka/mybin:/Users/rnaka/Downloads/platform-tools   xterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $?
+====================================================
+0
+outoutoutoutoutoutoutoutoutoutoutout
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+invalid\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\n\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit -42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit -257
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit --42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit +42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit +++42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit ""
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit hello
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42Tokyo
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42a 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit a 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42 41
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 1 2
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 1111111111
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 99999999999999999999
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo ""
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo ''
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello
+====================================================
+hello
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello " " world
+====================================================
+hello      world
+outoutoutoutoutoutoutoutoutoutoutout
+hello      world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -a
+====================================================
+-a
+outoutoutoutoutoutoutoutoutoutoutout
+-a
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n hello
+====================================================
+hellooutoutoutoutoutoutoutoutoutoutoutout
+hellocmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n hello world
+====================================================
+hello worldoutoutoutoutoutoutoutoutoutoutoutout
+hello worldcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello -n
+====================================================
+hello -n
+outoutoutoutoutoutoutoutoutoutoutout
+hello -n
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -nnnnn hello
+====================================================
+hellooutoutoutoutoutoutoutoutoutoutoutout
+hellocmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -na hello
+====================================================
+-na hello
+outoutoutoutoutoutoutoutoutoutoutout
+-na hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo - n
+====================================================
+- n
+outoutoutoutoutoutoutoutoutoutoutout
+- n
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo - hello
+====================================================
+- hello
+outoutoutoutoutoutoutoutoutoutoutout
+- hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch=fuga\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch="fuga"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch=fuga hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch="fuga"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid]
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid_nosuch]\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid]=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid] nosuch hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch [invalid] hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch hoge=nosuch [invalid]\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch="nosuch2=hoge"\nexport $nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch2="hoge"
+declare -x nosuch="nosuch2=hoge"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export TEST=hoge1 TEST=hoge2 TEST\n export | grep TEST | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x TEST="hoge2"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd .
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ..
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ///
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp/
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp///
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /../../../././.././
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd src
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd \n echo $PWD
+====================================================
+/Users/rnaka
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd \n echo $PWD
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd .\n echo $PWD
+====================================================
+/Users/rnaka/Desktop/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ..\n echo $PWD
+====================================================
+/Users/rnaka/Desktop
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ///\n echo $PWD
+====================================================
+/
+outoutoutoutoutoutoutoutoutoutoutout
+/
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp/\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp///\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /../../../././.././\n echo $PWD
+====================================================
+/
+outoutoutoutoutoutoutoutoutoutoutout
+/
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd src\n echo $PWD
+====================================================
+/Users/rnaka/Desktop/ft_minishell/src
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/Desktop/ft_minishell/src
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/pwd
+====================================================
+/Users/rnaka/42/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/42/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd
+====================================================
+/Users/rnaka/42/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/42/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./a.out
+====================================================
+hello from a.out
+outoutoutoutoutoutoutoutoutoutoutout
+hello from a.out
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+a.out
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls /
+====================================================
+Applications
+Library
+Network
+Previous Content
+System
+Users
+Volumes
+bin
+cores
+default.profraw
+dev
+etc
+exam
+goinfre
+home
+iSCSI
+installer.failurerequests
+net
+nfs
+opt
+private
+sbin
+sgoinfre
+tmp
+usr
+var
+outoutoutoutoutoutoutoutoutoutoutout
+Applications
+Library
+Network
+Previous Content
+System
+Users
+Volumes
+bin
+cores
+default.profraw
+dev
+etc
+exam
+goinfre
+home
+iSCSI
+installer.failurerequests
+net
+nfs
+opt
+private
+sbin
+sgoinfre
+tmp
+usr
+var
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello world
+====================================================
+hello world
+outoutoutoutoutoutoutoutoutoutoutout
+hello world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile\n\n
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args 'hello world' '42Tokyo'
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo 'hello world' '42Tokyo'
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo '"hello world"' '42Tokyo'
+====================================================
+"hello   world" 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+"hello   world" 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args "hello world" "42Tokyo"
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "hello world" "42Tokyo"
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "'hello world'" "42Tokyo"
+====================================================
+'hello   world' 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+'hello   world' 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world'
+====================================================
+hello      world
+outoutoutoutoutoutoutoutoutoutoutout
+hello      world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world '" 42Tokyo "
+====================================================
+hello  world    42Tokyo  
+outoutoutoutoutoutoutoutoutoutoutout
+hello  world    42Tokyo  
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >hello.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >f1>f2>f3
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <Makefile
+====================================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <f1<f2<f3
+====================================================
+42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <hoge
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt \n pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF<<eof\nhello\nworld\nEOF\neof\nNOPRINT
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<E"O"F\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+rnaka
+
+
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"EOF" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EO"F" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<$EOF \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"$EOF" \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat Makefile | grep minishell
+====================================================
+NAME = minishell
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat | cat | ls\n\n
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER
+====================================================
+rnaka
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER$PATH$TERM
+====================================================
+rnaka/Users/rnaka/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/rnaka/.brew/bin:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/bin:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/binxterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka/Users/rnaka/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/rnaka/.brew/bin:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/bin:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/binxterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "$USER $PATH $TERM"
+====================================================
+rnaka  /Users/rnaka/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/rnaka/.brew/bin:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/bin:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/bin   xterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka  /Users/rnaka/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/rnaka/.brew/bin:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/bin:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/bin   xterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $?
+====================================================
+0
+outoutoutoutoutoutoutoutoutoutoutout
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+invalid\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\n\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/pwd
+====================================================
+/Users/rnaka/42/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/42/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+/bin/ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+infinite_loop
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+infinite_loop
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd
+====================================================
+/Users/rnaka/42/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/42/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+infinite_loop
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+infinite_loop
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./a.out
+====================================================
+hello from a.out
+outoutoutoutoutoutoutoutoutoutoutout
+hello from a.out
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+a.out
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+ls /
+====================================================
+Applications
+Library
+Network
+Previous Content
+System
+Users
+Volumes
+bin
+cores
+default.profraw
+dev
+etc
+exam
+goinfre
+home
+iSCSI
+installer.failurerequests
+net
+nfs
+opt
+private
+sbin
+sgoinfre
+tmp
+usr
+var
+outoutoutoutoutoutoutoutoutoutoutout
+Applications
+Library
+Network
+Previous Content
+System
+Users
+Volumes
+bin
+cores
+default.profraw
+dev
+etc
+exam
+goinfre
+home
+iSCSI
+installer.failurerequests
+net
+nfs
+opt
+private
+sbin
+sgoinfre
+tmp
+usr
+var
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello world
+====================================================
+hello world
+outoutoutoutoutoutoutoutoutoutoutout
+hello world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+nosuchfile\n\n
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args 'hello world' '42Tokyo'
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo 'hello world' '42Tokyo'
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo '"hello world"' '42Tokyo'
+====================================================
+"hello   world" 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+"hello   world" 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./print_args "hello world" "42Tokyo"
+====================================================
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+argv[0] = ./print_args
+argv[1] = hello   world
+argv[2] = 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "hello world" "42Tokyo"
+====================================================
+hello   world 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+hello   world 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "'hello world'" "42Tokyo"
+====================================================
+'hello   world' 42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+'hello   world' 42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world'
+====================================================
+hello      world
+outoutoutoutoutoutoutoutoutoutoutout
+hello      world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello' world '" 42Tokyo "
+====================================================
+hello  world    42Tokyo  
+outoutoutoutoutoutoutoutoutoutoutout
+hello  world    42Tokyo  
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >hello.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello >f1>f2>f3
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <Makefile
+====================================================
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+ifeq ($(shell uname -s), Linux)
+LDFLAGS = -lreadline
+else
+RLDIR = $(shell brew --prefix readline)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
+endif
+# LDFLAGS = -lreadline
+RM = rm -rf
+SRCS =	src/main.c	\
+		src/free.c	\
+		src/lexer/tokenize.c	\
+		src/lexer/blank.c		\
+		src/lexer/operator.c	\
+		src/lexer/word.c		\
+		src/lexer/add_token_to_argv.c	\
+		src/output_error/output_error.c	\
+		src/expansion/expand.c	\
+		src/expansion/remove_quote.c	\
+		src/expansion/expand_variable.c	\
+		src/expansion/expand_heredoc_line.c	\
+		src/parser/parse.c	\
+		src/redirection/redirect.c	\
+		src/pipeline/pipe.c	\
+		src/exec/exec.c	\
+		src/signal/signal.c	\
+		src/builtin/is_builtin.c	\
+		src/builtin/exec_builtin_cmd.c	\
+		src/builtin/exec_builtin_exit.c	\
+		src/builtin/exec_builtin_echo.c	\
+		src/builtin/exec_builtin_cd.c	\
+		src/builtin/exec_builtin_pwd.c	\
+		src/environ/env_utils.c	\
+		src/environ/ft_getenv.c	\
+		src/environ/init_env_list.c	\
+		src/environ/set_env_list.c	\
+		src/builtin/exec_builtin_export.c	
+
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+INC = -I include -I$(RLDIR)/include
+
+DEBUG_FLAG = -fsanitize=address,leak
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+debug: CFLAGS += $(DEBUG_FLAG)
+debug: re
+
+test: re
+	./test.sh
+
+norm:
+	norminette include src libft
+	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\
+	rl_replace_line|rl_redisplay|add_history|printf|malloc|free|write|\
+	access|open|read|close|fork|wait|waitpid|wait3|wait4|signal|\
+	sigaction|sigemptyset|sigaddset|kill|exit|getcwd|chdir|stat|lstat|\
+	fstat|unlink|execve|dup|dup2|pipe|opendir|readdir|closedir|\
+	strerror|perror|isatty|ttyname|ttyslot|ioctl|getenv|tcsetattr|\
+	tcgetattr|tgetent|tgetflag|tgetnum|tgetstr|tgoto|tputs)"
+
+.PHONY: all clean fclean re test debug
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <f1<f2<f3
+====================================================
+42Tokyo
+outoutoutoutoutoutoutoutoutoutoutout
+42Tokyo
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <hoge
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+pwd >>pwd.txt \n pwd >>pwd.txt
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF<<eof\nhello\nworld\nEOF\neof\nNOPRINT
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF\nhello\nworld
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<E"O"F\nhello\nworld\nEOF\nNOPRINT
+====================================================
+hello
+world
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EOF \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+rnaka
+
+
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"EOF" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<EO"F" \n$USER\n$NO_SUCH_VAR\n$FOO$BAR\nEOF
+====================================================
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+outoutoutoutoutoutoutoutoutoutoutout
+$USER
+$NO_SUCH_VAR
+$FOO$BAR
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<$EOF \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat <<"$EOF" \neof\n$EOF\nEOF
+====================================================
+eof
+outoutoutoutoutoutoutoutoutoutoutout
+eof
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat Makefile | grep minishell
+====================================================
+NAME = minishell
+outoutoutoutoutoutoutoutoutoutoutout
+NAME = minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cat | cat | ls\n\n
+====================================================
+Makefile
+a.out
+cmp
+exit42
+include
+infinite_loop
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+Makefile
+a.out
+cmp
+exit42
+include
+infinite_loop
+log
+log.txt
+minishell
+minishell.md
+obj
+out
+print_args
+src
+tags
+test
+test.sh
+tmp.c
+usatie_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER
+====================================================
+rnaka
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $USER$PATH$TERM
+====================================================
+rnaka/Users/rnaka/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/binxterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka/Users/rnaka/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/binxterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo "$USER $PATH $TERM"
+====================================================
+rnaka  /Users/rnaka/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/bin   xterm-256color
+outoutoutoutoutoutoutoutoutoutoutout
+rnaka  /Users/rnaka/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/rnaka/goinfre/nvim-macos/bin:/Users/rnaka/.local/bin   xterm-256color
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo $?
+====================================================
+0
+outoutoutoutoutoutoutoutoutoutoutout
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+invalid\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit42\n\necho $?\necho $?
+====================================================
+127
+0
+outoutoutoutoutoutoutoutoutoutoutout
+127
+0
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+./infinite_loop
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit -42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit -257
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit --42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit +42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit +++42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit ""
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit hello
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42Tokyo
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42a 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit a 42
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 42 41
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 1 2
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 1111111111
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+exit 99999999999999999999
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo ""
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo ''
+====================================================
+
+outoutoutoutoutoutoutoutoutoutoutout
+
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello
+====================================================
+hello
+outoutoutoutoutoutoutoutoutoutoutout
+hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello " " world
+====================================================
+hello      world
+outoutoutoutoutoutoutoutoutoutoutout
+hello      world
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -a
+====================================================
+-a
+outoutoutoutoutoutoutoutoutoutoutout
+-a
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n hello
+====================================================
+hellooutoutoutoutoutoutoutoutoutoutoutout
+hellocmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -n hello world
+====================================================
+hello worldoutoutoutoutoutoutoutoutoutoutoutout
+hello worldcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo hello -n
+====================================================
+hello -n
+outoutoutoutoutoutoutoutoutoutoutout
+hello -n
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -nnnnn hello
+====================================================
+hellooutoutoutoutoutoutoutoutoutoutoutout
+hellocmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo -na hello
+====================================================
+-na hello
+outoutoutoutoutoutoutoutoutoutoutout
+-na hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo - n
+====================================================
+- n
+outoutoutoutoutoutoutoutoutoutoutout
+- n
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+echo - hello
+====================================================
+- hello
+outoutoutoutoutoutoutoutoutoutoutout
+- hello
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch=fuga\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch="fuga"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch=fuga hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch="fuga"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid]
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid_nosuch]\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid]=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export [invalid] nosuch hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch [invalid] hoge=nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch hoge=nosuch [invalid]\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x hoge="nosuch"
+declare -x nosuch
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export nosuch="nosuch2=hoge"\nexport $nosuch\n export | grep nosuch | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x nosuch2="hoge"
+declare -x nosuch="nosuch2=hoge"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+export TEST=hoge1 TEST=hoge2 TEST\n export | grep TEST | sort
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+declare -x TEST="hoge2"
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd .
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ..
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ///
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp/
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp///
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /../../../././.././
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd src
+====================================================
+outoutoutoutoutoutoutoutoutoutoutout
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd \n echo $PWD
+====================================================
+/Users/rnaka
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd \n echo $PWD
+====================================================
+/Users/rnaka/42/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/42/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd .\n echo $PWD
+====================================================
+/Users/rnaka/42/ft_minishell
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/42/ft_minishell
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ..\n echo $PWD
+====================================================
+/Users/rnaka/42
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/42
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd ///\n echo $PWD
+====================================================
+/
+outoutoutoutoutoutoutoutoutoutoutout
+/
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp/\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /tmp///\n echo $PWD
+====================================================
+/private/tmp
+outoutoutoutoutoutoutoutoutoutoutout
+/tmp
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd /../../../././.././\n echo $PWD
+====================================================
+/
+outoutoutoutoutoutoutoutoutoutoutout
+/
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
+cd src\n echo $PWD
+====================================================
+/Users/rnaka/42/ft_minishell/src
+outoutoutoutoutoutoutoutoutoutoutout
+/Users/rnaka/42/ft_minishell/src
+cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp
