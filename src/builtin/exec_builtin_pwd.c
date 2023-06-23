@@ -15,8 +15,10 @@ int	exec_builtin_pwd(char **argv, t_env **env)
 			add_key_value_to_env(env, "PWD", cwd);
 		else
 			update_value_to_env(env, "PWD", cwd);
+		free(cwd);
 		return (0);
 	}
+	free(cwd);
 	return (1);
 }
 
@@ -31,6 +33,7 @@ int	get_cwd(t_env **env)
 			add_key_value_to_env(env, "PWD", cwd);
 		else
 			update_value_to_env(env, "PWD", cwd);
+		free(cwd);
 		return (0);
 	}
 	return (1);
