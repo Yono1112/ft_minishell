@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 14:57:43 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/24 06:04:53 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,11 +153,17 @@ void	set_signal(void);
 void	reset_signal_to_default(void);
 // builtin
 bool	is_builtin(t_node *node);
-int	exec_builtin_cmd(t_node *node, t_env **env);
 int	exec_builtin_exit(char **argv);
 int	exec_builtin_echo(char **argv);
 int	count_argc(char **argv);
-int	exec_builtin_export(char **argv, t_env **env);
+int	exec_builtin_pwd(char **argv, t_env **env);
+int	exec_builtin_cd(char **argv, t_env **env);
+int		exec_builtin_cmd(t_node *node, t_env **env);
+int		exec_builtin_exit(char **argv);
+int		exec_builtin_echo(char **argv);
+int		count_argc(char **argv);
+int		exec_builtin_export(char **argv, t_env **env);
+int		get_cwd(t_env **env);
 int	exec_builtin_unset(char **argv, t_env **env);
 int	exec_builtin_env(t_env **env);
 // environ
@@ -168,6 +174,8 @@ int	set_env_list(t_env **env, char *str);
 char	*ft_getenv(char *path_key, t_env **env);
 t_env	*create_new_env_list(char *key, char *value);
 bool	is_variable(char *str);
+void	update_value_to_env(t_env **env, char *key, char *value);
+void	add_key_value_to_env(t_env **env, char *key, char *value);
 int	unset_env_list(t_env **env, char *str);
 
 #endif

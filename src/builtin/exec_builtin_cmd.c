@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:33:42 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/22 14:50:21 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/22 23:31:04 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ int	exec_builtin_cmd(t_node *node, t_env **env)
 	{
 		// printf("echo\n");
 		status = exec_builtin_echo(argv);
+	}
+	else if (strcmp(argv[0], "cd") == 0)
+	{
+		status = exec_builtin_cd(argv, env);
+	}
+	else if (strcmp(argv[0], "pwd") == 0)
+	{
+		status = exec_builtin_pwd(argv, env);
 	}
 	else if (strcmp(argv[0], "export") == 0)
 	{

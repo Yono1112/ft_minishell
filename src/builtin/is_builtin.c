@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 18:28:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/07 20:18:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/22 22:50:09 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_builtin(t_node *node)
 {
-	char *const	builtin_commands[] = {"exit", "echo", "export", "unset", "env"};
+	char *const	builtin_commands[] = {"exit", "echo", "export", "unset", "env","cd","pwd"};
 	size_t		i;
 	size_t		builtin_len;
 	char		*builtin_command;

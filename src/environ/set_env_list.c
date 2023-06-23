@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 02:08:43 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 13:19:51 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/23 00:45:30 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,12 @@ void	update_value_to_env(t_env **env, char *key, char *value)
 	if (value == NULL)
 		return ;
 	update_env = *env;
-	// if (update_env == NULL || update_env->key == NULL)
-	// 	return ;
 	while (update_env)
 	{
 		if (strcmp(update_env->key, key) == 0)
 			break ;
 		update_env = update_env->next;
 	}
-	// if (update_env == NULL)
-	// 	return ;
 	free(update_env->value);
 	update_env->value = strdup(value);
 	if (update_env->value == NULL)
