@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/23 01:17:03 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/24 06:04:53 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,6 @@ t_env	*create_new_env_list(char *key, char *value);
 bool	is_variable(char *str);
 void	update_value_to_env(t_env **env, char *key, char *value);
 void	add_key_value_to_env(t_env **env, char *key, char *value);
-# endif
 int	unset_env_list(t_env **env, char *str);
 
 #endif
