@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 14:52:10 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:39:41 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	append_char(char **s, char c)
 void	expand(t_node *node, t_env **env)
 {
 	expand_variable(node, env);
+	split_word(node);
 	remove_quote(node);
 }
