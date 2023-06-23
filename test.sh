@@ -129,7 +129,7 @@ echo 42Tokyo >f3
 assert 'cat <f1<f2<f3'
 rm -f f1 f2 f3
 assert 'cat <hoge'
-assert '< Makefile'
+assert '< a'
 
 ## Appending Redirected output
 assert 'pwd >>pwd.txt' 'pwd.txt'
@@ -244,6 +244,7 @@ assert 'exit --42'
 assert 'exit +42'
 assert 'exit +++42'
 assert 'exit ""'
+assert 'exit " 42 "'
 assert 'exit hello'
 assert 'exit 42Tokyo'
 assert 'exit 42a 42'
