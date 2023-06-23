@@ -1,13 +1,14 @@
 #include<unistd.h>
 #include<limits.h>
+#include <errno.h>
 #include"minishell.h"
 
 void	cd_error(char *str)
 {
 	if (!strcmp(str, "OLDPWD"))
-		write(1, "cd: OLDPWD not set\n", 20);
+		builtin_error("cd", NULL, "chdir");
 	else if (!strcmp(str, "HOME"))
-		write(1, "cd: HOME not set\n", 18);
+		builtin_error("cd", NULL, "HOME not set");
 }
 
 int	count_arg(char **argv)
@@ -28,7 +29,10 @@ int	cd_argv(char **argv, t_env **env)
 
 	status = chdir(argv[1]);
 	if (status)
+	{
+
 		return (1);
+	}
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 		return (1);

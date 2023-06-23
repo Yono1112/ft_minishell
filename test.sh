@@ -54,11 +54,12 @@ assert() {
 		mv "$arg" "$arg"".out"
 	done
 
-# echo "====================================================" >> log.txt
-# cat out >> log.txt
-# echo "outoutoutoutoutoutoutoutoutoutoutout" >> log.txt
-# cat cmp >> log.txt
-# echo "cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp" >> log.txt
+echo $COMMAND >> log.txt
+echo "====================================================" >> log.txt
+cat out >> log.txt
+echo "outoutoutoutoutoutoutoutoutoutoutout" >> log.txt
+cat cmp >> log.txt
+echo "cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp" >> log.txt
 diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
 
 # 	# bashとminishellの出力を比較
@@ -279,5 +280,28 @@ assert 'export nosuch [invalid] hoge=nosuch\n export | grep nosuch | sort'
 assert 'export nosuch hoge=nosuch [invalid]\n export | grep nosuch | sort'
 assert 'export nosuch="nosuch2=hoge"\nexport $nosuch\n export | grep nosuch | sort'
 assert 'export TEST=hoge1 TEST=hoge2 TEST\n export | grep TEST | sort'
+## cd
+assert 'cd'
+assert 'cd .'
+assert 'cd ..'
+assert 'cd ///'
+assert 'cd /tmp'
+assert 'cd /tmp/'
+assert 'cd /tmp///'
+assert 'cd /../../../././.././'
+assert 'cd src'
+
+assert 'cd \n echo $PWD'
+unset HOME
+assert 'cd \n echo $PWD'
+assert 'cd .\n echo $PWD'
+assert 'cd ..\n echo $PWD'
+assert 'cd ///\n echo $PWD'
+assert 'cd /tmp\n echo $PWD'
+assert 'cd /tmp/\n echo $PWD'
+assert 'cd /tmp///\n echo $PWD'
+assert 'cd /../../../././.././\n echo $PWD'
+assert 'cd src\n echo $PWD'
+
 
 cleanup
