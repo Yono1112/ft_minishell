@@ -175,18 +175,35 @@ char	**change_env_to_environ(t_env *env)
 	return (environ);
 }
 
+// static void	print_argv(char **argv)
+// {
+// 	size_t	i;
+// 
+// 	i = 0;
+// 	while (argv[i])
+// 	{
+// 		printf("argv[%ld]:%s\n", i, argv[i]);
+// 		i++;
+// 	}
+// }
+
 void	exec_simple_cmd(t_node *node, t_env **env)
 {
 	char		**environ;
 	char		*path;
 	char		**argv;
 
+	// printf("start exec_simple_cmd\n");
 	argv = NULL;
 	if (node->command->redirects != NULL)
 		do_redirect(node->command->redirects);
 	if (node->command->args != NULL)
 		argv = add_token_to_argv(node->command->args);
+	else if (node->command->args == NULL && node->command->redirects != NULL)
+		exit (0);
+	// print_argv(argv);
 	path = argv[0];
+	// printf("path:%s\n", path);
 	if (strchr(path, '/') == NULL)
 		path = check_cmd_path(path, env);
 	if (!check_is_filename(path))
@@ -252,8 +269,8 @@ int	exec(t_node *node, t_env **env)
 	}
 	else
 	{
-		// printf("finish exec_cmd\n");
 		status = exec_cmd(node, env);
+		// printf("finish exec_cmd\n");
 	}
 	return (status);
 }
