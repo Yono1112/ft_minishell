@@ -3,12 +3,12 @@
 #include <errno.h>
 #include"minishell.h"
 
+#define ERROR_PREFIX "minishell: "
+
 void	cd_error(char *str)
 {
-	if (!strcmp(str, "OLDPWD"))
-		builtin_error("cd", NULL, "chdir");
-	else if (!strcmp(str, "HOME"))
-		builtin_error("cd", NULL, "HOME not set");
+	dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
+	perror(str);
 }
 
 int	count_arg(char **argv)
@@ -30,7 +30,7 @@ int	cd_argv(char **argv, t_env **env)
 	status = chdir(argv[1]);
 	if (status)
 	{
-
+		cd_error(argv[1]);
 		return (1);
 	}
 	cwd = getcwd(NULL, 0);
@@ -58,12 +58,15 @@ int	cd_home(t_env **env)
 	arg = ft_getenv("HOME", env);
 	if (!arg)
 	{
-		cd_error("HOME");
+		builtin_error("cd", NULL, "HOME not set");
 			return (1);
 	}
 	status = chdir(arg);
 	if (status)
-		return (1);
+	{
+		cd_error(ft_getenv("HOME", env));
+		return (status);
+	}
 	save = strdup(ft_getenv("HOME",env));
 	update_value_to_env(env, "PWD", save);
 	free(save);
@@ -78,12 +81,15 @@ int	cd_prev(t_env **env)
 	status = 0;
 	if (!ft_getenv("OLDPWD",env))
 	{
-		cd_error("OLDPWD");
+		builtin_error("cd", NULL, "OLDPWD not set");
 		return (1);
 	}
 	status = chdir(ft_getenv("OLDPWD",env));
 	if (status)
+	{
+		cd_error(NULL);
 		return (status);
+	}
 	save = strdup(ft_getenv("OLDPWD",env));
 	update_value_to_env(env, "OLDPWD", ft_getenv("PWD", env));
 	update_value_to_env(env, "PWD", save);
@@ -98,7 +104,7 @@ int	exec_builtin_cd(char **argv, t_env **env)
 	get_cwd(env);
 	argc = count_arg(argv);
 	if(argc == 1)
-		cd_home(env);
+		return(cd_home(env));
 	else if (!strcmp(argv[1], "-"))
 		return (cd_prev(env));
 	return (cd_argv(argv, env));
