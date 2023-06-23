@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 06:04:53 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/24 06:20:54 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <limits.h>
 // limits.h PATH_MAX
 # include <stdbool.h>
-# include <readline/rltypedefs.h>
+// # include <readline/rltypedefs.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/wait.h>

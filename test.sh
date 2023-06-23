@@ -60,7 +60,7 @@ assert() {
 # echo "outoutoutoutoutoutoutoutoutoutoutout" >> log.txt
 # cat cmp >> log.txt
 # echo "cmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmpcmp" >> log.txt
-# diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
+diff cmp out >/dev/null && echo -e -n "  diff $OK" || echo -e -n "  diff $NG"
 
 # 	# bashとminishellの出力を比較
 if [ "$actual" = "$expected" ]; then
@@ -307,6 +307,10 @@ assert 'cd /tmp/\n echo $PWD'
 assert 'cd /tmp///\n echo $PWD'
 assert 'cd /../../../././.././\n echo $PWD'
 assert 'cd src\n echo $PWD'
+assert 'unset $PWD \n echo $PWD'
+assert 'export OLDPWD="nosuch" \n cd - \n echo $?'
+assert 'unset $HOME \n cd \n echo $?'
+assert 'unset $HOME \n cd \n echo $PWD'
 
 
 ## unset

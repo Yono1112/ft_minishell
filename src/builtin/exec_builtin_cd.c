@@ -65,7 +65,7 @@ int	cd_home(t_env **env)
 	if (status)
 	{
 		cd_error(ft_getenv("HOME", env));
-		return (status);
+		return (1);
 	}
 	save = strdup(ft_getenv("HOME",env));
 	update_value_to_env(env, "PWD", save);
@@ -88,7 +88,7 @@ int	cd_prev(t_env **env)
 	if (status)
 	{
 		cd_error(NULL);
-		return (status);
+		return (1);
 	}
 	save = strdup(ft_getenv("OLDPWD",env));
 	update_value_to_env(env, "OLDPWD", ft_getenv("PWD", env));
