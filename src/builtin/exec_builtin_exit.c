@@ -23,7 +23,7 @@ bool	is_num(char *str)
 		i++;
 	while (str[i])
 	{
-		if (!isdigit(str[i]))
+		if (!isdigit(str[i]) && !isspace(str[i]))
 			return (false);
 		i++;
 	}
