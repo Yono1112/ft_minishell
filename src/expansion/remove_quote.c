@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:46:09 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/05/27 18:40:44 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/03 20:44:46 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,11 @@ static void	remove_quote_token(t_token *token)
 
 	while (token != NULL && token->kind == TK_WORD && token->word != NULL)
 	{
-		// printf("token->word: %s\n", token->word);
-		current_word = token->word;
-		new_word = NULL;
-		while (*current_word != '\0')
+		p = token->word;
+		new_word = calloc(1, sizeof(char));
+		if (new_word == NULL)
+			fatal_error("calloc");
+		while (*p != '\0')
 		{
 			//if (*current_word == SINGLE_QUOTE_CHAR)
 			//	remove_single_quote(&new_word, &current_word, current_word);
@@ -101,7 +102,6 @@ static void	remove_quote_token(t_token *token)
 		}
 		free(token->word);
 		token->word = new_word;
-		// printf("remove_quote token->word: %s\n", token->word);
 		token = token->next;
 	}
 }

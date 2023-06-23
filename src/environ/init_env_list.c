@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   init_env_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 14:52:10 by yumaohno         ###   ########.fr       */
+/*   Created: 2023/06/22 02:06:49 by yumaohno          #+#    #+#             */
+/*   Updated: 2023/06/22 02:06:58 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	append_char(char **s, char c)
+t_env	*init_env_list(char **envp)
 {
-	size_t	len;
-	char	*new;
+	t_env	*env;
+	size_t	i;
 
-	if (*s)
-		len = strlen(*s) + 2;
-	else
-		len = 2;
-	new = malloc(len);
-	if (!new)
-		fatal_error("malloc");
-	if (*s)
-		strncpy(new, *s, len);
-	new[len - 2] = c;
-	new[len - 1] = '\0';
-	if (*s)
-		free(*s);
-	*s = new;
-}
-
-void	expand(t_node *node, t_env **env)
-{
-	expand_variable(node, env);
-	remove_quote(node);
+	// printf("start create_env_list\n");
+	// print_envp(envp);
+	i = 0;
+	env = NULL;
+	while (envp[i] != NULL)
+	{
+		// printf("===============================\n");
+	 	// printf("envp[%zu]: %s\n", i, envp[i]);
+		set_env_list(&env, envp[i]);
+		// printf("env->key:%s, env->value:%s\n", env->key, env->value);
+		i++;
+	}
+	return (env);
 }
