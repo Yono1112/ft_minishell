@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 06:46:29 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/24 06:57:01 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,10 @@ bool	is_variable(char *s);
 void	expand_parameter_str(char **new_word, char **rest, char *current_word);
 void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env **env);
 bool	is_special_parametar(char *str);
+<<<<<<< HEAD
 void	split_word(t_node *node);
+=======
+>>>>>>> 9e06c800faef8b2b925d254dac6fd9a6395eded7
 bool	is_alpha_num_under(char c);
 bool	is_alpha_under(char c);
 bool	is_expand_variable(char *s);
