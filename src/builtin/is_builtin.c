@@ -14,7 +14,7 @@
 
 bool	is_builtin(t_node *node)
 {
-	char *const	builtin_commands[] = {"exit", "echo", "export", "unset"};
+	char *const	builtin_commands[] = {"exit", "echo", "export", "unset", "env"};
 	size_t		i;
 	size_t		builtin_len;
 	char		*builtin_command;

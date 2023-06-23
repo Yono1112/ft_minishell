@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+static void	free_env(t_env *env)
+{
+	free(env->key);
+	free(env->value);
+	free(env);
+}
+
 int	unset_env_list(t_env **env, char *key)
 {
 	t_env	*prev;
@@ -21,23 +28,29 @@ int	unset_env_list(t_env **env, char *key)
 	// print_env(*env);
 	if (key == NULL || !is_variable(key))
 		return (-1);
+	current = NULL;
 	if (*env != NULL)
 	{
+		current = *env;
+		if (strcmp(current->key, key) == 0)
+		{
+			*env = current->next;
+			free_env(current);
+		}
+		current = current->next;
 		prev = *env;
-		current = (*env)->next;
 		while (current)
 		{
 			if (strcmp(current->key, key) == 0)
 			{
 				prev->next = current->next;
-				free(current->key);
-				free(current->value);
-				free(current);
+				free_env(current);
 				break ;
 			}
 			current = current->next;
 			prev = prev->next;
 		}
 	}
+	// print_env(*env);
 	return (0);
 }

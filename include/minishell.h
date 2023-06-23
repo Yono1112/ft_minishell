@@ -153,20 +153,21 @@ void	set_signal(void);
 void	reset_signal_to_default(void);
 // builtin
 bool	is_builtin(t_node *node);
-int		exec_builtin_cmd(t_node *node, t_env **env);
-int		exec_builtin_exit(char **argv);
-int		exec_builtin_echo(char **argv);
-int		count_argc(char **argv);
-int		exec_builtin_export(char **argv, t_env **env);
+int	exec_builtin_cmd(t_node *node, t_env **env);
+int	exec_builtin_exit(char **argv);
+int	exec_builtin_echo(char **argv);
+int	count_argc(char **argv);
+int	exec_builtin_export(char **argv, t_env **env);
 int	exec_builtin_unset(char **argv, t_env **env);
+int	exec_builtin_env(t_env **env);
 // environ
 void	print_env(t_env *env);
 t_env	*init_env_list(char **envp);
 void	add_key_value_to_env(t_env **env, char *key, char *value);
-int		set_env_list(t_env **env, char *str);
+int	set_env_list(t_env **env, char *str);
 char	*ft_getenv(char *path_key, t_env **env);
 t_env	*create_new_env_list(char *key, char *value);
 bool	is_variable(char *str);
 int	unset_env_list(t_env **env, char *str);
 
-# endif
+#endif

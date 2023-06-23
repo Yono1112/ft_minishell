@@ -118,15 +118,18 @@ assert "echo hello'  world  '\"  42Tokyo  \""
 ## Redirecting output
 assert 'echo hello >hello.txt' 'hello.txt'
 assert 'echo hello >f1>f2>f3' 'f1' 'f2' 'f3'
+assert '> test.txt'
 
 ## Redirecting input
 assert 'cat <Makefile'
+assert '< Makefile cat'
 echo hello >f1
 echo world >f2
 echo 42Tokyo >f3
 assert 'cat <f1<f2<f3'
 rm -f f1 f2 f3
 assert 'cat <hoge'
+assert '< Makefile'
 
 ## Appending Redirected output
 assert 'pwd >>pwd.txt' 'pwd.txt'
@@ -267,6 +270,7 @@ assert 'echo - n'
 assert 'echo - hello'
 
 ## export
+print_desc "Output of 'export' differs, but it's ok."
 assert 'export | grep nosuch | sort'
 assert 'export nosuch\n export | grep nosuch | sort'
 assert 'export nosuch=fuga\n export | grep nosuch | sort'
@@ -291,5 +295,11 @@ assert 'unset hoge fuga'
 assert 'unset hoge nosuch fuga'
 assert 'unset fuga \n export | echo $fuga'
 assert 'unset [invalid] fuga \n echo $fuga'
+
+## env
+print_desc "Output of 'env' differs, but it's ok."
+assert 'env | grep hoge | sort'
+assert 'export TEST= a\n env | grep TEST'
+assert 'export TEST=" a"\n env | grep TEST'
 
 cleanup
