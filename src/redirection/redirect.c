@@ -89,23 +89,27 @@ int	open_redirect_file(t_node *node, t_env **env)
 		}
 		else if (node->kind == ND_REDIR_OUT)
 		{
+			// printf("out\n");
 			node->filefd = open(node->filename->word,
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			// printf("node_kind is ND_REDIR_OUT, filefd: %d\n", node->filefd);
 		}
 		else if (node->kind == ND_REDIR_IN)
 		{
+			// printf("in\n");
 			node->filefd = open(node->filename->word, O_RDONLY);
 			// printf("node_kind is ND_REDIR_IN, filefd: %d\n", node->filefd);
 		}
 		else if (node->kind == ND_REDIR_APPEND)
 		{
+			// printf("append\n");
 			node->filefd = open(node->filename->word,
 					O_CREAT | O_WRONLY | O_APPEND, 0644);
 			// printf("node_kind is ND_REDIR_APPEND, filefd: %d\n", node->filefd);
 		}
 		else if (node->kind == ND_REDIR_HEREDOC)
 		{
+			// printf("heredoc\n");
 			node->filefd = read_heredoc(node->delimiter->word, node->is_delimiter_quote, env);
 			// printf("node_kind is ND_REDIR_HEREDOC, filefd: %d\n", node->filefd);
 		}
