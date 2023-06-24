@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 14:57:17 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (readline_interrupted || !strcmp(line, delimiter))
+		if (readline_interrupted || !ft_strcmp(line, delimiter))
 		{
 			free(line);
 			break ;

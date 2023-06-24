@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 02:09:54 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 14:58:27 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_getenv(char *path_key, t_env **env)
 		return (NULL);
 	while (current != NULL)
 	{
-		if (strcmp(current->key, path_key) == 0)
+		if (ft_strcmp(current->key, path_key) == 0)
 			return (current->value);
 		current = current->next;
 	}

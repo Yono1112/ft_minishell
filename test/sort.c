@@ -13,7 +13,7 @@ struct list* sortedInsert(struct list* head, struct list* newNode) {
     struct list* current = &dummy;
     dummy.next = head;
 
-    while (current->next != NULL && strcmp(current->next->str, newNode->str) < 0) {
+    while (current->next != NULL && ft_strcmp(current->next->str, newNode->str) < 0) {
         current = current->next;
     }
     newNode->next = current->next;
