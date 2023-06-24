@@ -5,7 +5,7 @@ ifeq ($(shell uname -s), Linux)
 LDFLAGS = -lreadline
 else
 RLDIR = $(shell brew --prefix readline)
-LDFLAGS = -lreadline -L$(RLDIR)/lib -lft -L$(LIBFTDIR)
+LDFLAGS = -lreadline -L$(RLDIR)/lib
 endif
 # LDFLAGS = -lreadline
 RM = rm -rf
@@ -44,36 +44,26 @@ SRCS =	src/main.c	\
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-INC =   -I include -I $(RLDIR)/include 
+INC = -I include -I$(RLDIR)/include
 
 DEBUG_FLAG = -fsanitize=address
 # DEBUG_FLAG = -fsanitize=address,leak
 
 all: $(NAME)
 
-LIBFTDIR	= libft
-
-LIBFT = $(LIBFTDIR)/libft.a
-
-$(LIBFT):
-	$(MAKE) -C $(LIBFTDIR)
-
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-$(NAME): $(OBJS) $(LIBFT)
-	@make -C $(LIBFTDIR)
-	$(CC) $(CFLAGS) $(LIBS) -o $(NAME) $(OBJS) $(LDFLAGS)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:
 	$(RM) $(OBJS)
 	$(RM) $(OBJ_DIR)
-	@make fclean -C $(LIBFTDIR)
 
 fclean: clean
 	$(RM) $(NAME)
-	@make fclean -C $(LIBFTDIR)
 
 re: fclean all
 

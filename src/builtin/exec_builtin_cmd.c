@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:33:42 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/22 23:31:04 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,25 @@ int	exec_builtin_cmd(t_node *node, t_env **env)
 		// printf("start add_token_to_argv\n");
 		argv = add_token_to_argv(node->command->args);
 	}
-	if (ft_strcmp(argv[0], "exit") == 0)
+	if (strcmp(argv[0], "exit") == 0)
 	{
 		// printf("exit\n");
 		status = exec_builtin_exit(argv);
 	}
-	else if (ft_strcmp(argv[0], "echo") == 0)
+	else if (strcmp(argv[0], "echo") == 0)
 	{
 		// printf("echo\n");
 		status = exec_builtin_echo(argv);
 	}
-	else if (ft_strcmp(argv[0], "cd") == 0)
+	else if (strcmp(argv[0], "cd") == 0)
 	{
 		status = exec_builtin_cd(argv, env);
 	}
-	else if (ft_strcmp(argv[0], "pwd") == 0)
+	else if (strcmp(argv[0], "pwd") == 0)
 	{
 		status = exec_builtin_pwd(argv, env);
 	}
-	else if (ft_strcmp(argv[0], "export") == 0)
+	else if (strcmp(argv[0], "export") == 0)
 	{
 		// printf("export\n");
 		// printf("print_env before export\n");
@@ -55,12 +55,12 @@ int	exec_builtin_cmd(t_node *node, t_env **env)
 		// print_env(env);
 		status = exec_builtin_export(argv, env);
 	}
-	else if (ft_strcmp(argv[0], "unset") == 0)
+	else if (strcmp(argv[0], "unset") == 0)
 	{
 		// printf("unset\n");
 		status = exec_builtin_unset(argv, env);
 	}
-	else if (ft_strcmp(argv[0], "env") == 0)
+	else if (strcmp(argv[0], "env") == 0)
 	{
 		// printf("env\n");
 		// print_env(env);

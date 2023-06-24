@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_heredoc_line.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:03:26 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/24 22:41:04 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/22 14:57:32 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ char	*expand_heredoc_line(char *line, t_env **env)
 	char	*new_word;
 
 	current_word = line;
-	new_word = ft_calloc(1, sizeof(char));
+	new_word = calloc(1, sizeof(char));
 	if (new_word == NULL)
-		fatal_error("ft_calloc");
+		fatal_error("calloc");
 	while (*current_word)
 	{
 		if (is_expand_variable(current_word))

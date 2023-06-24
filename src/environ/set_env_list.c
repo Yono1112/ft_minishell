@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 02:08:43 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/23 00:45:30 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	update_value_to_env(t_env **env, char *key, char *value)
 	update_env = *env;
 	while (update_env)
 	{
-		if (ft_strcmp(update_env->key, key) == 0)
+		if (strcmp(update_env->key, key) == 0)
 			break ;
 		update_env = update_env->next;
 	}
 	free(update_env->value);
-	update_env->value = ft_strdup(value);
+	update_env->value = strdup(value);
 	if (update_env->value == NULL)
-		fatal_error("ft_strdup");
+		fatal_error("strdup");
 }
 
 void	add_key_value_to_env(t_env **env, char *key, char *value)
@@ -40,15 +40,15 @@ void	add_key_value_to_env(t_env **env, char *key, char *value)
 	// printf("key:%s, value:%s\n", key, value);
 	if (value == NULL)
 	{
-		new_env = create_new_env_list(ft_strdup(key), NULL);
+		new_env = create_new_env_list(strdup(key), NULL);
 		if (new_env->key == NULL)
-			fatal_error("ft_strdup");
+			fatal_error("strdup");
 	}
 	else
 	{
-		new_env = create_new_env_list(ft_strdup(key), ft_strdup(value));
+		new_env = create_new_env_list(strdup(key), strdup(value));
 		if (new_env->key == NULL || new_env->value == NULL)
-			fatal_error("ft_strdup");
+			fatal_error("strdup");
 	}
 	// printf("new_env->key:%s, new_env->value:%s\n", new_env->key, new_env->value);
 	if (*env == NULL)
@@ -68,7 +68,7 @@ bool	is_key_in_env(char *key, t_env *env)
 		return (false);
 	while (env)
 	{
-		if (ft_strcmp(env->key, key) == 0)
+		if (strcmp(env->key, key) == 0)
 			return (true);
 		env = env->next;
 	}
@@ -86,22 +86,22 @@ int	set_env_list(t_env **env, char *str)
 		return (-1);
 	else
 	{
-		end_key = ft_strchr(str, '=');
+		end_key = strchr(str, '=');
 		// printf("end_key:%s\n", end_key);
 		if (end_key != NULL)
 		{
 			// printf("end_key is not NULL\n");
-			key = ft_strndup(str, end_key - str);
-			value = ft_strdup(end_key + 1);
+			key = strndup(str, end_key - str);
+			value = strdup(end_key + 1);
 			if (value == NULL)
-				fatal_error("ft_strndup");
+				fatal_error("strndup");
 		}
 		else
 		{
 			// printf("end_key is NULL\n");
-			key = ft_strdup(str);
+			key = strdup(str);
 			if (key == NULL)
-				fatal_error("ft_strndup");
+				fatal_error("strndup");
 			value = NULL;
 		}
 		// printf("%ld\n", end_key - str);

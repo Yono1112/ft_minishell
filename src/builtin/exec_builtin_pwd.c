@@ -9,7 +9,7 @@ int	exec_builtin_pwd(char **argv, t_env **env)
 	cwd = getcwd(NULL, 0);
 	if (cwd != NULL)
 	{
-		write(STDOUT_FILENO, cwd, ft_strlen(cwd));
+		write(STDOUT_FILENO, cwd, strlen(cwd));
 		write(STDOUT_FILENO, "\n", 1);
 		if (!ft_getenv("PWD", env))
 			add_key_value_to_env(env, "PWD", cwd);

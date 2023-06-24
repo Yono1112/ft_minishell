@@ -16,7 +16,7 @@ index a34d206..5ed1806 100644
 +++ b/src/main.c
 @@ -39,29 +39,18 @@ char	*check_cmd_path(const char *filename)
  	{
- 		end = ft_strchr(value, ':');
+ 		end = strchr(value, ':');
  		if (end)
 -		{
  			path_len = (size_t)end - (size_t)value;
@@ -25,12 +25,12 @@ index a34d206..5ed1806 100644
 -				fprintf(stderr, "Error: PATH element is too long\n");
 -				return (NULL);
 -			}
--			ft_memcpy(path, value, path_len);
+-			memcpy(path, value, path_len);
 -			path[path_len] = '\0';
 -		}
  		else
 -		{
- 			path_len = ft_strlen(value);
+ 			path_len = strlen(value);
 -			if (path_len >= PATH_MAX)
 -			{
 -				fprintf(stderr, "Error: PATH element is too long\n");
@@ -42,16 +42,16 @@ index a34d206..5ed1806 100644
 +			fprintf(stderr, "Error: PATH element is too long\n");
 +			return (NULL);
  		}
--		path_len = ft_strlen(path);
--		ft_strncat(path, "/", PATH_MAX - path_len - 1);
--		ft_strncat(path, filename, PATH_MAX - path_len - 1);
-+		ft_memcpy(path, value, path_len);
+-		path_len = strlen(path);
+-		strncat(path, "/", PATH_MAX - path_len - 1);
+-		strncat(path, filename, PATH_MAX - path_len - 1);
++		memcpy(path, value, path_len);
 +		path[path_len] = '\0';
-+		ft_strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
-+		ft_strncat(path, filename, PATH_MAX - ft_strlen(path) - 1);
++		strncat(path, "/", PATH_MAX - strlen(path) - 1);
++		strncat(path, filename, PATH_MAX - strlen(path) - 1);
  		if (access(path, X_OK) == 0)
  		{
- 			dup = ft_strdup(path);
+ 			dup = strdup(path);
 @@ -82,14 +71,11 @@ char	*check_cmd_path(const char *filename)
  int	exec_cmd(char *argv[])
  {
@@ -71,7 +71,7 @@ index a34d206..5ed1806 100644
  	{
 @@ -100,8 +86,15 @@ int	exec_cmd(char *argv[])
  	{
- 		if (ft_strchr(path, '/') == NULL)
+ 		if (strchr(path, '/') == NULL)
  			path = check_cmd_path(path);
 +		if (!path)
 +		{

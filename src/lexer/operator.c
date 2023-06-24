@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:19:11 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 00:54:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/01 18:53:20 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	is_operator(char *line)
 	operators_len = sizeof(operators) / sizeof(*operators);
 	while (i < operators_len)
 	{
-		if (!ft_strncmp(line, operators[i], ft_strlen(operators[i])))
+		if (!strncmp(line, operators[i], strlen(operators[i])))
 			return (true);
 		i++;
 	}
@@ -44,13 +44,13 @@ t_token	*add_operator_to_list(char **rest_line, char *line)
 	while (i < operators_len)
 	{
 		operator = operators[i];
-		if (!ft_strncmp(line, operators[i], ft_strlen(operator)))
+		if (!strncmp(line, operators[i], strlen(operator)))
 		{
-			*rest_line = line + ft_strlen(operator);
-			str = ft_strndup(line, ft_strlen(operator));
+			*rest_line = line + strlen(operator);
+			str = strndup(line, strlen(operator));
 			// printf("operator: %s\n", str);
 			if (!str)
-				fatal_error("ft_strndup");
+				fatal_error("strndup");
 			return (create_new_token_list(str, TK_OP));
 		}
 		i++;

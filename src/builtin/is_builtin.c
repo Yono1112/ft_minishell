@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 18:28:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/22 22:50:09 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	is_builtin(t_node *node)
 		i = 0;
 		while (i < builtin_len)
 		{
-			if (!ft_strcmp(builtin_command, builtin_commands[i]))
+			if (!strcmp(builtin_command, builtin_commands[i]))
 			{
 				// printf("true is_builtin\n");
 				return (true);
