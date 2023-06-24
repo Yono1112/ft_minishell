@@ -46,7 +46,8 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 INC = -I include -I$(RLDIR)/include
 
-DEBUG_FLAG = -fsanitize=address,leak
+DEBUG_FLAG = -fsanitize=address
+# DEBUG_FLAG = -fsanitize=address,leak
 
 all: $(NAME)
 
