@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 22:41:46 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_node	*create_new_node_list(t_node_kind kind)
 
 bool	check_operator(t_token *token, char *op)
 {
-	return (token->kind == TK_OP && strcmp(token->word, op) == 0);
+	return (token->kind == TK_OP && ft_strcmp(token->word, op) == 0);
 }
 
 t_node	*create_new_redirect_out(t_token **rest, t_token *token)

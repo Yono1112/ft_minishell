@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 02:08:43 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 00:54:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	update_value_to_env(t_env **env, char *key, char *value)
 	update_env = *env;
 	while (update_env)
 	{
-		if (strcmp(update_env->key, key) == 0)
+		if (ft_strcmp(update_env->key, key) == 0)
 			break ;
 		update_env = update_env->next;
 	}
@@ -68,7 +68,7 @@ bool	is_key_in_env(char *key, t_env *env)
 		return (false);
 	while (env)
 	{
-		if (strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 			return (true);
 		env = env->next;
 	}

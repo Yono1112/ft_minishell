@@ -105,7 +105,7 @@ int	exec_builtin_cd(char **argv, t_env **env)
 	argc = count_arg(argv);
 	if(argc == 1)
 		return(cd_home(env));
-	else if (!strcmp(argv[1], "-"))
+	else if (!ft_strcmp(argv[1], "-"))
 		return (cd_prev(env));
 	return (cd_argv(argv, env));
 }

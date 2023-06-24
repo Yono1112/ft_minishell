@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/22 02:09:54 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
+/*   Created: 2022/07/08 17:20:46 by rnaka             #+#    #+#             */
+/*   Updated: 2023/06/25 01:12:19 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 
-char	*ft_getenv(char *path_key, t_env **env)
+int	ft_isspace(char c)
 {
-	t_env *current;
-
-	// print_env(*env);
-	current = *env;
-	if (path_key == NULL)
-		return (NULL);
-	while (current != NULL)
-	{
-		if (ft_strcmp(current->key, path_key) == 0)
-			return (current->value);
-		current = current->next;
-	}
-	return (NULL);
+	if (c == ' ')
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:44:33 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/24 23:18:03 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 01:10:07 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	is_num(char *str)
 		i++;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && !isspace(str[i]))
+		if (!ft_isdigit(str[i]) && !ft_isspace(str[i]))
 			return (false);
 		i++;
 	}
