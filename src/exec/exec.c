@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/24 22:41:46 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 04:17:33 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ char	*check_cmd_path(const char *filename, t_env **env)
 		}
 		ft_memcpy(path, value, path_len);
 		path[path_len] = '\0';
-		strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
-		strncat(path, filename, PATH_MAX - ft_strlen(path) - 1);
+		ft_strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
+		ft_strncat(path, filename, PATH_MAX - ft_strlen(path) - 1);
 		if (access(path, X_OK) == 0)
 		{
 			dup = ft_strdup(path);
