@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:46:09 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/03 20:44:46 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/24 22:41:04 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ static void	remove_quote_token(t_token *token)
 	while (token != NULL && token->kind == TK_WORD && token->word != NULL)
 	{
 		p = token->word;
-		new_word = calloc(1, sizeof(char));
+		new_word = ft_calloc(1, sizeof(char));
 		if (new_word == NULL)
-			fatal_error("calloc");
+			fatal_error("ft_calloc");
 		while (*p != '\0')
 		{
 			if (*p == SINGLE_QUOTE_CHAR)

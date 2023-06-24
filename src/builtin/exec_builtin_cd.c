@@ -36,7 +36,7 @@ int	cd_argv(char **argv, t_env **env)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 		return (1);
-	save = strdup(ft_getenv("PWD",env));
+	save = ft_strdup(ft_getenv("PWD",env));
 	if (!save)
 		return (1);
 	update_value_to_env(env, "PWD", cwd);
@@ -67,7 +67,7 @@ int	cd_home(t_env **env)
 		cd_error(ft_getenv("HOME", env));
 		return (1);
 	}
-	save = strdup(ft_getenv("HOME",env));
+	save = ft_strdup(ft_getenv("HOME",env));
 	update_value_to_env(env, "PWD", save);
 	free(save);
 	return (status);
@@ -90,7 +90,7 @@ int	cd_prev(t_env **env)
 		cd_error(NULL);
 		return (1);
 	}
-	save = strdup(ft_getenv("OLDPWD",env));
+	save = ft_strdup(ft_getenv("OLDPWD",env));
 	update_value_to_env(env, "OLDPWD", ft_getenv("PWD", env));
 	update_value_to_env(env, "PWD", save);
 	free(save);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/22 14:56:01 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/24 22:41:46 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 
 	if (!s1 || !s2 || !s3)
 		return (NULL);
-	len = strlen(s1) + strlen(s2) + strlen(s3);
+	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
@@ -73,23 +73,23 @@ char	*check_cmd_path(const char *filename, t_env **env)
 	}
 	while (*value)
 	{
-		end = strchr(value, ':');
+		end = ft_strchr(value, ':');
 		if (end)
 			path_len = (size_t)end - (size_t)value;
 		else
-			path_len = strlen(value);
+			path_len = ft_strlen(value);
 		if (path_len >= PATH_MAX)
 		{
 			fprintf(stderr, "Error: PATH element is too long\n");
 			return (NULL);
 		}
-		memcpy(path, value, path_len);
+		ft_memcpy(path, value, path_len);
 		path[path_len] = '\0';
-		strncat(path, "/", PATH_MAX - strlen(path) - 1);
-		strncat(path, filename, PATH_MAX - strlen(path) - 1);
+		strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
+		strncat(path, filename, PATH_MAX - ft_strlen(path) - 1);
 		if (access(path, X_OK) == 0)
 		{
-			dup = strdup(path);
+			dup = ft_strdup(path);
 			if (!dup)
 			{
 				fprintf(stderr, "Error: %s\n", strerror(errno));
@@ -161,9 +161,9 @@ char	**change_env_to_environ(t_env *env)
 	size_t	i;
 
 	len = env_len(env);
-	environ = calloc(len + 1, sizeof(char *));
+	environ = ft_calloc(len + 1, sizeof(char *));
 	if (environ == NULL)
-		fatal_error("calloc");
+		fatal_error("ft_calloc");
 	i = 0;
 	while (env)
 	{
@@ -204,7 +204,7 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	// print_argv(argv);
 	path = argv[0];
 	// printf("path:%s\n", path);
-	if (strchr(path, '/') == NULL)
+	if (ft_strchr(path, '/') == NULL)
 		path = check_cmd_path(path, env);
 	if (!check_is_filename(path))
 		err_exit(argv[0], "command not found", 127);

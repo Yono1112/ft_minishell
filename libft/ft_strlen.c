@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 22:25:50 by rnaka            ###   ########.fr       */
+/*   Created: 2022/07/09 15:49:26 by rnaka             #+#    #+#             */
+/*   Updated: 2022/09/26 04:14:40 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	append_char(char **s, char c)
+size_t	ft_strlen(const char *str)
 {
 	size_t	len;
-	char	*new;
 
-	if (*s)
-		len = ft_strlen(*s) + 2;
-	else
-		len = 2;
-	new = malloc(len);
-	if (!new)
-		fatal_error("malloc");
-	if (*s)
-		strncpy(new, *s, len);
-	new[len - 2] = c;
-	new[len - 1] = '\0';
-	if (*s)
-		free(*s);
-	*s = new;
-}
-
-void	expand(t_node *node, t_env **env)
-{
-	expand_variable(node, env);
-	remove_quote(node);
+	len = 0;
+	while (str[len] != '\0')
+		len++;
+	return (len);
 }

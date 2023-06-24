@@ -1,40 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 22:25:50 by rnaka            ###   ########.fr       */
+/*   Created: 2022/09/19 18:10:00 by rnaka             #+#    #+#             */
+/*   Updated: 2022/10/08 16:30:55 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	append_char(char **s, char c)
+int	ft_toupper(int c)
 {
-	size_t	len;
-	char	*new;
-
-	if (*s)
-		len = ft_strlen(*s) + 2;
-	else
-		len = 2;
-	new = malloc(len);
-	if (!new)
-		fatal_error("malloc");
-	if (*s)
-		strncpy(new, *s, len);
-	new[len - 2] = c;
-	new[len - 1] = '\0';
-	if (*s)
-		free(*s);
-	*s = new;
-}
-
-void	expand(t_node *node, t_env **env)
-{
-	expand_variable(node, env);
-	remove_quote(node);
+	if ('a' <= c && c <= 'z')
+		c = c - 'a' + 'A';
+	return (c);
 }

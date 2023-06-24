@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_exit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:44:33 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/11 15:05:07 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/24 23:18:03 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	is_num(char *str)
 		i++;
 	while (str[i])
 	{
-		if (!isdigit(str[i]) && !isspace(str[i]))
+		if (!ft_isdigit(str[i]) && !isspace(str[i]))
 			return (false);
 		i++;
 	}

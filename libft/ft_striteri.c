@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 22:25:50 by rnaka            ###   ########.fr       */
+/*   Created: 2022/10/19 20:25:39 by rnaka             #+#    #+#             */
+/*   Updated: 2022/10/19 21:53:42 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	append_char(char **s, char c)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	size_t	len;
-	char	*new;
+	size_t	i;
 
-	if (*s)
-		len = ft_strlen(*s) + 2;
-	else
-		len = 2;
-	new = malloc(len);
-	if (!new)
-		fatal_error("malloc");
-	if (*s)
-		strncpy(new, *s, len);
-	new[len - 2] = c;
-	new[len - 1] = '\0';
-	if (*s)
-		free(*s);
-	*s = new;
-}
-
-void	expand(t_node *node, t_env **env)
-{
-	expand_variable(node, env);
-	remove_quote(node);
+	if (s == 0 || f == 0)
+		return ;
+	len = ft_strlen(s);
+	i = 0;
+	while (i < len)
+	{
+		f(i, s + i);
+		i++;
+	}
 }
