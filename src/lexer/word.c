@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 00:48:15 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 00:54:20 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ t_token	*add_word_to_list(char **rest_line, char *line)
 		else
 			line++;
 	}
-	word = strndup(start, line - start);
+	word = ft_strndup(start, line - start);
 	// printf("word: %s\n", word);
 	if (word == NULL)
-		fatal_error("strndup");
+		fatal_error("ft_strndup");
 	*rest_line = line;
 	return (create_new_token_list(word, TK_WORD));
 }

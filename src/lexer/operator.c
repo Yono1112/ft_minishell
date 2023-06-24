@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:19:11 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 00:48:15 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 00:54:20 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ t_token	*add_operator_to_list(char **rest_line, char *line)
 		if (!ft_strncmp(line, operators[i], ft_strlen(operator)))
 		{
 			*rest_line = line + ft_strlen(operator);
-			str = strndup(line, ft_strlen(operator));
+			str = ft_strndup(line, ft_strlen(operator));
 			// printf("operator: %s\n", str);
 			if (!str)
-				fatal_error("strndup");
+				fatal_error("ft_strndup");
 			return (create_new_token_list(str, TK_OP));
 		}
 		i++;

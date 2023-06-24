@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 02:08:43 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 00:48:15 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 00:54:20 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,17 @@ int	set_env_list(t_env **env, char *str)
 		if (end_key != NULL)
 		{
 			// printf("end_key is not NULL\n");
-			key = strndup(str, end_key - str);
+			key = ft_strndup(str, end_key - str);
 			value = ft_strdup(end_key + 1);
 			if (value == NULL)
-				fatal_error("strndup");
+				fatal_error("ft_strndup");
 		}
 		else
 		{
 			// printf("end_key is NULL\n");
 			key = ft_strdup(str);
 			if (key == NULL)
-				fatal_error("strndup");
+				fatal_error("ft_strndup");
 			value = NULL;
 		}
 		// printf("%ld\n", end_key - str);
