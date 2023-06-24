@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 23:41:21 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 01:11:02 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	unset_env_list(t_env **env, char *key)
 		{
 			*env = current->next;
 			free_env(current);
+			return (0);
 		}
 		current = current->next;
 		prev = *env;

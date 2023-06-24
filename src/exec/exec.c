@@ -167,8 +167,12 @@ char	**change_env_to_environ(t_env *env)
 	i = 0;
 	while (env)
 	{
-		environ[i] = ft_strjoin_three(env->key, "=", env->value);
-		i++;
+		if (env->value != NULL)
+		{
+			printf("env->key:%s\n", env->key);
+			environ[i] = ft_strjoin_three(env->key, "=", env->value);
+			i++;
+		}
 		env = env->next;
 	}
 	environ[i] = NULL;
