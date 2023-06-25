@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   output_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 03:09:29 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 19:14:00 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 02:04:49 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-bool	syntax_error = false;
+// bool	syntax_error = false;
 
 // static void	perror_prefix(void)
 // {
@@ -58,9 +58,10 @@ void	err_exit(const char *location, const char *msg, int status)
 	exit(status);
 }
 
-void	tokenize_error(const char *location, char **rest, char *line)
+void	tokenize_error(const char *location, char **rest,
+			char *line, int *syntax_error)
 {
-	syntax_error = true;
+	*syntax_error = 1;
 	// dprintf(STDERR_FILENO, "minishell: syntax error near %s\n", location);
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR));
@@ -71,9 +72,10 @@ void	tokenize_error(const char *location, char **rest, char *line)
 	*rest = line;
 }
 
-void	parse_error(const char *location, t_token **rest, t_token *token)
+void	parse_error(const char *location, t_token **rest,
+			t_token *token, int *syntax_error)
 {
-	syntax_error = true;
+	*syntax_error = 1;
 	// dprintf(STDERR_FILENO, "minishell: syntax error near %s\n", location);
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR));

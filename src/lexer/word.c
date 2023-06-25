@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 00:54:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 02:08:52 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_word(char *line)
 	return (!is_blank(*line) && !is_operator(line));
 }
 
-t_token	*add_word_to_list(char **rest_line, char *line)
+t_token	*add_word_to_list(char **rest_line, char *line, int *syntax_error)
 {
 	char	*word;
 	char	*start;
@@ -33,7 +33,7 @@ t_token	*add_word_to_list(char **rest_line, char *line)
 			{
 				if (*line == '\0')
 				{
-					tokenize_error("Unclosed single quote", &line, line);
+					tokenize_error("Unclosed single quote", &line, line, syntax_error);
 					break ;
 				}
 				line++;
@@ -47,7 +47,7 @@ t_token	*add_word_to_list(char **rest_line, char *line)
 			{
 				if (*line == '\0')
 				{
-					tokenize_error("Unclosed double quote", &line, line);
+					tokenize_error("Unclosed double quote", &line, line, syntax_error);
 					break ;
 				}
 				line++;

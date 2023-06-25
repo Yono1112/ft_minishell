@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 22:39:46 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 02:11:15 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_env(t_env *env)
 void	init_g_data(void)
 {
 	g_data.last_status = 0;
-	g_data.syntax_error = false;
+	// g_data.syntax_error = false;
 	g_data.readline_interrupted = false;
 	g_data.sig = 0;
 	// g_data._rl_echo_control_chars = NOT_CONTROL_CHARS;
@@ -54,8 +54,11 @@ void	interpret(char* const line, int *status, t_env **env)
 {
 	t_token	*token;
 	t_node	*node;
+	int		syntax_error;
 
-	token = tokenize(line);
+	syntax_error = 0;
+	token = tokenize(line, &syntax_error);
+	// printf("syntax_error:%d\n", syntax_error);
 	if (token->kind != TK_EOF && syntax_error)
 		*status = ERROR_TOKENIZE;
 	else if (token->kind != TK_EOF)
@@ -74,19 +77,11 @@ void	interpret(char* const line, int *status, t_env **env)
 	free_token(token);
 }
 
-#include <termios.h>
-
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_env		*env;
-	// struct termios	old_tio;
-	// struct termios	new_tio;
 
-	// tcgetattr(STDIN_FILENO, &old_tio);
-	// new_tio = old_tio;
-	// new_tio.c_cc[VINTR] = _POSIX_VDISABLE;
-	// tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
 	(void)argc;
 	(void)argv;
 	rl_outstream = stderr;
@@ -117,6 +112,5 @@ int	main(int argc, char **argv, char **envp)
 		if (line)
 			free(line);
 	}
-	// tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
 	exit (g_data.last_status);
 }
