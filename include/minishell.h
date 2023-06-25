@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 22:22:25 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 17:55:06 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@
 # define CHILD_PID 0
 # define NOT_CONTROL_CHARS 0
 # define SHELL_PROMPT "\x1b[96mminishell\x1b[0m$ "
+# define NEW_LINE "\n"
+# define ERROR_PREFIX "minishell: "
+# define FATAL_ERROR "Fatal Error: "
+# define SYNTAX_ERROR "syntax error near "
+# define TODO_ERROR "TODO: "
+# define ASSERT_ERROR "Assert Error: "
 
 extern int	last_status;
 extern bool	syntax_error;

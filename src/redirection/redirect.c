@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 15:40:06 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 17:46:55 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	stashfd(int fd)
 int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 {
 	char	*line;
-	int		pfd[2];
+	int	pfd[2];
 
 	// printf("delimiter: %s\n", delimiter);
 	// printf("is_delimiter_quote: %d\n", is_delimiter_quote);
@@ -75,7 +75,9 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 		}
 		if (is_delimiter_quote)
 			line = expand_heredoc_line(line, env);
-		dprintf(pfd[1], "%s\n", line);
+		// dprintf(pfd[1], "%s\n", line);
+		write(pfd[1], line, ft_strlen(line));
+		write(pfd[1], NEW_LINE, ft_strlen(NEW_LINE));
 		free(line);
 	}
 	if (readline_interrupted)

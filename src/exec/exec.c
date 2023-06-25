@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 15:57:29 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 18:03:56 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ char	*check_cmd_path(const char *filename, t_env **env)
 
 	value = ft_getenv("PATH", env);
 	if (!value)
-	{
-		fprintf(stderr, "Error: PATH environment variable is not set\n");
 		return (NULL);
-	}
 	while (*value)
 	{
 		end = ft_strchr(value, ':');
@@ -79,10 +76,7 @@ char	*check_cmd_path(const char *filename, t_env **env)
 		else
 			path_len = ft_strlen(value);
 		if (path_len >= PATH_MAX)
-		{
-			fprintf(stderr, "Error: PATH element is too long\n");
 			return (NULL);
-		}
 		ft_memcpy(path, value, path_len);
 		path[path_len] = '\0';
 		ft_strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
@@ -91,10 +85,7 @@ char	*check_cmd_path(const char *filename, t_env **env)
 		{
 			dup = ft_strdup(path);
 			if (!dup)
-			{
-				fprintf(stderr, "Error: %s\n", strerror(errno));
 				return (NULL);
-			}
 			return (dup);
 		}
 		if (end == NULL)

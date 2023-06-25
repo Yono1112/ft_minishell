@@ -3,13 +3,11 @@
 #include <errno.h>
 #include"minishell.h"
 
-#define ERROR_PREFIX "minishell: "
-
-void	cd_error(char *str)
-{
-	dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
-	perror(str);
-}
+// void	cd_error(char *str)
+// {
+// 	dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
+// 	perror(str);
+// }
 
 int	count_arg(char **argv)
 {
@@ -30,7 +28,8 @@ int	cd_argv(char **argv, t_env **env)
 	status = chdir(argv[1]);
 	if (status)
 	{
-		cd_error(argv[1]);
+		// cd_error(argv[1]);
+		builtin_error("cd", argv[1], NULL);
 		return (1);
 	}
 	cwd = getcwd(NULL, 0);
@@ -59,12 +58,13 @@ int	cd_home(t_env **env)
 	if (!arg)
 	{
 		builtin_error("cd", NULL, "HOME not set");
-			return (1);
+		return (1);
 	}
 	status = chdir(arg);
 	if (status)
 	{
-		cd_error(ft_getenv("HOME", env));
+		// cd_error(ft_getenv("HOME", env));
+		builtin_error("cd", NULL, arg);
 		return (1);
 	}
 	save = ft_strdup(ft_getenv("HOME",env));
@@ -87,7 +87,8 @@ int	cd_prev(t_env **env)
 	status = chdir(ft_getenv("OLDPWD",env));
 	if (status)
 	{
-		cd_error(NULL);
+		// cd_error(NULL);
+		builtin_error("cd", NULL, NULL);
 		return (1);
 	}
 	save = ft_strdup(ft_getenv("OLDPWD",env));
