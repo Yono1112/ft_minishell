@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 17:46:55 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,36 @@
 
 bool	readline_interrupted = false;
 
+static int	ft_fcntl(int fd)
+{
+	int		stashed_fd;
+	int		target_fd;
+	struct stat	stat;
+
+	target_fd = 10;
+	errno = 0;
+	if (fd < 0)
+	{
+		errno = EBADF;
+		return (-1);
+	}
+	while (!fstat(target_fd, &stat) && errno != EBADF)
+		target_fd++;
+	stashed_fd = dup2(fd,target_fd);
+	return (stashed_fd);
+}
+
 static int	stashfd(int fd)
 {
 	int		stashfd;
 
 	// printf("start stashfd\n");
 	// printf("fd in stashfd: %d\n", fd);
-	stashfd = fcntl(fd, F_DUPFD, 10);
+	// stashfd = fcntl(fd, F_DUPFD, 10);
+	stashfd = ft_fcntl(fd);
 	// printf("stashfd in stashfd: %d\n", stashfd);
 	if (stashfd < 0)
-		fatal_error("fcntl");
+		fatal_error("ft_fcntl");
 	if (close(fd) < 0)
 		fatal_error("close");
 	// printf("finish stashfd\n");
@@ -34,7 +54,7 @@ static int	stashfd(int fd)
 int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 {
 	char	*line;
-	int		pfd[2];
+	int	pfd[2];
 
 	// printf("delimiter: %s\n", delimiter);
 	// printf("is_delimiter_quote: %d\n", is_delimiter_quote);
@@ -55,7 +75,9 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 		}
 		if (is_delimiter_quote)
 			line = expand_heredoc_line(line, env);
-		dprintf(pfd[1], "%s\n", line);
+		// dprintf(pfd[1], "%s\n", line);
+		write(pfd[1], line, ft_strlen(line));
+		write(pfd[1], NEW_LINE, ft_strlen(NEW_LINE));
 		free(line);
 	}
 	if (readline_interrupted)
