@@ -6,13 +6,12 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 22:02:23 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 22:06:07 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t	sig;
 extern int	_rl_echo_control_chars;
 
 void	reset_signal_to_default(void)
@@ -25,7 +24,7 @@ void	reset_signal_to_default(void)
 
 void	handle_signal(int signal_num)
 {
-	sig = signal_num;
+	g_data.sig = signal_num;
 }
 
 // void	handle_signal(int signal_num)
@@ -44,10 +43,10 @@ int	check_state(void)
 {
 	// if (sig == 0)
 	//   	return (0);
-	if (sig == SIGINT)
+	if (g_data.sig == SIGINT)
 	{
 		// printf("sig: %d\n", sig);
-		sig = 0;
+		g_data.sig = 0;
 		// printf("sig: %d\n", sig);
 		g_data.readline_interrupted = true;
 		// rl_on_new_line();

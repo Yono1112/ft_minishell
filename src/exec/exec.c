@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 18:03:56 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 22:05:23 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	wait_pipeline(pid_t last_child_pid)
 
 	while (1)
 	{
-		sig = 0;
+		g_data.sig = 0;
 		wait_pid = wait(&wstatus);
 		// printf("wait_pid: %d", wait_pid);
 		if (wait_pid == last_child_pid)
