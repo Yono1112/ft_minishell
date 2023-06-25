@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 04:17:33 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 15:57:29 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ char	**change_env_to_environ(t_env *env)
 	{
 		if (env->value != NULL)
 		{
-			printf("env->key:%s\n", env->key);
+			// printf("env->key:%s\n", env->key);
 			environ[i] = ft_strjoin_three(env->key, "=", env->value);
 			i++;
 		}
