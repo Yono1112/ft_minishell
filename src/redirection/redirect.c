@@ -6,14 +6,12 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 17:46:55 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 22:02:11 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <fcntl.h>
-
-bool	readline_interrupted = false;
 
 static int	ft_fcntl(int fd)
 {
@@ -62,13 +60,12 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 		fatal_error("pipe");
 	// printf("pfd[0]: %d\n", pfd[0]);
 	// printf("pfd[1]: %d\n", pfd[1]);
-	readline_interrupted = false;
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (readline_interrupted || !ft_strcmp(line, delimiter))
+		if (g_data.readline_interrupted || !ft_strcmp(line, delimiter))
 		{
 			free(line);
 			break ;
@@ -80,7 +77,7 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 		write(pfd[1], NEW_LINE, ft_strlen(NEW_LINE));
 		free(line);
 	}
-	if (readline_interrupted)
+	if (g_data.readline_interrupted)
 	{
 		close(pfd[0]);
 		return (-1);

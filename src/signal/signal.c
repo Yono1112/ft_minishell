@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 21:56:44 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 22:02:23 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	check_state(void)
 		// printf("sig: %d\n", sig);
 		sig = 0;
 		// printf("sig: %d\n", sig);
-		readline_interrupted = true;
+		g_data.readline_interrupted = true;
 		// rl_on_new_line();
 		rl_replace_line("", 0);
 		// rl_redisplay();
