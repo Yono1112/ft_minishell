@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_export.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:00:07 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 19:12:07 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	exec_builtin_export(char **argv, t_env **env)
 		{
 			if (set_env_list(env, argv[i]) == -1 ) 
 			{
-				builtin_error("export", argv[i], "not a valid identifier");
+				builtin_error("export", argv[i],
+					"not a valid identifier", "not a valid identifier");
 				status = 1;
 			}
 			i++;
