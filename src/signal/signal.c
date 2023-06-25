@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/06 22:14:47 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 21:56:44 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_state(void)
 		rl_done = 1;
 		// rl_crlf();
 		// printf("\n");
-		last_status = 1;
+		g_data.last_status = 1;
 	}
 	return (0);
 }
