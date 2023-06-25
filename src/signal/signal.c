@@ -6,13 +6,13 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 22:06:07 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 23:15:52 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int	_rl_echo_control_chars;
+// extern int	_rl_echo_control_chars;
 
 void	reset_signal_to_default(void)
 {
@@ -62,7 +62,10 @@ int	check_state(void)
 
 void	set_signal(void)
 {
-	_rl_echo_control_chars = NOT_CONTROL_CHARS;
+	// _rl_echo_control_chars = NOT_CONTROL_CHARS;
+	// g_data._rl_echo_control_chars = NOT_CONTROL_CHARS;
+	// printf("_rl_echo_control_chars:%d\n", _rl_echo_control_chars);
+	// printf("g_data._rl_echo_control_chars:%d\n", g_data._rl_echo_control_chars);
 	// _rl_echo_control_chars = 1;
 	// rl_outstream = stdout;
 	if (isatty(STDIN_FILENO))

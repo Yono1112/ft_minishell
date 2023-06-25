@@ -83,6 +83,12 @@ debug: re
 test: re
 	./test.sh
 
+set-env:
+	echo "minishell\nset echo-control-characters Off" >> ~/.inputrc
+
+unset-env:
+	echo "minishell\nset echo-control-characters On" >> ~/.inputrc 
+
 norm:
 	norminette include src libft
 	nm -u $(NAME) | grep -v -E "_(readline|rl_clear_history|rl_on_new_line|\

@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 22:05:14 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 23:15:57 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 extern bool	syntax_error;
 // extern bool	readline_interrupted;
 // extern volatile sig_atomic_t	sig;
-extern int	_rl_echo_control_chars;
+// extern int	_rl_echo_control_chars;
 extern struct s_data	g_data;
 
 typedef struct s_data
@@ -61,7 +61,7 @@ typedef struct s_data
 	bool			syntax_error;
 	bool			readline_interrupted;
 	volatile sig_atomic_t	sig;
-	int			_rl_echo_control_chars;
+	// int			_rl_echo_control_chars;
 }	t_data;
 
 typedef enum e_token_kind
