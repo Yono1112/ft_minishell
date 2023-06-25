@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 17:55:06 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 19:13:34 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ void	assert_error(const char *str);
 void	todo(const char *msg);
 void	err_exit(const char *location, const char *msg, int status);
 void	xperror(const char *location);
-void	builtin_error(char *func, char *name, char *err_message);
+void	builtin_error(char *func, char *name,
+			char *err_message, char	*perror_message);
 // exec
 int		exec(t_node *node, t_env **env);
 // tokenizer

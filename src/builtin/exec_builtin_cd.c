@@ -29,7 +29,7 @@ int	cd_argv(char **argv, t_env **env)
 	if (status)
 	{
 		// cd_error(argv[1]);
-		builtin_error("cd", argv[1], NULL);
+		builtin_error("cd", argv[1], NULL, argv[1]);
 		return (1);
 	}
 	cwd = getcwd(NULL, 0);
@@ -57,14 +57,14 @@ int	cd_home(t_env **env)
 	arg = ft_getenv("HOME", env);
 	if (!arg)
 	{
-		builtin_error("cd", NULL, "HOME not set");
+		builtin_error("cd", NULL, "HOME not set", NULL);
 		return (1);
 	}
 	status = chdir(arg);
 	if (status)
 	{
 		// cd_error(ft_getenv("HOME", env));
-		builtin_error("cd", NULL, arg);
+		builtin_error("cd", NULL, NULL, arg);
 		return (1);
 	}
 	save = ft_strdup(ft_getenv("HOME",env));
@@ -81,14 +81,14 @@ int	cd_prev(t_env **env)
 	status = 0;
 	if (!ft_getenv("OLDPWD",env))
 	{
-		builtin_error("cd", NULL, "OLDPWD not set");
+		builtin_error("cd", NULL, "OLDPWD not set", NULL);
 		return (1);
 	}
 	status = chdir(ft_getenv("OLDPWD",env));
 	if (status)
 	{
 		// cd_error(NULL);
-		builtin_error("cd", NULL, NULL);
+		builtin_error("cd", NULL, NULL, NULL);
 		return (1);
 	}
 	save = ft_strdup(ft_getenv("OLDPWD",env));

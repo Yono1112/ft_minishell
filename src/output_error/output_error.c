@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 03:09:29 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 18:31:47 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 19:14:00 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	xperror(const char *location)
 	perror(location);
 }
 
-void	builtin_error(char *func, char *name, char *err_message)
+void	builtin_error(char *func, char *name, char *err_message, char *perror_message)
 {
 	// perror_prefix();
 	// dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
@@ -108,5 +108,7 @@ void	builtin_error(char *func, char *name, char *err_message)
 	}
 	if (err_message)
 		write(STDERR_FILENO, err_message, ft_strlen(err_message));
+	if (perror_message)
+		perror(perror_message);
 	write(STDERR_FILENO, NEW_LINE, 1);
 }
