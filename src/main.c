@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 14:48:22 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/24 07:18:44 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	print_token(t_token *token)
 	while (token && token->kind != TK_EOF)
 	{
 		printf("token_word: %s\n", token->word);
+		printf("token->is_expanded: %d\n", token->is_expanded);
 		token = token->next;
 	}
 }

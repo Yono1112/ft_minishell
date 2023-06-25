@@ -16,7 +16,6 @@ char	*ft_getenv(char *path_key, t_env **env)
 {
 	t_env *current;
 
-	// print_env(*env);
 	current = *env;
 	if (path_key == NULL)
 		return (NULL);

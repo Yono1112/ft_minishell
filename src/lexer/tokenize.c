@@ -6,7 +6,7 @@
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:16:31 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/29 03:35:15by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/24 07:20:05 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_token	*create_new_token_list(char *word, t_token_kind kind)
 		fatal_error("malloc");
 	new_token->word = word;
 	new_token->kind = kind;
+	new_token->is_expanded = false;
 	new_token->next = NULL;
 	return (new_token);
 }

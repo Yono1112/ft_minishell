@@ -331,4 +331,10 @@ assert 'env | grep hoge | sort'
 assert 'export TEST= a\n env | grep TEST'
 assert 'export TEST=" a"\n env | grep TEST'
 
+## word split
+assert 'export TEST="hello        world!       "\n echo $TEST | cat -e'
+assert 'export TEST="hello        world!       "\n echo "$TEST" | cat -e'
+assert 'export IFS=","\n export TEST=",hello, ,,world!,,"\n echo $TEST | cat -e'
+assert 'export IFS=","\n export TEST=",hello, ,,world!,,"\n echo "$TEST" | cat -e'
+
 cleanup

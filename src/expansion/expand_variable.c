@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/24 06:57:08 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/24 07:11:58 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,10 @@ void	expand_variable_token(t_token *token, t_env **env)
 			else if (*current_word == DOUBLE_QUOTE_CHAR)
 				append_double_quote(&new_word, &current_word, current_word, env);
 			else if (is_expand_variable(current_word))
+			{
+				token->is_expanded = true;
 				expand_variable_str(&new_word, &current_word, current_word, env);
+			}
 			else if (is_special_parametar(current_word))
 				expand_parameter_str(&new_word, &current_word, current_word);
 			else if (is_quote_after_dollar(current_word))
@@ -186,6 +189,7 @@ void	expand_variable_token(t_token *token, t_env **env)
 		}
 		free(token->word);
 		token->word = new_word;
+		// printf("token_word: %s\n", token->word);
 		token = token->next;
 	}
 	// printf("finish expand_variable_token\n");

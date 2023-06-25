@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 06:57:01 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/24 07:12:23 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_token
 	char		*word;
 	t_token_kind	kind;
 	struct s_token	*next;
+	bool			is_expanded;
 }	t_token;
 
 typedef enum e_node_kind
@@ -127,25 +128,27 @@ bool	is_blank(char c);
 void	skip_blank(char **skip_line, char *line);
 // expansion
 void	expand(t_node *node, t_env **env);
-void	remove_quote(t_node *node);
+void	remove_quote(t_node *node, t_env **env);
 void	append_char(char **s, char c);
 void	expand_variable(t_node *node, t_env **env);
 char	*expand_heredoc_line(char *line, t_env **env);
 bool	is_variable(char *s);
 void	expand_parameter_str(char **new_word, char **rest, char *current_word);
 void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env **env);
+void	append_double_quote(char **new_word, char **rest, char *current_word, t_env **env);
+bool	is_metacharacter(char c);
+void	append_single_quote(char **new_word, char **rest, char *current_word);
 bool	is_special_parametar(char *str);
-<<<<<<< HEAD
-void	split_word(t_node *node);
-=======
->>>>>>> 9e06c800faef8b2b925d254dac6fd9a6395eded7
 bool	is_alpha_num_under(char c);
 bool	is_alpha_under(char c);
 bool	is_expand_variable(char *s);
+void	split_word(t_node *node, t_env **env);
+bool	is_custom_ifs(char c, t_env **env);
+bool	is_defalut_ifs(char c);
 // parser
 t_node	*parse(t_token *token);
 // redirection
-int		open_redirect_file(t_node *redirect, t_env **env);
+int	open_redirect_file(t_node *redirect, t_env **env);
 void	do_redirect(t_node *redirect);
 void	reset_redirect(t_node *redirect);
 // pipeline
@@ -162,12 +165,12 @@ int	exec_builtin_echo(char **argv);
 int	count_argc(char **argv);
 int	exec_builtin_pwd(char **argv, t_env **env);
 int	exec_builtin_cd(char **argv, t_env **env);
-int		exec_builtin_cmd(t_node *node, t_env **env);
-int		exec_builtin_exit(char **argv);
-int		exec_builtin_echo(char **argv);
-int		count_argc(char **argv);
-int		exec_builtin_export(char **argv, t_env **env);
-int		get_cwd(t_env **env);
+int	exec_builtin_cmd(t_node *node, t_env **env);
+int	exec_builtin_exit(char **argv);
+int	exec_builtin_echo(char **argv);
+int	count_argc(char **argv);
+int	exec_builtin_export(char **argv, t_env **env);
+int	get_cwd(t_env **env);
 int	exec_builtin_unset(char **argv, t_env **env);
 int	exec_builtin_env(t_env **env);
 // environ

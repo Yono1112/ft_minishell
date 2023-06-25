@@ -1,119 +1,117 @@
-!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
-!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
-!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
-!_TAG_PROGRAM_NAME	Exuberant Ctags	//
-!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
-ERROR_PREFIX	src/output_error/output_error.c	/^#define ERROR_PREFIX /;"	d	file:
-STDIN_FILENO	src/parser/parse.c	/^#define STDIN_FILENO /;"	d	file:
-STDOUT_FILENO	src/parser/parse.c	/^#define STDOUT_FILENO /;"	d	file:
-add_key_value_to_env	src/environ/set_env_list.c	/^void	add_key_value_to_env(t_env **env, char *key, char *value)$/;"	f
-add_operator_to_list	src/lexer/operator.c	/^t_token	*add_operator_to_list(char **rest_line, char *line)$/;"	f
-add_operator_to_node	src/parser/parse.c	/^void	add_operator_to_node(t_node **node, t_node *new_node)$/;"	f
-add_token_to_argv	src/lexer/add_token_to_argv.c	/^char	**add_token_to_argv(t_token *token)$/;"	f
-add_token_to_node	src/parser/parse.c	/^void	add_token_to_node(t_token **node_token, t_token *new_token)$/;"	f
-add_word_to_list	src/lexer/word.c	/^t_token	*add_word_to_list(char **rest_line, char *line)$/;"	f
-append_char	src/expansion/expand.c	/^void	append_char(char **s, char c)$/;"	f
-append_double_quote	src/expansion/expand_variable.c	/^void	append_double_quote(char **new_word, char **rest, char *current_word, t_env **env)$/;"	f
-append_num	src/expansion/expand_variable.c	/^void	append_num(char **new_word, unsigned int num)$/;"	f
-append_single_quote	src/expansion/expand_variable.c	/^void	append_single_quote(char **new_word, char **rest, char *current_word)$/;"	f
-append_variable_name	src/expansion/expand_variable.c	/^char	*append_variable_name(char **rest, char *current_word)$/;"	f
-assert_error	src/output_error/output_error.c	/^void	assert_error(const char *str)$/;"	f
-bubble_sort_env	src/builtin/exec_builtin_export.c	/^static t_env	*bubble_sort_env(t_env *env)$/;"	f	file:
-builtin_error	src/output_error/output_error.c	/^void	builtin_error(char *func, char *name, char *err_message)$/;"	f
-change_env_to_environ	src/exec/exec.c	/^char	**change_env_to_environ(t_env *env)$/;"	f
-check_cmd_path	src/exec/exec.c	/^char	*check_cmd_path(const char *filename, t_env **env)$/;"	f
-check_is_filename	src/exec/exec.c	/^bool	check_is_filename(const char *path)$/;"	f
-check_operator	src/parser/parse.c	/^bool	check_operator(t_token *token, char *op)$/;"	f
-check_state	src/signal/signal.c	/^int	check_state(void)$/;"	f
-check_valid_option	src/builtin/exec_builtin_echo.c	/^static bool	check_valid_option(char *second_arg)$/;"	f	file:
-count_argc	src/builtin/exec_builtin_echo.c	/^int	count_argc(char **argv)$/;"	f
-create_new_env_list	src/environ/env_utils.c	/^t_env	*create_new_env_list(char *key, char *value)$/;"	f
-create_new_node_list	src/parser/parse.c	/^t_node	*create_new_node_list(t_node_kind kind)$/;"	f
-create_new_redirect_append	src/parser/parse.c	/^t_node	*create_new_redirect_append(t_token **rest, t_token *token)$/;"	f
-create_new_redirect_heredoc	src/parser/parse.c	/^t_node	*create_new_redirect_heredoc(t_token **rest, t_token *token)$/;"	f
-create_new_redirect_in	src/parser/parse.c	/^t_node	*create_new_redirect_in(t_token **rest, t_token *token)$/;"	f
-create_new_redirect_out	src/parser/parse.c	/^t_node	*create_new_redirect_out(t_token **rest, t_token *token)$/;"	f
-create_new_token_list	src/lexer/tokenize.c	/^t_token	*create_new_token_list(char *word, t_token_kind kind)$/;"	f
-do_redirect	src/redirection/redirect.c	/^void	do_redirect(t_node *redirect)$/;"	f
-env_len	src/exec/exec.c	/^size_t	env_len(t_env *env)$/;"	f
-err_exit	src/output_error/output_error.c	/^void	err_exit(const char *location, const char *msg, int status)$/;"	f
-exec	src/exec/exec.c	/^int	exec(t_node *node, t_env **env)$/;"	f
-exec_builtin_cmd	src/builtin/exec_builtin_cmd.c	/^int	exec_builtin_cmd(t_node *node, t_env **env)$/;"	f
-exec_builtin_echo	src/builtin/exec_builtin_echo.c	/^int	exec_builtin_echo(char **argv)$/;"	f
-exec_builtin_env	src/builtin/exec_builtin_env.c	/^int	exec_builtin_env(char **argv, t_env **env)$/;"	f
-exec_builtin_exit	src/builtin/exec_builtin_exit.c	/^int	exec_builtin_exit(char **argv)$/;"	f
-exec_builtin_export	src/builtin/exec_builtin_export.c	/^int	exec_builtin_export(char **argv, t_env **env)$/;"	f
-exec_builtin_unset	src/builtin/exec_builtin_unset.c	/^int	exec_builtin_unset(char **argv, t_env **env)$/;"	f
-exec_cmd	src/exec/exec.c	/^int	exec_cmd(t_node *node, t_env **env)$/;"	f
-exec_simple_cmd	src/exec/exec.c	/^void	exec_simple_cmd(t_node *node, t_env **env)$/;"	f
-expand	src/expansion/expand.c	/^void	expand(t_node *node, t_env **env)$/;"	f
-expand_heredoc_line	src/expansion/expand_heredoc_line.c	/^char	*expand_heredoc_line(char *line, t_env **env)$/;"	f
-expand_parameter_str	src/expansion/expand_variable.c	/^void	expand_parameter_str(char **new_word, char **rest, char *current_word)$/;"	f
-expand_variable	src/expansion/expand_variable.c	/^void	expand_variable(t_node *node, t_env **env)$/;"	f
-expand_variable_str	src/expansion/expand_variable.c	/^void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env **env)$/;"	f
-expand_variable_token	src/expansion/expand_variable.c	/^void	expand_variable_token(t_token *token, t_env **env)$/;"	f
-fatal_error	src/output_error/output_error.c	/^void	fatal_error(const char *str)$/;"	f
-free_argv	src/free.c	/^void	free_argv(char **argv)$/;"	f
-free_node	src/free.c	/^void	free_node(t_node *node)$/;"	f
-free_token	src/free.c	/^void	free_token(t_token *token)$/;"	f
-ft_getenv	src/environ/ft_getenv.c	/^char	*ft_getenv(char *path_key, t_env **env)$/;"	f
-ft_strjoin_three	src/exec/exec.c	/^static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)$/;"	f	file:
-handle_signal	src/signal/signal.c	/^void	handle_signal(int signal_num)$/;"	f
-init_env_list	src/environ/init_env_list.c	/^t_env	*init_env_list(char **envp)$/;"	f
-interpret	src/main.c	/^void	interpret(char* const line, int *status, t_env **env)$/;"	f
-is_alpha_num_under	src/expansion/expand_variable.c	/^bool	is_alpha_num_under(char c)$/;"	f
-is_alpha_under	src/expansion/expand_variable.c	/^bool	is_alpha_under(char c)$/;"	f
-is_blank	src/lexer/blank.c	/^bool	is_blank(char c)$/;"	f
-is_builtin	src/builtin/is_builtin.c	/^bool	is_builtin(t_node *node)$/;"	f
-is_control_operator	src/parser/parse.c	/^bool	is_control_operator(t_token *token)$/;"	f
-is_expand_variable	src/expansion/expand_variable.c	/^bool	is_expand_variable(char *s)$/;"	f
-is_key_in_env	src/environ/set_env_list.c	/^bool	is_key_in_env(char *key, t_env *env)$/;"	f
-is_metacharacter	src/expansion/expand_variable.c	/^bool	is_metacharacter(char c)$/;"	f
-is_num	src/builtin/exec_builtin_exit.c	/^bool	is_num(char *str)$/;"	f
-is_operator	src/lexer/operator.c	/^bool	is_operator(char *line)$/;"	f
-is_quote_after_dollar	src/expansion/expand_variable.c	/^bool	is_quote_after_dollar(char *str)$/;"	f
-is_redirect	src/redirection/redirect.c	/^bool	is_redirect(t_node *redirect)$/;"	f
-is_special_parametar	src/expansion/expand_variable.c	/^bool	is_special_parametar(char *str)$/;"	f
-is_variable	src/environ/env_utils.c	/^bool	is_variable(char *str)$/;"	f
-is_word	src/lexer/word.c	/^bool	is_word(char *line)$/;"	f
-last_status	src/main.c	/^int	last_status = 0;$/;"	v
-main	src/main.c	/^int	main(int argc, char **argv, char **envp)$/;"	f
-open_redirect_file	src/redirection/redirect.c	/^int	open_redirect_file(t_node *node, t_env **env)$/;"	f
-parse	src/parser/parse.c	/^t_node	*parse(t_token *token)$/;"	f
-parse_error	src/output_error/output_error.c	/^void	parse_error(const char *location, t_token **rest, t_token *token)$/;"	f
-perror_prefix	src/output_error/output_error.c	/^static void	perror_prefix(void)$/;"	f	file:
-pipeline	src/parser/parse.c	/^t_node	*pipeline(t_token **rest, t_token *token)$/;"	f
-prepare_pipe	src/pipeline/pipe.c	/^void	prepare_pipe(t_node *node)$/;"	f
-prepare_pipe_child	src/pipeline/pipe.c	/^void	prepare_pipe_child(t_node *node)$/;"	f
-prepare_pipe_parent	src/pipeline/pipe.c	/^void	prepare_pipe_parent(t_node *node)$/;"	f
-print_env	src/main.c	/^void	print_env(t_env *env)$/;"	f
-print_environ_variable	src/builtin/exec_builtin_export.c	/^static void	print_environ_variable(t_env **env)$/;"	f	file:
-print_envp	src/environ/env_utils.c	/^void	print_envp(char **envp)$/;"	f
-print_token	src/main.c	/^void	print_token(t_token *token)$/;"	f
-read_heredoc	src/redirection/redirect.c	/^int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)$/;"	f
-readline_interrupted	src/redirection/redirect.c	/^bool	readline_interrupted = false;$/;"	v
-remove_double_quote	src/expansion/remove_quote.c	/^void	remove_double_quote(char **dst, char **rest, char *p)$/;"	f
-remove_quote	src/expansion/remove_quote.c	/^void	remove_quote(t_node *node)$/;"	f
-remove_quote_token	src/expansion/remove_quote.c	/^static void	remove_quote_token(t_token *token)$/;"	f	file:
-remove_single_quote	src/expansion/remove_quote.c	/^void	remove_single_quote(char **dst, char **rest, char *p)$/;"	f
-reset_redirect	src/redirection/redirect.c	/^void	reset_redirect(t_node *redirect)$/;"	f
-reset_signal_to_default	src/signal/signal.c	/^void	reset_signal_to_default(void)$/;"	f
-set_env_list	src/environ/set_env_list.c	/^int	set_env_list(t_env **env, char *str)$/;"	f
-set_signal	src/signal/signal.c	/^void	set_signal(void)$/;"	f
-sig	src/signal/signal.c	/^volatile sig_atomic_t	sig;$/;"	v
-simple_command	src/parser/parse.c	/^t_node	*simple_command(t_token **rest, t_token *token)$/;"	f
-skip_blank	src/lexer/blank.c	/^void	skip_blank(char **skip_line, char *line)$/;"	f
-stashfd	src/redirection/redirect.c	/^static int	stashfd(int fd)$/;"	f	file:
-swap_env	src/builtin/exec_builtin_export.c	/^static void	swap_env(t_env *current, t_env *next)$/;"	f	file:
-syntax_error	src/output_error/output_error.c	/^bool	syntax_error = false;$/;"	v
-todo	src/output_error/output_error.c	/^void	todo(const char *msg)$/;"	f
-token_lstsize	src/lexer/add_token_to_argv.c	/^static size_t	token_lstsize(t_token *token)$/;"	f	file:
-tokendup	src/parser/parse.c	/^t_token	*tokendup(t_token *token)$/;"	f
-tokenize	src/lexer/tokenize.c	/^t_token	*tokenize(char	*line)$/;"	f
-tokenize_error	src/output_error/output_error.c	/^void	tokenize_error(const char *location, char **rest, char *line)$/;"	f
-unset_env_list	src/environ/unset_env_list.c	/^int	unset_env_list(t_env **env, char *key)$/;"	f
-update_value_to_env	src/environ/set_env_list.c	/^void	update_value_to_env(t_env **env, char *key, char *value)$/;"	f
-wait_pipeline	src/exec/exec.c	/^int	wait_pipeline(pid_t last_child_pid)$/;"	f
-write_str	src/builtin/exec_builtin_echo.c	/^static void	write_str(char *str)$/;"	f	file:
-xperror	src/output_error/output_error.c	/^void	xperror(const char *location)$/;"	f
+Mmain	src/main.c	/^int	main(int argc, char **argv, char **envp)$/
+add_key_value_to_env	src/environ/set_env_list.c	/^void	add_key_value_to_env(t_env **env, char *key, /
+add_operator_to_list	src/lexer/operator.c	/^t_token	*add_operator_to_list(char **rest_line, ch/
+add_operator_to_node	src/parser/parse.c	/^void	add_operator_to_node(t_node **node, t_node *n/
+add_token_to_argv	src/lexer/add_token_to_argv.c	/^char	**add_token_to_argv(t_token *token)$/
+add_token_to_node	src/parser/parse.c	/^void	add_token_to_node(t_token **node_token, t_tok/
+add_word_to_list	src/lexer/word.c	/^t_token	*add_word_to_list(char **rest_line, char */
+append_char	src/expansion/expand.c	/^void	append_char(char **s, char c)$/
+append_double_quote	src/expansion/expand_variable.c	/^void	append_double_quote(char **new_word, char **r/
+append_num	src/expansion/expand_variable.c	/^void	append_num(char **new_word, unsigned int num)/
+append_single_quote	src/expansion/expand_variable.c	/^void	append_single_quote(char **new_word, char **r/
+append_variable_name	src/expansion/expand_variable.c	/^char	*append_variable_name(char **rest, char *curr/
+assert_error	src/output_error/output_error.c	/^void	assert_error(const char *str)$/
+bubble_sort_env	src/builtin/exec_builtin_export.c	/^static t_env	*bubble_sort_env(t_env *env)$/
+builtin_error	src/output_error/output_error.c	/^void	builtin_error(char *func, char *name, char *e/
+cd_argv	src/builtin/exec_builtin_cd.c	/^int	cd_argv(char **argv, t_env **env)$/
+cd_error	src/builtin/exec_builtin_cd.c	/^void	cd_error(char *str)$/
+cd_home	src/builtin/exec_builtin_cd.c	/^int	cd_home(t_env **env)$/
+cd_prev	src/builtin/exec_builtin_cd.c	/^int	cd_prev(t_env **env)$/
+change_env_to_environ	src/exec/exec.c	/^char	**change_env_to_environ(t_env *env)$/
+check_cmd_path	src/exec/exec.c	/^char	*check_cmd_path(const char *filename, t_env */
+check_is_filename	src/exec/exec.c	/^bool	check_is_filename(const char *path)$/
+check_operator	src/parser/parse.c	/^bool	check_operator(t_token *token, char *op)$/
+check_state	src/signal/signal.c	/^int	check_state(void)$/
+check_valid_option	src/builtin/exec_builtin_echo.c	/^static bool	check_valid_option(char *second_arg)$/
+count_arg	src/builtin/exec_builtin_cd.c	/^int	count_arg(char **argv)$/
+count_argc	src/builtin/exec_builtin_echo.c	/^int	count_argc(char **argv)$/
+create_new_env_list	src/environ/env_utils.c	/^t_env	*create_new_env_list(char *key, char *value)/
+create_new_node_list	src/parser/parse.c	/^t_node	*create_new_node_list(t_node_kind kind)$/
+create_new_redirect_append	src/parser/parse.c	/^t_node	*create_new_redirect_append(t_token **rest,/
+create_new_redirect_heredoc	src/parser/parse.c	/^t_node	*create_new_redirect_heredoc(t_token **rest/
+create_new_redirect_in	src/parser/parse.c	/^t_node	*create_new_redirect_in(t_token **rest, t_t/
+create_new_redirect_out	src/parser/parse.c	/^t_node	*create_new_redirect_out(t_token **rest, t_/
+create_new_token_list	src/lexer/tokenize.c	/^t_token	*create_new_token_list(char *word, t_token/
+do_redirect	src/redirection/redirect.c	/^void	do_redirect(t_node *redirect)$/
+env_len	src/exec/exec.c	/^size_t	env_len(t_env *env)$/
+err_exit	src/output_error/output_error.c	/^void	err_exit(const char *location, const char *ms/
+exec	src/exec/exec.c	/^int	exec(t_node *node, t_env **env)$/
+exec_builtin_cd	src/builtin/exec_builtin_cd.c	/^int	exec_builtin_cd(char **argv, t_env **env)$/
+exec_builtin_cmd	src/builtin/exec_builtin_cmd.c	/^int	exec_builtin_cmd(t_node *node, t_env **env)$/
+exec_builtin_echo	src/builtin/exec_builtin_echo.c	/^int	exec_builtin_echo(char **argv)$/
+exec_builtin_env	src/builtin/exec_builtin_env.c	/^int	exec_builtin_env(t_env **env)$/
+exec_builtin_exit	src/builtin/exec_builtin_exit.c	/^int	exec_builtin_exit(char **argv)$/
+exec_builtin_export	src/builtin/exec_builtin_export.c	/^int	exec_builtin_export(char **argv, t_env **env)$/
+exec_builtin_pwd	src/builtin/exec_builtin_pwd.c	/^int	exec_builtin_pwd(char **argv, t_env **env)$/
+exec_builtin_unset	src/builtin/exec_builtin_unset.c	/^int	exec_builtin_unset(char **argv, t_env **env)$/
+exec_cmd	src/exec/exec.c	/^int	exec_cmd(t_node *node, t_env **env)$/
+exec_simple_cmd	src/exec/exec.c	/^void	exec_simple_cmd(t_node *node, t_env **env)$/
+expand	src/expansion/expand.c	/^void	expand(t_node *node, t_env **env)$/
+expand_heredoc_line	src/expansion/expand_heredoc_line.c	/^char	*expand_heredoc_line(char *line, t_env **env)/
+expand_parameter_str	src/expansion/expand_variable.c	/^void	expand_parameter_str(char **new_word, char **/
+expand_variable	src/expansion/expand_variable.c	/^void	expand_variable(t_node *node, t_env **env)$/
+expand_variable_str	src/expansion/expand_variable.c	/^void	expand_variable_str(char **new_word, char **r/
+expand_variable_token	src/expansion/expand_variable.c	/^void	expand_variable_token(t_token *token, t_env */
+fatal_error	src/output_error/output_error.c	/^void	fatal_error(const char *str)$/
+free_argv	src/free.c	/^void	free_argv(char **argv)$/
+free_env	src/environ/unset_env_list.c	/^static void	free_env(t_env *env)$/
+free_node	src/free.c	/^void	free_node(t_node *node)$/
+free_token	src/free.c	/^void	free_token(t_token *token)$/
+ft_getenv	src/environ/ft_getenv.c	/^char	*ft_getenv(char *path_key, t_env **env)$/
+ft_strjoin_three	src/exec/exec.c	/^static char	*ft_strjoin_three(char const *s1, char/
+get_cwd	src/builtin/exec_builtin_pwd.c	/^int	get_cwd(t_env **env)$/
+handle_signal	src/signal/signal.c	/^void	handle_signal(int signal_num)$/
+init_env_list	src/environ/init_env_list.c	/^t_env	*init_env_list(char **envp)$/
+interpret	src/main.c	/^void	interpret(char* const line, int *status, t_en/
+is_alpha_num_under	src/expansion/expand_variable.c	/^bool	is_alpha_num_under(char c)$/
+is_alpha_under	src/expansion/expand_variable.c	/^bool	is_alpha_under(char c)$/
+is_blank	src/lexer/blank.c	/^bool	is_blank(char c)$/
+is_builtin	src/builtin/is_builtin.c	/^bool	is_builtin(t_node *node)$/
+is_control_operator	src/parser/parse.c	/^bool	is_control_operator(t_token *token)$/
+is_expand_variable	src/expansion/expand_variable.c	/^bool	is_expand_variable(char *s)$/
+is_key_in_env	src/environ/set_env_list.c	/^bool	is_key_in_env(char *key, t_env *env)$/
+is_metacharacter	src/expansion/expand_variable.c	/^bool	is_metacharacter(char c)$/
+is_num	src/builtin/exec_builtin_exit.c	/^bool	is_num(char *str)$/
+is_operator	src/lexer/operator.c	/^bool	is_operator(char *line)$/
+is_quote_after_dollar	src/expansion/expand_variable.c	/^bool	is_quote_after_dollar(char *str)$/
+is_redirect	src/redirection/redirect.c	/^bool	is_redirect(t_node *redirect)$/
+is_special_parametar	src/expansion/expand_variable.c	/^bool	is_special_parametar(char *str)$/
+is_variable	src/environ/env_utils.c	/^bool	is_variable(char *str)$/
+is_word	src/lexer/word.c	/^bool	is_word(char *line)$/
+open_redirect_file	src/redirection/redirect.c	/^int	open_redirect_file(t_node *node, t_env **env)$/
+parse	src/parser/parse.c	/^t_node	*parse(t_token *token)$/
+parse_error	src/output_error/output_error.c	/^void	parse_error(const char *location, t_token **r/
+perror_prefix	src/output_error/output_error.c	/^static void	perror_prefix(void)$/
+pipeline	src/parser/parse.c	/^t_node	*pipeline(t_token **rest, t_token *token)$/
+prepare_pipe	src/pipeline/pipe.c	/^void	prepare_pipe(t_node *node)$/
+prepare_pipe_child	src/pipeline/pipe.c	/^void	prepare_pipe_child(t_node *node)$/
+prepare_pipe_parent	src/pipeline/pipe.c	/^void	prepare_pipe_parent(t_node *node)$/
+print_env	src/main.c	/^void	print_env(t_env *env)$/
+print_environ_variable	src/builtin/exec_builtin_export.c	/^static void	print_environ_variable(t_env **env)$/
+print_envp	src/environ/env_utils.c	/^void	print_envp(char **envp)$/
+print_token	src/main.c	/^void	print_token(t_token *token)$/
+read_heredoc	src/redirection/redirect.c	/^int	read_heredoc(const char *delimiter, bool is_de/
+remove_quote	src/expansion/remove_quote.c	/^void	remove_quote(t_node *node)$/
+remove_quote_token	src/expansion/remove_quote.c	/^static void	remove_quote_token(t_token *token)$/
+remove_single_double_quote	src/expansion/remove_quote.c	/^void	remove_single_double_quote(char **new_word, c/
+reset_redirect	src/redirection/redirect.c	/^void	reset_redirect(t_node *redirect)$/
+reset_signal_to_default	src/signal/signal.c	/^void	reset_signal_to_default(void)$/
+set_env_list	src/environ/set_env_list.c	/^int	set_env_list(t_env **env, char *str)$/
+set_signal	src/signal/signal.c	/^void	set_signal(void)$/
+simple_command	src/parser/parse.c	/^t_node	*simple_command(t_token **rest, t_token *to/
+skip_blank	src/lexer/blank.c	/^void	skip_blank(char **skip_line, char *line)$/
+split_token_with_ifs	src/expansion/split_word.c	/^void	split_token_with_ifs(char **new_word, char **/
+split_word	src/expansion/split_word.c	/^void	split_word(t_node *node)$/
+split_word_token	src/expansion/split_word.c	/^void	split_word_token(t_token *token)$/
+stashfd	src/redirection/redirect.c	/^static int	stashfd(int fd)$/
+swap_env	src/builtin/exec_builtin_export.c	/^static void	swap_env(t_env *current, t_env *next)$/
+todo	src/output_error/output_error.c	/^void	todo(const char *msg)$/
+token_lstsize	src/lexer/add_token_to_argv.c	/^static size_t	token_lstsize(t_token *token)$/
+tokendup	src/parser/parse.c	/^t_token	*tokendup(t_token *token)$/
+tokenize	src/lexer/tokenize.c	/^t_token	*tokenize(char	*line)$/
+tokenize_error	src/output_error/output_error.c	/^void	tokenize_error(const char *location, char **r/
+unset_env_list	src/environ/unset_env_list.c	/^int	unset_env_list(t_env **env, char *key)$/
+update_value_to_env	src/environ/set_env_list.c	/^void	update_value_to_env(t_env **env, char *key, c/
+wait_pipeline	src/exec/exec.c	/^int	wait_pipeline(pid_t last_child_pid)$/
+write_str	src/builtin/exec_builtin_echo.c	/^static void	write_str(char *str)$/
+xperror	src/output_error/output_error.c	/^void	xperror(const char *location)$/

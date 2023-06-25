@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 06:57:14 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/24 07:20:14 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void	append_char(char **s, char c)
 void	expand(t_node *node, t_env **env)
 {
 	expand_variable(node, env);
-<<<<<<< HEAD
-=======
-	split_word(node);
->>>>>>> 9e06c800faef8b2b925d254dac6fd9a6395eded7
-	remove_quote(node);
+	// print_token(node->command->args);
+	split_word(node, env);
+	remove_quote(node, env);
 }
