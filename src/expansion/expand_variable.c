@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/24 22:41:04 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/25 21:56:27 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	expand_parameter_str(char **new_word, char **rest, char *current_word)
 	if (!is_special_parametar(current_word))
 		assert_error("Expected special parameter");
 	current_word += 2;
-	append_num(new_word, last_status);
+	append_num(new_word, g_data.last_status);
 	*rest = current_word;
 }
 

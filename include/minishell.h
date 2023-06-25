@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 19:13:34 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 02:14:10 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,19 @@
 # define TODO_ERROR "TODO: "
 # define ASSERT_ERROR "Assert Error: "
 
-extern int	last_status;
-extern bool	syntax_error;
-extern bool	readline_interrupted;
-extern volatile sig_atomic_t	sig;
-extern int	_rl_echo_control_chars;
+// extern int	last_status;
+// extern bool	syntax_error;
+// extern bool	readline_interrupted;
+// extern volatile sig_atomic_t	sig;
+// extern int	_rl_echo_control_chars;
+extern struct s_data	g_data;
+
+typedef struct s_data
+{
+	int						last_status;
+	bool					readline_interrupted;
+	volatile sig_atomic_t	sig;
+}	t_data;
 
 typedef enum e_token_kind
 {
@@ -122,14 +130,15 @@ void	builtin_error(char *func, char *name,
 // exec
 int		exec(t_node *node, t_env **env);
 // tokenizer
-t_token	*tokenize(char	*line);
+t_token	*tokenize(char	*line, int *syntax_error);
 void	free_token(t_token *token);
 void	free_argv(char **argv);
 char	**add_token_to_argv(t_token *tok);
-void	tokenize_error(const char *location, char **rest, char *line);
+void	tokenize_error(const char *location, char **rest,
+			char *line, int *syntax_error);
 t_token	*create_new_token_list(char *word, t_token_kind kind);
 bool	is_word(char *line);
-t_token	*add_word_to_list(char **rest_line, char *line);
+t_token	*add_word_to_list(char **rest_line, char *line, int *syntax_error);
 bool	is_operator(char *line);
 t_token	*add_operator_to_list(char **rest_line, char *line);
 bool	is_blank(char c);

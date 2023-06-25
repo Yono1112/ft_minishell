@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:44:33 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 19:14:27 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 21:55:44 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	exec_builtin_exit(char **argv)
 
 	argc = count_argc(argv);
 	if (argc == 1)
-		exit(last_status);
+		exit(g_data.last_status);
 	else
 	{
 		if (is_num(argv[1]))

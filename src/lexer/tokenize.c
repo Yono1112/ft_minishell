@@ -25,12 +25,11 @@ t_token	*create_new_token_list(char *word, t_token_kind kind)
 	return (new_token);
 }
 
-t_token	*tokenize(char	*line)
+t_token	*tokenize(char	*line, int *syntax_error)
 {
 	t_token	head;
 	t_token	*token;
 
-	syntax_error = false;
 	head.next = NULL;
 	token = &head;
 	while (*line)
@@ -44,11 +43,11 @@ t_token	*tokenize(char	*line)
 		}
 		else if (is_word(line))
 		{
-			token->next = add_word_to_list(&line, line);
+			token->next = add_word_to_list(&line, line, syntax_error);
 			token = token->next;
 		}
 		else
-			tokenize_error("Unexpected Token", &line, line);
+			tokenize_error("Unexpected Token", &line, line, syntax_error);
 			// assert_error("Unexpected Token");
 		// token = token->next;
 	}
