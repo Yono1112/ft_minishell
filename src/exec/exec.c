@@ -202,6 +202,7 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 
 	// printf("start exec_simple_cmd\n");
 	argv = NULL;
+	environ = NULL;
 	if (node->command->redirects != NULL)
 		do_redirect(node->command->redirects);
 	if (node->command->args != NULL)

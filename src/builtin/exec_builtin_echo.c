@@ -35,10 +35,15 @@ static void	write_str(char *str)
 	while (str[i])
 	{
 		write(STDOUT_FILENO, &str[i], 1);
+		// if (str[i + 1] == '\0')
+		// {
+		// 	write(1, "=", 1);
+		// 	// write(1, " ", 1);
+		// 	break ;
+		// }
 		i++;
 	}
 }
-
 
 int	exec_builtin_echo(char **argv)
 {
@@ -49,6 +54,7 @@ int	exec_builtin_echo(char **argv)
 	i = 0;
 	is_option = 0;
 	argc = count_argc(argv);
+	// printf("argc:%d\n", argc);
 	if (argc == 1)
 		write(STDOUT_FILENO, "\n", 1);
 	else
@@ -58,9 +64,13 @@ int	exec_builtin_echo(char **argv)
 		i = is_option + 1;
 		while (i < argc)
 		{
+			// write(STDOUT_FILENO, argv[i], strlen(argv[i]));
 			write_str(argv[i]);
-			if (i + 1 < argc)
-				write(1, " ", 1);
+			if (i + 1 < argc && ((ft_strlen(argv[i]) > 0  && ft_strlen(argv[i + 1]) >= 0 )|| ((ft_strlen(argv[1]) >= 0 && ft_strlen(argv[i + 1]) > 0))|| (ft_strlen(argv[i]) == 0 && ft_strlen(argv[i + 1]) == 0)))
+			{
+			 	// printf("argc\n");
+			  	write(1, " ", 1);
+			}
 			i++;
 		}
 		if (!is_option)
