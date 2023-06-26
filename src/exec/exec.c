@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 16:22:27 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 18:48:36 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 {
 	char	*str;
 	size_t	len;
-	size_t	i;
-	size_t	j;
-	size_t	k;
 
 	if (!s1 || !s2 || !s3)
 		return (NULL);
@@ -26,25 +23,13 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{
-		str[i + j] = s2[j];
-		j++;
-	}
-	k = 0;
-	while (s3[k])
-	{
-		str[i + j + k] = s3[k];
-		k++;
-	}
-	str[i + j + k] = '\0';
+	while (*s1)
+		*str++ = *s1++;
+	while (*s2)
+		*str++ = *s2++;
+	while (*s3)
+		*str++ = *s3++;
+	*str = '\0';
 	return (str);
 }
 
