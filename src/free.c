@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:05:12 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/06 22:15:01 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 17:58:41 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,39 @@
 
 void	free_node(t_node *node)
 {
-	if (node == NULL)
-		return ;
-	free_token(node->args);
-	free_token(node->filename);
-	free_token(node->delimiter);
-	free_node(node->redirects);
-	free_node(node->next);
-	free_node(node->command);
-	free(node);
+	t_node	*next_node;
+
+	while (node != NULL)
+	{
+		if (node->command->redirects)
+		{
+			free_token(node->command->redirects->filename);
+			free_token(node->command->redirects->delimiter);
+			free(node->command->redirects);
+		}
+		if (node->command)
+		{
+			free_token(node->command->args);
+			free(node->command);
+		}
+		next_node = node->next;
+		free(node);
+		node = next_node;
+	}
 }
 
 void	free_token(t_token *token)
 {
-	if (token == NULL)
-		return ;
-	if (token->word)
-		free(token->word);
-	if (token->next)
-		free_token(token->next);
-	free(token);
+	t_token	*next_token;
+
+	while (token != NULL)
+	{
+		if (token->word)
+			free(token->word);
+		next_token = token->next;
+		free(token);
+		token = next_token;
+	}
 }
 
 void	free_argv(char **argv)
