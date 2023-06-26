@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:15:21 by rnaka             #+#    #+#             */
-/*   Updated: 2023/06/27 03:38:34 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 04:47:58 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static int	cd_argv(char **argv, t_env **env)
 	status = chdir(argv[1]);
 	if (status)
 	{
-		builtin_error("cd", argv[1], NULL, argv[1]);
+		if (access(argv[1], F_OK) < 0)
+			builtin_error("cd", argv[1], "no such file or directory");
+		else if (access(argv[1], X_OK) < 0)
+			builtin_error("cd", argv[1], "permission denied");
 		return (1);
 	}
 	cwd = getcwd(NULL, 0);
@@ -62,13 +65,13 @@ static int	cd_home(t_env **env)
 	arg = ft_getenv("HOME", env);
 	if (!arg)
 	{
-		builtin_error("cd", NULL, "HOME not set", NULL);
+		builtin_error("cd", NULL, "HOME not set");
 		return (1);
 	}
 	status = chdir(arg);
 	if (status)
 	{
-		builtin_error("cd", NULL, NULL, arg);
+		builtin_error("cd", arg, NULL);
 		return (1);
 	}
 	save = ft_strdup(ft_getenv("HOME", env));
@@ -85,13 +88,13 @@ static int	cd_prev(t_env **env)
 	status = 0;
 	if (!ft_getenv("OLDPWD", env))
 	{
-		builtin_error("cd", NULL, "OLDPWD not set", NULL);
+		builtin_error("cd", NULL, "OLDPWD not set");
 		return (1);
 	}
 	status = chdir(ft_getenv("OLDPWD", env));
 	if (status)
 	{
-		builtin_error("cd", NULL, NULL, NULL);
+		builtin_error("cd", NULL, NULL);
 		return (1);
 	}
 	save = ft_strdup(ft_getenv("OLDPWD", env));
