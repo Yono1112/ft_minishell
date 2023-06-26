@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 13:14:01 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 15:19:29 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,11 @@ int	open_redirect_file(t_node *node, t_env **env)
 		if (node->filefd < 0)
 		{
 			if (node->kind == ND_REDIR_IN || node->kind == ND_REDIR_OUT || node->kind == ND_REDIR_APPEND)
-				xperror(node->filename->word);
-			return (-1);
+			{
+				write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
+				perror(node->redirects->filename->word);
+			}
+			return (ERROR_OPEN_REDIR);
 		}
 		node->filefd = stashfd(node->filefd);
 		// printf("node->filefd after stashfd: %d\n", node->filefd);
