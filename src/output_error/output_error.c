@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 03:09:29 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 02:04:49 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:41:55 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	tokenize_error(const char *location, char **rest,
 	// dprintf(STDERR_FILENO, "minishell: syntax error near %s\n", location);
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR));
+	write(STDERR_FILENO, ERROR_LEXER_MSG, ft_strlen(ERROR_LEXER_MSG));
 	write(STDERR_FILENO, location, ft_strlen(location));
 	write(STDERR_FILENO, NEW_LINE, ft_strlen(NEW_LINE));
 	while (*line)
@@ -79,6 +80,7 @@ void	parse_error(const char *location, t_token **rest,
 	// dprintf(STDERR_FILENO, "minishell: syntax error near %s\n", location);
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR));
+	write(STDERR_FILENO, ERROR_PARSE_MSG, ft_strlen(ERROR_PARSE_MSG));
 	write(STDERR_FILENO, location, ft_strlen(location));
 	write(STDERR_FILENO, NEW_LINE, ft_strlen(NEW_LINE));
 	while (token && token->kind != TK_EOF)

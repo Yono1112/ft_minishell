@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 12:54:19 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ bool	is_control_operator(t_token *token)
 	return (false);
 }
 
-t_node	*simple_command(t_token **rest, t_token *token)
+t_node	*simple_command(t_token **rest, t_token *token, int *syntax_error)
 {
 	t_node	*command;
 
@@ -160,13 +160,14 @@ t_node	*simple_command(t_token **rest, t_token *token)
 			add_operator_to_node(&command->redirects,
 				create_new_redirect_heredoc(&token, token));
 		else
-			todo("Implement parser");
+			parse_error(ERROR_PARSE_LOCATION, &token, token, syntax_error);
+			// todo("Implement parser");
 	}
 	*rest = token;
 	return (command);
 }
 
-t_node	*pipeline(t_token **rest, t_token *token)
+t_node	*pipeline(t_token **rest, t_token *token, int *syntax_error)
 {
 	t_node	*node;
 
@@ -176,15 +177,15 @@ t_node	*pipeline(t_token **rest, t_token *token)
 	node->inpipe[1] = -1;
 	node->outpipe[0] = -1;
 	node->outpipe[1] = STDOUT_FILENO;
-	node->command = simple_command(&token, token);
+	node->command = simple_command(&token, token, syntax_error);
 	if (check_operator(token, "|"))
-		node->next = pipeline(&token, token->next);
+		node->next = pipeline(&token, token->next, syntax_error);
 	*rest = token;
 	// printf("finish pipeline\n");
 	return (node);
 }
 
-t_node	*parse(t_token *token)
+t_node	*parse(t_token *token, int *syntax_error)
 {
-	return (pipeline(&token, token));
+	return (pipeline(&token, token, syntax_error));
 }
