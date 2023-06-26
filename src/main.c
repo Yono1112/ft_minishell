@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 02:11:15 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:35:16 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	interpret(char* const line, int *status, t_env **env)
 		*status = ERROR_TOKENIZE;
 	else if (token->kind != TK_EOF)
 	{
-		node = parse(token);
+		node = parse(token, &syntax_error);
 		if (syntax_error)
 			*status = ERROR_PARSE;
 		else

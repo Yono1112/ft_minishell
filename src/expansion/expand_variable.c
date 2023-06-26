@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 21:56:27 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 13:15:40 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	append_num(char **new_word, unsigned int num)
 void	expand_parameter_str(char **new_word, char **rest, char *current_word)
 {
 	if (!is_special_parametar(current_word))
-		assert_error("Expected special parameter");
+		fatal_error("Expected special parameter");
 	current_word += 2;
 	append_num(new_word, g_data.last_status);
 	*rest = current_word;
@@ -73,7 +73,7 @@ char	*append_variable_name(char **rest, char *current_word)
 	if (variable_name == NULL)
 		fatal_error("ft_calloc");
 	if (!is_alpha_under(*current_word))
-		assert_error("Variable must starts with alphabetic character or underscore.");
+		fatal_error("Variable must starts with alphabetic character or underscore.");
 	append_char(&variable_name, *current_word);
 	current_word++;
 	while (is_alpha_num_under(*current_word))
@@ -91,7 +91,7 @@ void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env
 	char	*value;
 
 	if (*current_word != '$')
-		assert_error("Expected dollar sign");
+		fatal_error("Expected dollar sign");
 	current_word++;
 	name = append_variable_name(&current_word, current_word);
 	// value = getenv(name);
@@ -119,7 +119,7 @@ void	append_single_quote(char **new_word, char **rest, char *current_word)
 		while (*current_word != SINGLE_QUOTE_CHAR)
 		{
 			if (*current_word == '\0')
-				assert_error("Unclosed single quote");
+				fatal_error("Unclosed single quote");
 			append_char(new_word, *current_word++);
 		}
 		append_char(new_word, *current_word);
@@ -127,7 +127,7 @@ void	append_single_quote(char **new_word, char **rest, char *current_word)
 		*rest = current_word;
 	}
 	else
-		assert_error("Expected single quote");
+		fatal_error("Expected single quote");
 }
 
 void	append_double_quote(char **new_word, char **rest, char *current_word, t_env **env)
@@ -139,7 +139,7 @@ void	append_double_quote(char **new_word, char **rest, char *current_word, t_env
 		while (*current_word != DOUBLE_QUOTE_CHAR)
 		{
 			if (*current_word == '\0')
-				assert_error("Unclosed double quote");
+				fatal_error("Unclosed double quote");
 			else if (is_expand_variable(current_word))
 				expand_variable_str(new_word, &current_word, current_word, env);
 			else if (is_special_parametar(current_word))
@@ -152,7 +152,7 @@ void	append_double_quote(char **new_word, char **rest, char *current_word, t_env
 		*rest = current_word;
 	}
 	else
-		assert_error("Expected double quote");
+		fatal_error("Expected double quote");
 }
 
 void	expand_variable_token(t_token *token, t_env **env)
@@ -223,10 +223,10 @@ void	expand_variable(t_node *node, t_env **env)
 // 	if (name == NULL)
 // 		fatal_error("ft_calloc");
 // 	if (*current_word != '$')
-// 		assert_error("Expected dollar sign");
+// 		fatal_error("Expected dollar sign");
 // 	current_word++;
 // 	if (!is_alpha_under(*current_word))
-// 		assert_error("Variable must starts with alphabetic character or underscore.");
+// 		fatal_error("Variable must starts with alphabetic character or underscore.");
 // 	append_char(&name, *current_word);
 // 	current_word++;
 // 	while (is_alpha_num_under(*current_word))

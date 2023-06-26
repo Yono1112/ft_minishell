@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 02:14:10 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:21:13 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,15 @@
 # define ERROR_PREFIX "minishell: "
 # define FATAL_ERROR "Fatal Error: "
 # define SYNTAX_ERROR "syntax error near "
-# define TODO_ERROR "TODO: "
-# define ASSERT_ERROR "Assert Error: "
 # define COMMAND_NOT_FOUND ": command not found"
 # define IS_DIR ": is a directory"
 # define PER_DENY ": permission deny"
+# define ERROR_PARSE_MSG "unexpected token "
+# define ERROR_PARSE_LOCATION "`simple_command function'"
+# define ERROR_LEXER_MSG "unexpected characters "
+# define ERROR_LEXER_LOCATION "`unexpected token'"
+# define ERROR_SINGLE "Unclosed sigle quote"
+# define ERROR_DOUBLE "Unclosed double quote"
 
 // extern int	last_status;
 // extern bool	syntax_error;
@@ -130,6 +134,7 @@ void	err_exit(const char *location, const char *msg, int status);
 void	xperror(const char *location);
 void	builtin_error(char *func, char *name,
 			char *err_message, char	*perror_message);
+void	parse_error(const char *location, t_token **rest, t_token *token, int *syntax_error);
 // exec
 int		exec(t_node *node, t_env **env);
 // tokenizer
@@ -160,7 +165,7 @@ bool	is_alpha_num_under(char c);
 bool	is_alpha_under(char c);
 bool	is_expand_variable(char *s);
 // parser
-t_node	*parse(t_token *token);
+t_node	*parse(t_token *token, int *syntax_error);
 // redirection
 int		open_redirect_file(t_node *redirect, t_env **env);
 void	do_redirect(t_node *redirect);

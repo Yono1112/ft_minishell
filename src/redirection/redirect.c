@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 22:02:11 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 15:19:29 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,15 @@ int	open_redirect_file(t_node *node, t_env **env)
 			// printf("node_kind is ND_REDIR_HEREDOC, filefd: %d\n", node->filefd);
 		}
 		else
-			todo("open_node_file");
+			fatal_error("open_redirect_file");
 		if (node->filefd < 0)
 		{
 			if (node->kind == ND_REDIR_IN || node->kind == ND_REDIR_OUT || node->kind == ND_REDIR_APPEND)
-				xperror(node->filename->word);
-			return (-1);
+			{
+				write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
+				perror(node->redirects->filename->word);
+			}
+			return (ERROR_OPEN_REDIR);
 		}
 		node->filefd = stashfd(node->filefd);
 		// printf("node->filefd after stashfd: %d\n", node->filefd);
@@ -180,7 +183,7 @@ void	do_redirect(t_node *redirect)
 			// printf("redirect->filefd after dup2: %d\n", redirect->filefd);
 		}
 		else
-			todo("do_redirect");
+			fatal_error("do_redirect");
 		redirect = redirect->next;
 	}
 	// printf("finish do_redirect\n");
@@ -202,7 +205,7 @@ void	reset_redirect(t_node *redirect)
 		}
 	}
 	else
-		todo("rest_redirect");
+		fatal_error("reset_redirect");
 }
 
 // int	open_redirect_file(t_node *redirect)
