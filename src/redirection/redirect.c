@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 21:44:03 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 21:46:02 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 	return (pfd[0]);
 }
 
-static int open_file(t_node **node, t_env **env)
+static int	open_file(t_node **node, t_env **env)
 {
 	if ((*node)->kind == ND_PIPELINE)
 	{
@@ -96,13 +96,16 @@ static int open_file(t_node **node, t_env **env)
 		return (0);
 	}
 	else if ((*node)->kind == ND_REDIR_OUT)
-		(*node)->filefd = open((*node)->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		(*node)->filefd = open(
+				(*node)->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if ((*node)->kind == ND_REDIR_IN)
 		(*node)->filefd = open((*node)->filename->word, O_RDONLY);
 	else if ((*node)->kind == ND_REDIR_APPEND)
-		(*node)->filefd = open((*node)->filename->word, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		(*node)->filefd = open(
+				(*node)->filename->word, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else if ((*node)->kind == ND_REDIR_HEREDOC)
-		(*node)->filefd = read_heredoc((*node)->delimiter->word, (*node)->is_delimiter_quote, env);
+		(*node)->filefd = read_heredoc((*node)->delimiter->word,
+				(*node)->is_delimiter_quote, env);
 	else
 		fatal_error("open_redirect_file");
 	return (1);
