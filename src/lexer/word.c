@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 16:25:28 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 21:14:14 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 bool	is_word(char *line)
 {
 	return (!is_blank(*line) && !is_operator(line));
+}
+
+static void	check_error(char quote, char **line, int *syntax_error)
+{
+	(*line)++;
+	while (**line != quote)
+	{
+		if (**line == '\0')
+		{
+			if (quote == '\'')
+				tokenize_error(ERROR_SINGLE, line, *line, syntax_error);
+			else
+				tokenize_error(ERROR_DOUBLE, line, *line, syntax_error);
+			break ;
+		}
+		(*line)++;
+	}
+	(*line)++;
 }
 
 t_token	*add_word_to_list(char **rest_line, char *line, int *syntax_error)
@@ -27,33 +45,9 @@ t_token	*add_word_to_list(char **rest_line, char *line, int *syntax_error)
 	while (*line && is_word(line))
 	{
 		if (*line == SINGLE_QUOTE_CHAR)
-		{
-			line++;
-			while (*line != SINGLE_QUOTE_CHAR)
-			{
-				if (*line == '\0')
-				{
-					tokenize_error(ERROR_SINGLE, &line, line, syntax_error);
-					break ;
-				}
-				line++;
-			}
-			line++;
-		}
+			check_error(SINGLE_QUOTE_CHAR, &line, syntax_error);
 		else if (*line == DOUBLE_QUOTE_CHAR)
-		{
-			line++;
-			while (*line != DOUBLE_QUOTE_CHAR)
-			{
-				if (*line == '\0')
-				{
-					tokenize_error(ERROR_DOUBLE, &line, line, syntax_error);
-					break ;
-				}
-				line++;
-			}
-			line++;
-		}
+			check_error(DOUBLE_QUOTE_CHAR, &line, syntax_error);
 		else
 			line++;
 	}

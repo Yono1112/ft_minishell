@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 17:06:38 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 20:58:31 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	stashfd(int fd)
 int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 {
 	char	*line;
-	int	pfd[2];
+	int		pfd[2];
 
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
@@ -78,7 +78,7 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 
 int	open_redirect_file(t_node *node, t_env **env)
 {
-	t_node *start_node;
+	t_node	*start_node;
 
 	start_node = node;
 	while (node != NULL)
@@ -94,28 +94,22 @@ int	open_redirect_file(t_node *node, t_env **env)
 			continue ;
 		}
 		else if (node->kind == ND_REDIR_OUT)
-		{
 			node->filefd = open(node->filename->word,
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		}
 		else if (node->kind == ND_REDIR_IN)
-		{
 			node->filefd = open(node->filename->word, O_RDONLY);
-		}
 		else if (node->kind == ND_REDIR_APPEND)
-		{
 			node->filefd = open(node->filename->word,
 					O_CREAT | O_WRONLY | O_APPEND, 0644);
-		}
 		else if (node->kind == ND_REDIR_HEREDOC)
-		{
-			node->filefd = read_heredoc(node->delimiter->word, node->is_delimiter_quote, env);
-		}
+			node->filefd = read_heredoc
+				(node->delimiter->word, node->is_delimiter_quote, env);
 		else
 			fatal_error("open_redirect_file");
 		if (node->filefd < 0)
 		{
-			if (node->kind == ND_REDIR_IN || node->kind == ND_REDIR_OUT || node->kind == ND_REDIR_APPEND)
+			if (node->kind == ND_REDIR_IN
+				|| node->kind == ND_REDIR_OUT || node->kind == ND_REDIR_APPEND)
 			{
 				write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 				perror(node->filename->word);
