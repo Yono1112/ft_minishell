@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:00:07 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 16:17:14 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 17:48:25 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static t_env	*bubble_sort_env(t_env *env)
 		next_env = current_env->next;
 		while (next_env != NULL)
 		{
-			if (current_env->value != NULL && next_env->value != NULL && ft_strcmp(current_env->key, next_env->key) > 0)
+			if (current_env->value != NULL && next_env->value != NULL
+				&& ft_strcmp(current_env->key, next_env->key) > 0)
 				swap_env(current_env, next_env);
 			next_env = next_env->next;
 		}
@@ -63,9 +64,9 @@ static void	print_environ_variable(t_env **env)
 
 int	exec_builtin_export(char **argv, t_env **env)
 {
-	int	argc;
+	int		argc;
 	size_t	i;
-	int	status;
+	int		status;
 
 	status = 0;
 	argc = count_argc(argv);
@@ -76,7 +77,7 @@ int	exec_builtin_export(char **argv, t_env **env)
 		i = 1;
 		while (argv[i])
 		{
-			if (set_env_list(env, argv[i]) == -1 ) 
+			if (set_env_list(env, argv[i]) == -1)
 			{
 				builtin_error("export", argv[i],
 					"not a valid identifier", "not a valid identifier");
