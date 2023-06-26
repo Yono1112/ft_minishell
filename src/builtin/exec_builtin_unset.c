@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_unset.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 23:36:26 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 16:19:21 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 04:48:54 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	exec_builtin_unset(char **argv, t_env **env)
 	{
 		if (unset_env_list(env, argv[i]) == -1)
 		{
-			builtin_error("unset", argv[i],
-				"not a valid identifier", "not a valid identifier");
+			builtin_error("unset", argv[i], "not a valid identifier");
 			status = 1;
 		}
 		i++;
