@@ -56,6 +56,7 @@ SRCS =	src/main.c	\
 		src/builtin/exec_builtin_echo.c	\
 		src/builtin/exec_builtin_cd.c	\
 		src/builtin/exec_builtin_pwd.c	\
+		src/builtin/exec_builtin_utils.c	\
 		src/environ/env_utils.c	\
 		src/environ/ft_getenv.c	\
 		src/environ/init_env_list.c	\

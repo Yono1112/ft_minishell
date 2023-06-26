@@ -14,8 +14,7 @@
 
 static bool	is_control_operator(t_token *token)
 {
-	static char *const	operators[]
-		= {"||", "|", "&", "&&", ";", ";;", "(", ")", "\n"};
+	static char *const	operators[] = {"|", "\n"};
 	size_t				i;
 	size_t				operators_len;
 

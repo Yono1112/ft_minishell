@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 03:34:16 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 05:52:33 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_env
 
 void	print_envp(char **envp);
 void	print_token(t_token *token);
+void	print_argv(char **str);
 // free
 void	free_node(t_node *node);
 void	free_argv(char **argv);

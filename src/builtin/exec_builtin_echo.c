@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_echo.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 04:47:57 by rnaka             #+#    #+#             */
-/*   Updated: 2023/06/27 04:48:45 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 05:56:26 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	count_argc(char **argv)
-{
-	int	i;
-
-	i = 1;
-	while (argv[i])
-		i++;
-	return (i);
-}
 
 static bool	check_valid_option(char *second_arg)
 {
