@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 19:05:37 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 19:19:40 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,23 @@ char	*check_cmd_path(const char *filename, t_env **env)
 	return (NULL);
 }
 
+static void	wait_pipeline_if(int *status, int *wstatus,
+		pid_t *wait_pid, pid_t *last_child_pid)
+{
+	if (*wait_pid == *last_child_pid)
+	{
+		if (WIFSIGNALED(*wstatus))
+		{
+			if (isatty(STDIN_FILENO))
+				printf("\n");
+			*status = 128 + WTERMSIG(*wstatus);
+		}
+		else
+			*status = WEXITSTATUS(*wstatus);
+	}
+
+}
+
 int	wait_pipeline(pid_t last_child_pid)
 {
 	pid_t	wait_pid;
@@ -112,20 +129,11 @@ int	wait_pipeline(pid_t last_child_pid)
 		g_data.sig = 0;
 		wait_pid = wait(&wstatus);
 		if (wait_pid == last_child_pid)
-		{
-			if (WIFSIGNALED(wstatus))
-			{
-				if (isatty(STDIN_FILENO))
-					printf("\n");
-			 	status = 128 + WTERMSIG(wstatus);
-			}
-			else
-				status = WEXITSTATUS(wstatus);
-		}
+			wait_pipeline_if(&status, &wstatus, &wait_pid, &last_child_pid);
 		else if (wait_pid < 0)
 		{
 			if (errno == ECHILD)
-					break ;
+				break ;
 			else if (errno == EINTR)
 				continue ;
 			else
