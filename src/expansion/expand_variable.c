@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 19:54:46 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 20:44:46 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ char	*append_variable_name(char **rest, char *current_word)
 	return (variable_name);
 }
 
-void	expand_variable_str(char **new_word, char **rest,
-					char *current_word, t_env **env)
+void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env **env)
 {
 	char	*name;
 	char	*value;
@@ -129,7 +128,7 @@ void	append_single_quote(char **new_word, char **rest, char *current_word)
 }
 
 void	append_double_quote(char **new_word, char **rest,
-					char *current_word, t_env **env)
+			char *current_word, t_env **env)
 {
 	if (*current_word == DOUBLE_QUOTE_CHAR)
 	{
@@ -154,6 +153,25 @@ void	append_double_quote(char **new_word, char **rest,
 		fatal_error("Expected double quote");
 }
 
+void	expand_variable_token_while(t_env **env, char **new_word, char **current_word)
+{
+	while (**current_word && !is_metacharacter(**current_word))
+	{
+		if (**current_word == SINGLE_QUOTE_CHAR)
+			append_single_quote(new_word, current_word, *current_word);
+		else if (**current_word == DOUBLE_QUOTE_CHAR)
+			append_double_quote(new_word, current_word, *current_word, env);
+		else if (is_expand_variable(*current_word))
+			expand_variable_str(new_word, current_word, *current_word, env);
+		else if (is_special_parametar(*current_word))
+			expand_parameter_str(new_word, current_word, *current_word);
+		else if (is_quote_after_dollar(*current_word))
+			(*current_word)++;
+		else
+			append_char(new_word, *(*current_word)++);
+	}
+}
+
 void	expand_variable_token(t_token *token, t_env **env)
 {
 	char	*new_word;
@@ -165,21 +183,22 @@ void	expand_variable_token(t_token *token, t_env **env)
 		new_word = ft_calloc(1, sizeof(char));
 		if (new_word == NULL)
 			fatal_error("ft_calloc");
-		while (*current_word && !is_metacharacter(*current_word))
-		{
-			if (*current_word == SINGLE_QUOTE_CHAR)
-				append_single_quote(&new_word, &current_word, current_word);
-			else if (*current_word == DOUBLE_QUOTE_CHAR)
-				append_double_quote(&new_word, &current_word, current_word, env);
-			else if (is_expand_variable(current_word))
-				expand_variable_str(&new_word, &current_word, current_word, env);
-			else if (is_special_parametar(current_word))
-				expand_parameter_str(&new_word, &current_word, current_word);
-			else if (is_quote_after_dollar(current_word))
-				current_word++;
-			else
-				append_char(&new_word, *current_word++);
-		}
+		expand_variable_token_while(env, &new_word, &current_word);
+	// 	while (*current_word && !is_metacharacter(*current_word))
+	// {
+	// 	if (*current_word == SINGLE_QUOTE_CHAR)
+	// 		append_single_quote(&new_word, &current_word, current_word);
+	// 	else if (*current_word == DOUBLE_QUOTE_CHAR)
+	// 		append_double_quote(&new_word, &current_word, current_word, env);
+	// 	else if (is_expand_variable(current_word))
+	// 		expand_variable_str(&new_word, &current_word, current_word, env);
+	// 	else if (is_special_parametar(current_word))
+	// 		expand_parameter_str(&new_word, &current_word, current_word);
+	// 	else if (is_quote_after_dollar(current_word))
+	// 		current_word++;
+	// 	else
+	// 		append_char(&new_word, *current_word++);
+	// }
 		free(token->word);
 		token->word = new_word;
 		token = token->next;
