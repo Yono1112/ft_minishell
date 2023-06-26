@@ -128,10 +128,7 @@ void	free_node(t_node *node);
 void	free_argv(char **argv);
 // error
 void	fatal_error(const char *str);
-void	assert_error(const char *str);
-void	todo(const char *msg);
 void	err_exit(const char *location, const char *msg, int status);
-void	xperror(const char *location);
 void	builtin_error(char *func, char *name,
 			char *err_message, char	*perror_message);
 void	parse_error(const char *location, t_token **rest, t_token *token, int *syntax_error);
