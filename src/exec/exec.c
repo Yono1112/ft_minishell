@@ -48,12 +48,24 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 	return (str);
 }
 
-bool	check_is_filename(const char *path)
+bool	check_is_filename(const char *path, const char *filename)
 {
+	struct stat	sb;
+
 	if (path == NULL)
 		return (false);
-	if (access(path, F_OK) < 0)
+	else if (!ft_strcmp(filename, ""))
 		return (false);
+	else if (!ft_strcmp(filename, ".."))
+		return (false);
+	else if (access(path, F_OK) < 0)
+		return (false);
+	if (access(path, X_OK) < 0)
+		err_exit(path, PER_DENY, 126);
+	if (stat(path, &sb) < 0)
+		fatal_error("fstat");
+	if (!S_ISREG(sb.st_mode) && S_ISDIR(sb.st_mode))
+		err_exit(filename, IS_DIR, 126);
 	return (true);
 }
 
@@ -197,12 +209,13 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	else if (node->command->args == NULL && node->command->redirects != NULL)
 		exit (0);
 	// print_argv(argv);
-	path = argv[0];
 	// printf("path:%s\n", path);
-	if (ft_strchr(path, '/') == NULL)
-		path = check_cmd_path(path, env);
-	if (!check_is_filename(path))
-		err_exit(argv[0], "command not found", 127);
+	if (ft_strchr(argv[0], '/') == NULL)
+		path = check_cmd_path(argv[0], env);
+	else
+		path = argv[0];
+	if (!check_is_filename(path, argv[0]))
+		err_exit(argv[0], COMMAND_NOT_FOUND, 127);
 	environ = change_env_to_environ(*env);
 	// printf("==============================\n");
 	// print_envp(environ);
