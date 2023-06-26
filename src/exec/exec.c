@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 19:19:40 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 19:51:48 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,28 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	fatal_error("execve");
 }
 
+static int	exec_cmd_if(t_node **node,t_env **env, pid_t *pid)
+{
+	int	status;
+
+	status = 0;
+	if (*pid < 0)
+		fatal_error("fork");
+	else if (*pid == CHILD_PID)
+	{
+		reset_signal_to_default();
+		prepare_pipe_child(*node);
+		if (is_builtin(*node))
+		{
+			status = exec_builtin_cmd(*node, env);
+			exit(status);
+		}
+		else
+			exec_simple_cmd(*node, env);
+	}
+	return (status);
+}
+
 int	exec_cmd(t_node *node, t_env **env)
 {
 	pid_t		pid;
@@ -216,20 +238,7 @@ int	exec_cmd(t_node *node, t_env **env)
 	{
 		prepare_pipe(node);
 		pid = fork();
-		if (pid < 0)
-			fatal_error("fork");
-		else if (pid == CHILD_PID)
-		{
-			reset_signal_to_default();
-			prepare_pipe_child(node);
-			if (is_builtin(node))
-			{
-				status = exec_builtin_cmd(node, env);
-				exit(status);
-			}
-			else
-				exec_simple_cmd(node, env);
-		}
+		status = exec_cmd_if(&node, env, &pid);
 		prepare_pipe_parent(node);
 		node = node->next;
 	}
