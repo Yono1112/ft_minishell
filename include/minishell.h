@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 13:00:27 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 13:21:13 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@
 # define ERROR_PREFIX "minishell: "
 # define FATAL_ERROR "Fatal Error: "
 # define SYNTAX_ERROR "syntax error near "
-# define TODO_ERROR "TODO: "
-# define ASSERT_ERROR "Assert Error: "
 # define COMMAND_NOT_FOUND ": command not found"
 # define IS_DIR ": is a directory"
 # define PER_DENY ": permission deny"
