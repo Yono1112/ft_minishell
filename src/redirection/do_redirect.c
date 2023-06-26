@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   do_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 01:17:34 by yuohno           ###   ########.fr       */
+/*   Created: 2023/06/27 01:13:14 by yuohno            #+#    #+#             */
+/*   Updated: 2023/06/27 01:21:49by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*parse(t_token *token, int *syntax_error)
+void	do_redirect(t_node *redirect)
 {
-	return (pipeline(&token, token, syntax_error));
+	while (redirect != NULL)
+	{
+		if (is_redirect(redirect))
+		{
+			if (redirect->stashed_targetfd != STDIN_FILENO)
+				redirect->stashed_targetfd = stashfd(redirect->targetfd);
+			if (dup2(redirect->filefd, redirect->targetfd) < 0)
+			{
+				fatal_error("dup2");
+				return ;
+			}
+			close(redirect->filefd);
+		}
+		else
+			fatal_error("do_redirect");
+		redirect = redirect->next;
+	}
 }

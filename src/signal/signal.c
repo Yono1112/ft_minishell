@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 17:07:25 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 03:40:00 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	reset_signal_to_default(void)
 	signal(SIGINT, SIG_DFL);
 }
 
-void	handle_signal(int signal_num)
+static void	handle_signal(int signal_num)
 {
 	g_data.sig = signal_num;
 }
 
-int	check_state(void)
+static int	check_state(void)
 {
 	if (g_data.sig == SIGINT)
 	{

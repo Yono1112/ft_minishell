@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_exit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:44:33 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 17:46:11 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 03:37:50 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_num(char *str)
+static bool	is_num(char *str)
 {
 	size_t	i;
 
@@ -30,8 +30,7 @@ bool	is_num(char *str)
 	return (true);
 }
 
-
-int	exec_builtin_exit_is_num(char **argv, int argc)
+static int	exec_builtin_exit_is_num(char **argv, int argc)
 {
 	if (argc == 2)
 		return (0);

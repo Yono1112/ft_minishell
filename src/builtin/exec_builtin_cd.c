@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_cd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:15:21 by rnaka             #+#    #+#             */
-/*   Updated: 2023/06/26 17:15:26 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 03:38:34 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	count_arg(char **argv)
 	return (argc);
 }
 
-int	cd_argv(char **argv, t_env **env)
+static int	cd_argv(char **argv, t_env **env)
 {
 	int		status;
 	char	*save;
@@ -53,7 +53,7 @@ int	cd_argv(char **argv, t_env **env)
 	return (status);
 }
 
-int	cd_home(t_env **env)
+static int	cd_home(t_env **env)
 {
 	int		status;
 	char	*arg;
@@ -77,7 +77,7 @@ int	cd_home(t_env **env)
 	return (status);
 }
 
-int	cd_prev(t_env **env)
+static int	cd_prev(t_env **env)
 {
 	int		status;
 	char	*save;

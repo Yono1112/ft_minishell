@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_env_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 23:41:21 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 18:40:57 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 03:37:07 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static void	free_env(t_env *env)
 	free(env);
 }
 
-int	free_env_next(t_env **env, t_env *current)
+static int	free_env_next(t_env **env, t_env *current)
 {
 	*env = current->next;
 	free_env(current);
 	return (0);
 }
 
-int	check_env_list(char **key, t_env **current)
+static int	check_env_list(char **key, t_env **current)
 {
 	if (*key == NULL || !is_variable(*key))
 		return (-1);

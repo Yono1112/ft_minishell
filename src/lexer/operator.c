@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:19:11 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 16:25:06 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 02:26:01 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_operator(char *line)
 {
-	char *const	operators[] = {">>", "<<", ">", "<",
+	char *const			operators[] = {">>", "<<", ">", "<",
 		"||", "|", "&", "&&", ";", ";;", "(", ")", "\n"};
 	size_t				i;
 	size_t				operators_len;
@@ -32,7 +32,7 @@ bool	is_operator(char *line)
 
 t_token	*add_operator_to_list(char **rest_line, char *line)
 {
-	char *const	operators[] = {">>", "<<", ">", "<",
+	char *const			operators[] = {">>", "<<", ">", "<",
 		"||", "|", "&&", "&", ";;", ";", "(", ")", "\n"};
 	size_t				i;
 	size_t				operators_len;

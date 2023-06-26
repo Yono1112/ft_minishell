@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 01:17:34 by yuohno           ###   ########.fr       */
+/*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
+/*   Updated: 2023/06/27 00:46:16 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*parse(t_token *token, int *syntax_error)
+int	exec(t_node *node, t_env **env)
 {
-	return (pipeline(&token, token, syntax_error));
+	int		status;
+
+	status = 0;
+	if (open_redirect_file(node, env) < 0)
+		return (ERROR_OPEN_REDIR);
+	if (node->next == NULL && is_builtin(node))
+		status = exec_builtin_cmd(node, env);
+	else
+		status = exec_cmd(node, env);
+	return (status);
 }
