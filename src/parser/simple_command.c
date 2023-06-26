@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simple_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 00:56:06 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 05:27:05 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 04:57:21 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static bool	is_control_operator(t_token *token)
 {
-	static char *const	operators[] = {"||", "|", "&", "&&", ";", ";;", "(", ")", "\n"};
+	static char *const	operators[]
+		= {"|", "\n"};
 	size_t				i;
 	size_t				operators_len;
 

@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 04:03:40 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 05:00:00 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_g_data(void)
 	g_data.sig = 0;
 }
 
-void	interpret(char* const line, int *status, t_env **env)
+void	interpret(char *const line, int *status, t_env **env)
 {
 	t_token	*token;
 	t_node	*node;

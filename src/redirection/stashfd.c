@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stashfd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 01:16:15 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 01:24:42 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 04:58:24 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	ft_fcntl(int fd)
 {
-	int		stashed_fd;
-	int		target_fd;
+	int			stashed_fd;
+	int			target_fd;
 	struct stat	stat;
 
 	target_fd = 10;
