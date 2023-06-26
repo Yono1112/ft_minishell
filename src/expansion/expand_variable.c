@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 16:24:00 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 19:53:40 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ char	*append_variable_name(char **rest, char *current_word)
 	return (variable_name);
 }
 
-void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env **env)
+void	expand_variable_str(char **new_word, char **rest,
+					char *current_word, t_env **env)
 {
 	char	*name;
 	char	*value;
