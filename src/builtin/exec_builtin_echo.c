@@ -3,7 +3,7 @@
 
 int	count_argc(char **argv)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (argv[i])
@@ -39,12 +39,11 @@ static void	write_str(char *str)
 	}
 }
 
-
 int	exec_builtin_echo(char **argv)
 {
-	int 	i;
-	int 	is_option;
-	int 	argc;
+	int	i;
+	int	is_option;
+	int	argc;
 
 	i = 0;
 	is_option = 0;
