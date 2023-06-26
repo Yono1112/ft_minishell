@@ -3,13 +3,11 @@
 #include <errno.h>
 #include"minishell.h"
 
-#define ERROR_PREFIX "minishell: "
-
-void	cd_error(char *str)
-{
-	dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
-	perror(str);
-}
+// void	cd_error(char *str)
+// {
+// 	dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
+// 	perror(str);
+// }
 
 int	count_arg(char **argv)
 {
@@ -30,13 +28,14 @@ int	cd_argv(char **argv, t_env **env)
 	status = chdir(argv[1]);
 	if (status)
 	{
-		cd_error(argv[1]);
+		// cd_error(argv[1]);
+		builtin_error("cd", argv[1], NULL, argv[1]);
 		return (1);
 	}
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 		return (1);
-	save = strdup(ft_getenv("PWD",env));
+	save = ft_strdup(ft_getenv("PWD",env));
 	if (!save)
 		return (1);
 	update_value_to_env(env, "PWD", cwd);
@@ -58,16 +57,17 @@ int	cd_home(t_env **env)
 	arg = ft_getenv("HOME", env);
 	if (!arg)
 	{
-		builtin_error("cd", NULL, "HOME not set");
-			return (1);
+		builtin_error("cd", NULL, "HOME not set", NULL);
+		return (1);
 	}
 	status = chdir(arg);
 	if (status)
 	{
-		cd_error(ft_getenv("HOME", env));
+		// cd_error(ft_getenv("HOME", env));
+		builtin_error("cd", NULL, NULL, arg);
 		return (1);
 	}
-	save = strdup(ft_getenv("HOME",env));
+	save = ft_strdup(ft_getenv("HOME",env));
 	update_value_to_env(env, "PWD", save);
 	free(save);
 	return (status);
@@ -81,16 +81,17 @@ int	cd_prev(t_env **env)
 	status = 0;
 	if (!ft_getenv("OLDPWD",env))
 	{
-		builtin_error("cd", NULL, "OLDPWD not set");
+		builtin_error("cd", NULL, "OLDPWD not set", NULL);
 		return (1);
 	}
 	status = chdir(ft_getenv("OLDPWD",env));
 	if (status)
 	{
-		cd_error(NULL);
+		// cd_error(NULL);
+		builtin_error("cd", NULL, NULL, NULL);
 		return (1);
 	}
-	save = strdup(ft_getenv("OLDPWD",env));
+	save = ft_strdup(ft_getenv("OLDPWD",env));
 	update_value_to_env(env, "OLDPWD", ft_getenv("PWD", env));
 	update_value_to_env(env, "PWD", save);
 	free(save);
@@ -105,7 +106,7 @@ int	exec_builtin_cd(char **argv, t_env **env)
 	argc = count_arg(argv);
 	if(argc == 1)
 		return(cd_home(env));
-	else if (!strcmp(argv[1], "-"))
+	else if (!ft_strcmp(argv[1], "-"))
 		return (cd_prev(env));
 	return (cd_argv(argv, env));
 }

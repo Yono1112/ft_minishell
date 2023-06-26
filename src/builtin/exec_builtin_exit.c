@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:44:33 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/11 15:05:07 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/25 21:55:44 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	is_num(char *str)
 		i++;
 	while (str[i])
 	{
-		if (!isdigit(str[i]) && !isspace(str[i]))
+		if (!ft_isdigit(str[i]) && !ft_isspace(str[i]))
 			return (false);
 		i++;
 	}
@@ -36,7 +36,7 @@ int	exec_builtin_exit(char **argv)
 
 	argc = count_argc(argv);
 	if (argc == 1)
-		exit(last_status);
+		exit(g_data.last_status);
 	else
 	{
 		if (is_num(argv[1]))
@@ -45,13 +45,17 @@ int	exec_builtin_exit(char **argv)
 				exit(atol(argv[1]));
 			else
 			{
-				xperror("exit: too many arguments");
+				// xperror("exit: too many arguments");
+				builtin_error("exit", argv[1],
+					"exit: too many arguments", "exit: too many arguments");
 				return (1);
 			}
 		}
 		else
 		{
-			xperror("exit: numeric argument required");
+			// xperror("exit: numeric argument required");
+			builtin_error("exit", argv[1],
+				"exit: too many arguments", "exit: too many arguments");
 			exit(255);
 		}
 	}

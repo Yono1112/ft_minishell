@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 07:12:23 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 19:17:47 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <stddef.h>
 # include <ctype.h>
 # include <signal.h>
+# include "libft.h"
 
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '\"'
@@ -39,12 +41,33 @@
 # define CHILD_PID 0
 # define NOT_CONTROL_CHARS 0
 # define SHELL_PROMPT "\x1b[96mminishell\x1b[0m$ "
+# define NEW_LINE "\n"
+# define ERROR_PREFIX "minishell: "
+# define FATAL_ERROR "Fatal Error: "
+# define SYNTAX_ERROR "syntax error near "
+# define COMMAND_NOT_FOUND ": command not found"
+# define IS_DIR ": is a directory"
+# define PER_DENY ": permission deny"
+# define ERROR_PARSE_MSG "unexpected token "
+# define ERROR_PARSE_LOCATION "`simple_command function'"
+# define ERROR_LEXER_MSG "unexpected characters "
+# define ERROR_LEXER_LOCATION "`unexpected token'"
+# define ERROR_SINGLE "Unclosed sigle quote"
+# define ERROR_DOUBLE "Unclosed double quote"
 
-extern int	last_status;
-extern bool	syntax_error;
-extern bool	readline_interrupted;
-extern volatile sig_atomic_t	sig;
-extern int	_rl_echo_control_chars;
+// extern int	last_status;
+// extern bool	syntax_error;
+// extern bool	readline_interrupted;
+// extern volatile sig_atomic_t	sig;
+// extern int	_rl_echo_control_chars;
+extern struct s_data	g_data;
+
+typedef struct s_data
+{
+	int						last_status;
+	bool					readline_interrupted;
+	volatile sig_atomic_t	sig;
+}	t_data;
 
 typedef enum e_token_kind
 {
@@ -106,22 +129,22 @@ void	free_node(t_node *node);
 void	free_argv(char **argv);
 // error
 void	fatal_error(const char *str);
-void	assert_error(const char *str);
-void	todo(const char *msg);
 void	err_exit(const char *location, const char *msg, int status);
-void	xperror(const char *location);
-void	builtin_error(char *func, char *name, char *err_message);
+void	builtin_error(char *func, char *name,
+			char *err_message, char	*perror_message);
+void	parse_error(const char *location, t_token **rest, t_token *token, int *syntax_error);
 // exec
 int		exec(t_node *node, t_env **env);
 // tokenizer
-t_token	*tokenize(char	*line);
+t_token	*tokenize(char	*line, int *syntax_error);
 void	free_token(t_token *token);
 void	free_argv(char **argv);
 char	**add_token_to_argv(t_token *tok);
-void	tokenize_error(const char *location, char **rest, char *line);
+void	tokenize_error(const char *location, char **rest,
+			char *line, int *syntax_error);
 t_token	*create_new_token_list(char *word, t_token_kind kind);
 bool	is_word(char *line);
-t_token	*add_word_to_list(char **rest_line, char *line);
+t_token	*add_word_to_list(char **rest_line, char *line, int *syntax_error);
 bool	is_operator(char *line);
 t_token	*add_operator_to_list(char **rest_line, char *line);
 bool	is_blank(char c);
@@ -146,7 +169,7 @@ void	split_word(t_node *node, t_env **env);
 bool	is_custom_ifs(char c, t_env **env);
 bool	is_defalut_ifs(char c);
 // parser
-t_node	*parse(t_token *token);
+t_node	*parse(t_token *token, int *syntax_error);
 // redirection
 int	open_redirect_file(t_node *redirect, t_env **env);
 void	do_redirect(t_node *redirect);

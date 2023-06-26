@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/22 14:56:01 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/25 22:05:23 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 
 	if (!s1 || !s2 || !s3)
 		return (NULL);
-	len = strlen(s1) + strlen(s2) + strlen(s3);
+	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
@@ -48,12 +48,24 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 	return (str);
 }
 
-bool	check_is_filename(const char *path)
+bool	check_is_filename(const char *path, const char *filename)
 {
+	struct stat	sb;
+
 	if (path == NULL)
 		return (false);
-	if (access(path, F_OK) < 0)
+	else if (!ft_strcmp(filename, ""))
 		return (false);
+	else if (!ft_strcmp(filename, ".."))
+		return (false);
+	else if (access(path, F_OK) < 0)
+		return (false);
+	if (access(path, X_OK) < 0)
+		err_exit(path, PER_DENY, 126);
+	if (stat(path, &sb) < 0)
+		fatal_error("fstat");
+	if (!S_ISREG(sb.st_mode) && S_ISDIR(sb.st_mode))
+		err_exit(filename, IS_DIR, 126);
 	return (true);
 }
 
@@ -67,34 +79,25 @@ char	*check_cmd_path(const char *filename, t_env **env)
 
 	value = ft_getenv("PATH", env);
 	if (!value)
-	{
-		fprintf(stderr, "Error: PATH environment variable is not set\n");
 		return (NULL);
-	}
 	while (*value)
 	{
-		end = strchr(value, ':');
+		end = ft_strchr(value, ':');
 		if (end)
 			path_len = (size_t)end - (size_t)value;
 		else
-			path_len = strlen(value);
+			path_len = ft_strlen(value);
 		if (path_len >= PATH_MAX)
-		{
-			fprintf(stderr, "Error: PATH element is too long\n");
 			return (NULL);
-		}
-		memcpy(path, value, path_len);
+		ft_memcpy(path, value, path_len);
 		path[path_len] = '\0';
-		strncat(path, "/", PATH_MAX - strlen(path) - 1);
-		strncat(path, filename, PATH_MAX - strlen(path) - 1);
+		ft_strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
+		ft_strncat(path, filename, PATH_MAX - ft_strlen(path) - 1);
 		if (access(path, X_OK) == 0)
 		{
-			dup = strdup(path);
+			dup = ft_strdup(path);
 			if (!dup)
-			{
-				fprintf(stderr, "Error: %s\n", strerror(errno));
 				return (NULL);
-			}
 			return (dup);
 		}
 		if (end == NULL)
@@ -112,7 +115,7 @@ int	wait_pipeline(pid_t last_child_pid)
 
 	while (1)
 	{
-		sig = 0;
+		g_data.sig = 0;
 		wait_pid = wait(&wstatus);
 		// printf("wait_pid: %d", wait_pid);
 		if (wait_pid == last_child_pid)
@@ -161,14 +164,18 @@ char	**change_env_to_environ(t_env *env)
 	size_t	i;
 
 	len = env_len(env);
-	environ = calloc(len + 1, sizeof(char *));
+	environ = ft_calloc(len + 1, sizeof(char *));
 	if (environ == NULL)
-		fatal_error("calloc");
+		fatal_error("ft_calloc");
 	i = 0;
 	while (env)
 	{
-		environ[i] = ft_strjoin_three(env->key, "=", env->value);
-		i++;
+		if (env->value != NULL)
+		{
+			// printf("env->key:%s\n", env->key);
+			environ[i] = ft_strjoin_three(env->key, "=", env->value);
+			i++;
+		}
 		env = env->next;
 	}
 	environ[i] = NULL;
@@ -202,12 +209,13 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	else if (node->command->args == NULL && node->command->redirects != NULL)
 		exit (0);
 	// print_argv(argv);
-	path = argv[0];
 	// printf("path:%s\n", path);
-	if (strchr(path, '/') == NULL)
-		path = check_cmd_path(path, env);
-	if (!check_is_filename(path))
-		err_exit(argv[0], "command not found", 127);
+	if (ft_strchr(argv[0], '/') == NULL)
+		path = check_cmd_path(argv[0], env);
+	else
+		path = argv[0];
+	if (!check_is_filename(path, argv[0]))
+		err_exit(argv[0], COMMAND_NOT_FOUND, 127);
 	environ = change_env_to_environ(*env);
 	// printf("==============================\n");
 	// print_envp(environ);

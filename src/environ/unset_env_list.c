@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_env_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 23:41:21 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/23 00:35:04 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/25 01:11:02 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ int	unset_env_list(t_env **env, char *key)
 	if (*env != NULL)
 	{
 		current = *env;
-		if (strcmp(current->key, key) == 0)
+		if (ft_strcmp(current->key, key) == 0)
 		{
 			*env = current->next;
 			free_env(current);
+			return (0);
 		}
 		current = current->next;
 		prev = *env;
 		while (current)
 		{
-			if (strcmp(current->key, key) == 0)
+			if (ft_strcmp(current->key, key) == 0)
 			{
 				prev->next = current->next;
 				free_env(current);

@@ -3,17 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:27:15 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 14:57:17 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:19:29 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <fcntl.h>
 
-bool	readline_interrupted = false;
+static int	ft_fcntl(int fd)
+{
+	int		stashed_fd;
+	int		target_fd;
+	struct stat	stat;
+
+	target_fd = 10;
+	errno = 0;
+	if (fd < 0)
+	{
+		errno = EBADF;
+		return (-1);
+	}
+	while (!fstat(target_fd, &stat) && errno != EBADF)
+		target_fd++;
+	stashed_fd = dup2(fd,target_fd);
+	return (stashed_fd);
+}
 
 static int	stashfd(int fd)
 {
@@ -21,10 +38,11 @@ static int	stashfd(int fd)
 
 	// printf("start stashfd\n");
 	// printf("fd in stashfd: %d\n", fd);
-	stashfd = fcntl(fd, F_DUPFD, 10);
+	// stashfd = fcntl(fd, F_DUPFD, 10);
+	stashfd = ft_fcntl(fd);
 	// printf("stashfd in stashfd: %d\n", stashfd);
 	if (stashfd < 0)
-		fatal_error("fcntl");
+		fatal_error("ft_fcntl");
 	if (close(fd) < 0)
 		fatal_error("close");
 	// printf("finish stashfd\n");
@@ -34,7 +52,7 @@ static int	stashfd(int fd)
 int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 {
 	char	*line;
-	int		pfd[2];
+	int	pfd[2];
 
 	// printf("delimiter: %s\n", delimiter);
 	// printf("is_delimiter_quote: %d\n", is_delimiter_quote);
@@ -42,23 +60,24 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 		fatal_error("pipe");
 	// printf("pfd[0]: %d\n", pfd[0]);
 	// printf("pfd[1]: %d\n", pfd[1]);
-	readline_interrupted = false;
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (readline_interrupted || !strcmp(line, delimiter))
+		if (g_data.readline_interrupted || !ft_strcmp(line, delimiter))
 		{
 			free(line);
 			break ;
 		}
 		if (is_delimiter_quote)
 			line = expand_heredoc_line(line, env);
-		dprintf(pfd[1], "%s\n", line);
+		// dprintf(pfd[1], "%s\n", line);
+		write(pfd[1], line, ft_strlen(line));
+		write(pfd[1], NEW_LINE, ft_strlen(NEW_LINE));
 		free(line);
 	}
-	if (readline_interrupted)
+	if (g_data.readline_interrupted)
 	{
 		close(pfd[0]);
 		return (-1);
@@ -114,11 +133,14 @@ int	open_redirect_file(t_node *node, t_env **env)
 			// printf("node_kind is ND_REDIR_HEREDOC, filefd: %d\n", node->filefd);
 		}
 		else
-			todo("open_node_file");
+			fatal_error("open_redirect_file");
 		if (node->filefd < 0)
 		{
 			if (node->kind == ND_REDIR_IN || node->kind == ND_REDIR_OUT || node->kind == ND_REDIR_APPEND)
-				xperror(node->filename->word);
+			{
+				write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
+				perror(node->filename->word);
+			}
 			return (-1);
 		}
 		node->filefd = stashfd(node->filefd);
@@ -161,7 +183,7 @@ void	do_redirect(t_node *redirect)
 			// printf("redirect->filefd after dup2: %d\n", redirect->filefd);
 		}
 		else
-			todo("do_redirect");
+			fatal_error("do_redirect");
 		redirect = redirect->next;
 	}
 	// printf("finish do_redirect\n");
@@ -183,7 +205,7 @@ void	reset_redirect(t_node *redirect)
 		}
 	}
 	else
-		todo("rest_redirect");
+		fatal_error("reset_redirect");
 }
 
 // int	open_redirect_file(t_node *redirect)

@@ -8,7 +8,7 @@ int	main(int argc, char *argv[])
 	char	*arg_vec[10];
 	char	*env_vec[] = {"GREET=salut", "BYE=adieu", NULL};
 
-	arg_vec[0] = strrchr(argv[1], '/');
+	arg_vec[0] = ft_strrchr(argv[1], '/');
 	if (arg_vec[0] != NULL)
 		arg_vec[0]++;
 	else

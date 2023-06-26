@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_export.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:00:07 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 14:59:43 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/25 19:12:07 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_env	*bubble_sort_env(t_env *env)
 		next_env = current_env->next;
 		while (next_env != NULL)
 		{
-			if (current_env->value != NULL && next_env->value != NULL && strcmp(current_env->key, next_env->key) > 0)
+			if (current_env->value != NULL && next_env->value != NULL && ft_strcmp(current_env->key, next_env->key) > 0)
 				swap_env(current_env, next_env);
 			next_env = next_env->next;
 		}
@@ -85,7 +85,8 @@ int	exec_builtin_export(char **argv, t_env **env)
 		{
 			if (set_env_list(env, argv[i]) == -1 ) 
 			{
-				builtin_error("export", argv[i], "not a valid identifier");
+				builtin_error("export", argv[i],
+					"not a valid identifier", "not a valid identifier");
 				status = 1;
 			}
 			i++;

@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:13:20 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 07:20:14 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 19:18:24 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	append_char(char **s, char c)
 	char	*new;
 
 	if (*s)
-		len = strlen(*s) + 2;
+		len = ft_strlen(*s) + 2;
 	else
 		len = 2;
 	new = malloc(len);

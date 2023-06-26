@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 21:40:13 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/22 02:11:41 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/24 22:41:04 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ t_env	*create_new_env_list(char *key, char *value)
 {
 	t_env	*env;
 
-	// env = calloc(1, sizeof(*env));
-	env = calloc(1, sizeof(*env));
+	// env = ft_calloc(1, sizeof(*env));
+	env = ft_calloc(1, sizeof(*env));
 	if (env == NULL)
-		fatal_error("calloc");
+		fatal_error("ft_calloc");
 	env->key = key;
 	env->value = value;
 	return (env);

@@ -236,6 +236,7 @@
 	- [git reset 解説](https://qiita.com/forest1/items/f7c821565a7a7d64d60f)
 	- [DiscordのチャンネルにGitHubの通知を送るには？](https://mekurun.com/tips/discord-github/)
 	- [［GitHub］一人開発でもissueベース/セルフプルリクエストを使って開発する](https://qiita.com/braveryk7/items/5208263cd06a8878f0c2)
+	- [gitコマンドのtab補完を有効化する方法とは？(brew/zsh)](https://qiita.com/empty948/items/8a673c2021e886c6c6b2)
 - vim
 	- [Vim + Markdown](https://qiita.com/iwataka/items/5355bdf03d0afd82e7a7)
 	- [42 Header Plugin](https://github.com/42Paris/42header)

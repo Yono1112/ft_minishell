@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/06 15:37:02 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 12:54:19 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ t_token	*tokendup(t_token *token)
 {
 	char	*word;
 
-	word = strdup(token->word);
+	word = ft_strdup(token->word);
 	if (word == NULL)
-		fatal_error("strdup");
+		fatal_error("ft_strdup");
 	return (create_new_token_list(word, token->kind));
 }
 
@@ -58,16 +58,16 @@ t_node	*create_new_node_list(t_node_kind kind)
 {
 	t_node	*node;
 
-	node = calloc(1, sizeof(*node));
+	node = ft_calloc(1, sizeof(*node));
 	if (node == NULL)
-		fatal_error("calloc");
+		fatal_error("ft_calloc");
 	node->kind = kind;
 	return (node);
 }
 
 bool	check_operator(t_token *token, char *op)
 {
-	return (token->kind == TK_OP && strcmp(token->word, op) == 0);
+	return (token->kind == TK_OP && ft_strcmp(token->word, op) == 0);
 }
 
 t_node	*create_new_redirect_out(t_token **rest, t_token *token)
@@ -110,8 +110,8 @@ t_node	*create_new_redirect_heredoc(t_token **rest, t_token *token)
 	node = create_new_node_list(ND_REDIR_HEREDOC);
 	node->delimiter = tokendup(token->next);
 	node->targetfd = STDIN_FILENO;
-	if (strchr(node->delimiter->word, SINGLE_QUOTE_CHAR) == NULL
-		&& strchr(node->delimiter->word, DOUBLE_QUOTE_CHAR) == NULL)
+	if (ft_strchr(node->delimiter->word, SINGLE_QUOTE_CHAR) == NULL
+		&& ft_strchr(node->delimiter->word, DOUBLE_QUOTE_CHAR) == NULL)
 		node->is_delimiter_quote = true;
 	*rest = token->next->next;
 	return (node);
@@ -127,14 +127,14 @@ bool	is_control_operator(t_token *token)
 	operators_len = sizeof(operators) / sizeof(*operators);
 	while (i < operators_len)
 	{
-		if (!strncmp(token->word, operators[i], strlen(operators[i])))
+		if (!ft_strncmp(token->word, operators[i], ft_strlen(operators[i])))
 			return (true);
 		i++;
 	}
 	return (false);
 }
 
-t_node	*simple_command(t_token **rest, t_token *token)
+t_node	*simple_command(t_token **rest, t_token *token, int *syntax_error)
 {
 	t_node	*command;
 
@@ -160,13 +160,14 @@ t_node	*simple_command(t_token **rest, t_token *token)
 			add_operator_to_node(&command->redirects,
 				create_new_redirect_heredoc(&token, token));
 		else
-			todo("Implement parser");
+			parse_error(ERROR_PARSE_LOCATION, &token, token, syntax_error);
+			// todo("Implement parser");
 	}
 	*rest = token;
 	return (command);
 }
 
-t_node	*pipeline(t_token **rest, t_token *token)
+t_node	*pipeline(t_token **rest, t_token *token, int *syntax_error)
 {
 	t_node	*node;
 
@@ -176,15 +177,15 @@ t_node	*pipeline(t_token **rest, t_token *token)
 	node->inpipe[1] = -1;
 	node->outpipe[0] = -1;
 	node->outpipe[1] = STDOUT_FILENO;
-	node->command = simple_command(&token, token);
+	node->command = simple_command(&token, token, syntax_error);
 	if (check_operator(token, "|"))
-		node->next = pipeline(&token, token->next);
+		node->next = pipeline(&token, token->next, syntax_error);
 	*rest = token;
 	// printf("finish pipeline\n");
 	return (node);
 }
 
-t_node	*parse(t_token *token)
+t_node	*parse(t_token *token, int *syntax_error)
 {
-	return (pipeline(&token, token));
+	return (pipeline(&token, token, syntax_error));
 }

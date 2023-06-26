@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:46:09 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 08:56:12 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 19:54:01 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	remove_double_quote(char **new_word, char **rest, char *current_word)
 		while (*current_word != DOUBLE_QUOTE_CHAR)
 		{
 			if (*current_word == '\0')
-				assert_error("Unclosed double quote");
+				fatal_error("Unclosed double quote");
 			append_char(new_word, *current_word++);
 		}
 		current_word++;
 		*rest = current_word;
 	}
 	else
-		assert_error("Expected double quote");
+		fatal_error("Expected double quote");
 }
 
 void	remove_single_quote(char **new_word, char **rest, char *current_word)
@@ -38,14 +38,14 @@ void	remove_single_quote(char **new_word, char **rest, char *current_word)
 		while (*current_word != SINGLE_QUOTE_CHAR)
 		{
 			if (*current_word == '\0')
-				assert_error("Unclosed single quote");
+				fatal_error("Unclosed single quote");
 			append_char(new_word, *current_word++);
 		}
 		current_word++;
 		*rest = current_word;
 	}
 	else
-		assert_error("Expected single quote");
+		fatal_error("Expected single quote");
 }
 
 // void	remove_single_double_quote(char **new_word, char **rest, char *current_word)
@@ -83,12 +83,13 @@ static void	remove_quote_token(t_token *token, t_env **env)
 	char	*current_word;
 	char	*new_word;
 
-	// printf("start remove_quote_token\n");
+	// current_wordrintf("start remove_quote_token\n");
 	while (token != NULL && token->kind == TK_WORD && token->word != NULL)
 	{
-		// printf("token->word: %s\n", token->word);
 		current_word = token->word;
-		new_word = NULL;
+		new_word = ft_calloc(1, sizeof(char));
+		if (new_word == NULL)
+			fatal_error("ft_calloc");
 		while (*current_word != '\0')
 		{
 			if (*current_word == SINGLE_QUOTE_CHAR && !is_custom_ifs(SINGLE_QUOTE_CHAR, env))
