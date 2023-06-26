@@ -57,7 +57,8 @@ void	parse_error(const char *location, t_token **rest,
 	*rest = token;
 }
 
-void	builtin_error(char *func, char *name, char *err_message, char *perror_message)
+void	builtin_error(char *func, char *name, char *err_message,
+		char *perror_message)
 {
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, func, ft_strlen(func));
