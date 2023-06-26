@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:44:33 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 03:37:50 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 04:48:31 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ static int	exec_builtin_exit_is_num(char **argv, int argc)
 		return (0);
 	else
 	{
-		builtin_error("exit", argv[1],
-			"exit: too many arguments", "exit: too many arguments");
+		builtin_error("exit", argv[1], "exit: too many arguments");
 		return (1);
 	}
 }
@@ -60,8 +59,7 @@ int	exec_builtin_exit(char **argv)
 		}
 		else
 		{
-			builtin_error("exit", argv[1],
-				"exit: too many arguments", "exit: too many arguments");
+			builtin_error("exit", argv[1], "exit: too many arguments");
 			exit(255);
 		}
 	}

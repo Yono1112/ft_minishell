@@ -127,8 +127,7 @@ void	free_argv(char **argv);
 // error
 void	fatal_error(const char *str);
 void	err_exit(const char *location, const char *msg, int status);
-void	builtin_error(char *func, char *name,
-			char *err_message, char	*perror_message);
+void	builtin_error(char *func, char *name, char *err_message);
 void	parse_error(const char *location, t_token **rest,
 			t_token *token, int *syntax_error);
 // exec
