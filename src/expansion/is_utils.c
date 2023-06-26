@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:26:29 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 03:27:33 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 05:50:40 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ bool	is_metacharacter(char c)
 {
 	if (is_blank(c))
 		return (true);
-	return (c && ft_strchr("|&;()<>\n", c));
+	else if (c && ft_strchr("|<>\n", c))
+		return (true);
+	else
+		return (false);
 }

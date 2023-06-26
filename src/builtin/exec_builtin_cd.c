@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:15:21 by rnaka             #+#    #+#             */
-/*   Updated: 2023/06/27 04:47:58 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 05:59:26 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 #include <errno.h>
 #include"minishell.h"
 
-int	count_arg(char **argv)
+int	output_cd_argv_error(char *str)
 {
-	int	argc;
-
-	argc = 0;
-	while (argv[argc])
-		argc++;
-	return (argc);
+	if (access(str, F_OK) < 0)
+		builtin_error("cd", str, "no such file or directory");
+	else if (access(str, X_OK) < 0)
+		builtin_error("cd", str, "permission denied");
+	return (1);
 }
 
 static int	cd_argv(char **argv, t_env **env)
@@ -33,13 +32,7 @@ static int	cd_argv(char **argv, t_env **env)
 
 	status = chdir(argv[1]);
 	if (status)
-	{
-		if (access(argv[1], F_OK) < 0)
-			builtin_error("cd", argv[1], "no such file or directory");
-		else if (access(argv[1], X_OK) < 0)
-			builtin_error("cd", argv[1], "permission denied");
-		return (1);
-	}
+		return (output_cd_argv_error(argv[1]));
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 		return (1);
@@ -109,7 +102,7 @@ int	exec_builtin_cd(char **argv, t_env **env)
 	int	argc;
 
 	get_cwd(env);
-	argc = count_arg(argv);
+	argc = count_argc(argv);
 	if (argc == 1)
 		return (cd_home(env));
 	else if (!ft_strcmp(argv[1], "-"))
