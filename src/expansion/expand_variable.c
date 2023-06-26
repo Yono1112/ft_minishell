@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 19:53:40 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 19:54:46 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ void	append_single_quote(char **new_word, char **rest, char *current_word)
 		fatal_error("Expected single quote");
 }
 
-void	append_double_quote(char **new_word, char **rest, char *current_word, t_env **env)
+void	append_double_quote(char **new_word, char **rest,
+					char *current_word, t_env **env)
 {
 	if (*current_word == DOUBLE_QUOTE_CHAR)
 	{
