@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 03:09:29 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 12:41:55 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 12:41:55by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,6 @@ void	fatal_error(const char *str)
 	write(STDERR_FILENO, str, ft_strlen(str));
 	write(STDERR_FILENO, NEW_LINE, ft_strlen(NEW_LINE));
 	exit(EXIT_FAILURE);
-}
-
-void	assert_error(const char *str)
-{
-	// dprintf(STDERR_FILENO, "Assert Error: %s\n", str);
-	write(STDERR_FILENO, ASSERT_ERROR, ft_strlen(ASSERT_ERROR));
-	write(STDERR_FILENO, str, ft_strlen(str));
-	write(STDERR_FILENO, NEW_LINE, ft_strlen(NEW_LINE));
-	exit(255);
-}
-
-void	todo(const char *msg)
-{
-	// dprintf(STDERR_FILENO, "TODO: %s\n", msg);
-	write(STDERR_FILENO, TODO_ERROR, ft_strlen(TODO_ERROR));
-	write(STDERR_FILENO, msg, ft_strlen(msg));
-	write(STDERR_FILENO, NEW_LINE, ft_strlen(NEW_LINE));
-	exit(255);
 }
 
 void	err_exit(const char *location, const char *msg, int status)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:46:09 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/24 22:41:04 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 13:15:51 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	remove_double_quote(char **dst, char **rest, char *p)
 		while (*p != DOUBLE_QUOTE_CHAR)
 		{
 			if (*p == '\0')
-				assert_error("Unclosed double quote");
+				fatal_error("Unclosed double quote");
 			append_char(dst, *p++);
 		}
 		p++;
 		*rest = p;
 	}
 	else
-		assert_error("Expected double quote");
+		fatal_error("Expected double quote");
 }
 
 void	remove_single_quote(char **dst, char **rest, char *p)
@@ -38,14 +38,14 @@ void	remove_single_quote(char **dst, char **rest, char *p)
 		while (*p != SINGLE_QUOTE_CHAR)
 		{
 			if (*p == '\0')
-				assert_error("Unclosed single quote");
+				fatal_error("Unclosed single quote");
 			append_char(dst, *p++);
 		}
 		p++;
 		*rest = p;
 	}
 	else
-		assert_error("Expected single quote");
+		fatal_error("Expected single quote");
 }
 
 static void	remove_quote_token(t_token *token)

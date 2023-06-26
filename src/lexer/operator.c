@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:19:11 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 00:54:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 13:16:06 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ t_token	*add_operator_to_list(char **rest_line, char *line)
 		}
 		i++;
 	}
-	assert_error("Unexpected operator");
+	fatal_error("Unexpected operator");
 	return (NULL);
 }
