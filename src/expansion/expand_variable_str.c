@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variable_str.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:21:28 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 03:22:48 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 04:54:09 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static char	*append_variable_name(char **rest, char *current_word)
 	if (variable_name == NULL)
 		fatal_error("ft_calloc");
 	if (!is_alpha_under(*current_word))
-		fatal_error("Variable must starts with alphabetic character or underscore.");
+		fatal_error(
+			"Variable must starts with alphabetic character or underscore.");
 	append_char(&variable_name, *current_word);
 	current_word++;
 	while (is_alpha_num_under(*current_word))

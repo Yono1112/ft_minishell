@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 23:36:26 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 16:19:21 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 04:49:30 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	exec_builtin_unset(char **argv, t_env **env)
 {
 	size_t	i;
-	int	status;
+	int		status;
 
 	i = 1;
 	status = 0;

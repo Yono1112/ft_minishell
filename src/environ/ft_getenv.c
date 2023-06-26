@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 02:09:54 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 16:19:57 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 04:53:23 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_getenv(char *path_key, t_env **env)
 {
-	t_env *current;
+	t_env	*current;
 
 	current = *env;
 	if (path_key == NULL)
