@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:19:11 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 13:16:06 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:25:06 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_token	*add_operator_to_list(char **rest_line, char *line)
 		{
 			*rest_line = line + ft_strlen(operator);
 			str = ft_strndup(line, ft_strlen(operator));
-			// printf("operator: %s\n", str);
 			if (!str)
 				fatal_error("ft_strndup");
 			return (create_new_token_list(str, TK_OP));

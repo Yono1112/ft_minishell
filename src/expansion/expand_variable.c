@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:57:57 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 13:15:40 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:24:00 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,7 @@ void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env
 		fatal_error("Expected dollar sign");
 	current_word++;
 	name = append_variable_name(&current_word, current_word);
-	// value = getenv(name);
-	// printf("name:%s\n", name);
 	value = ft_getenv(name, env);
-	// printf("value:%s\n", value);
 	if (value != NULL)
 	{
 		while (*value)
@@ -160,11 +157,8 @@ void	expand_variable_token(t_token *token, t_env **env)
 	char	*new_word;
 	char	*current_word;
 
-	// printf("start expand_variable_token\n");
 	while (token != NULL && token->kind == TK_WORD && token->word != NULL)
 	{
-		// printf("token_kind: %d\n", token->kind);
-		// printf("token_word: %s\n", token->word);
 		current_word = token->word;
 		new_word = ft_calloc(1, sizeof(char));
 		if (new_word == NULL)
@@ -188,102 +182,16 @@ void	expand_variable_token(t_token *token, t_env **env)
 		token->word = new_word;
 		token = token->next;
 	}
-	// printf("finish expand_variable_token\n");
 }
 
 void	expand_variable(t_node *node, t_env **env)
 {
-	// printf("start expand_variable\n");
 	while (node != NULL)
 	{
-		// printf("node->kind: %d\n", node->kind);
-		// if (node->next != NULL)
-		// 	node = node->next;
 		if (node->command != NULL)
-		{
-			// printf("expand command\n");
 			expand_variable_token(node->command->args, env);
-		}
 		if (node->command->redirects != NULL)
-		{
-			// printf("expand redirects\n");
 			expand_variable_token(node->command->redirects->filename, env);
-		}
 		node = node->next;
-		// printf("finish expand_variable\n");
 	}
 }
-
-// void	expand_variable_str(char **new_word, char **rest, char *current_word)
-// {
-// 	char	*name;
-// 	char	*value;
-// 
-// 	name = ft_calloc(1, sizeof(char));
-// 	if (name == NULL)
-// 		fatal_error("ft_calloc");
-// 	if (*current_word != '$')
-// 		fatal_error("Expected dollar sign");
-// 	current_word++;
-// 	if (!is_alpha_under(*current_word))
-// 		fatal_error("Variable must starts with alphabetic character or underscore.");
-// 	append_char(&name, *current_word);
-// 	current_word++;
-// 	while (is_alpha_num_under(*current_word))
-// 	{
-// 		append_char(&name, *current_word);
-// 		current_word++;
-// 	}
-// 	value = getenv(name);
-// 	free(name);
-// 	if (value)
-// 	{
-// 		while (*value)
-// 		{
-// 			append_char(new_word, *value);
-// 			value++;
-// 		}
-// 	}
-// 	*rest = current_word;
-// }
-
-// void	expand_variable_token(t_token *tok)
-// {
-// 	char	*new_word;
-// 	char	*p;
-// 
-// 	if (tok == NULL || tok->kind != TK_WORD || tok->word == NULL)
-// 		return ;
-// 	p = tok->word;
-// 	new_word = ft_calloc(1, sizeof(char));
-// 	if (new_word == NULL)
-// 		fatal_error("ft_calloc");
-// 	while (*p && !is_metacharacter(*p))
-// 	{
-// 		if (*p == SINGLE_QUOTE_CHAR)
-// 			append_single_quote(&new_word, &p, p);
-// 		else if (*p == DOUBLE_QUOTE_CHAR)
-// 			append_double_quote(&new_word, &p, p);
-// 		else if (is_variable(p))
-// 			expand_variable_str(&new_word, &p, p);
-// 		else
-// 			append_char(&new_word, *p++);
-// 	}
-// 	free(tok->word);
-// 	tok->word = new_word;
-// 	expand_variable_token(tok->next);
-// }
-
-// void	expand_variable(t_node *node)
-// {
-// 	if (node == NULL)
-// 		return ;
-// 	printf("node->kind: %d\n", node->kind);
-// 	expand_variable_token(node->args);
-// 	expand_variable_token(node->filename);
-// 	// do not expand heredoc delimiter
-// 	expand_variable(node->redirects);
-// 	expand_variable(node->command);
-// 	expand_variable(node->next);
-// }
-

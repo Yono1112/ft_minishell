@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 13:00:50 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:25:28 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_token	*add_word_to_list(char **rest_line, char *line, int *syntax_error)
 			line++;
 	}
 	word = ft_strndup(start, line - start);
-	// printf("word: %s\n", word);
 	if (word == NULL)
 		fatal_error("ft_strndup");
 	*rest_line = line;

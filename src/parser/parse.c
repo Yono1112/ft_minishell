@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 12:54:19 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 17:04:36 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ t_node	*simple_command(t_token **rest, t_token *token, int *syntax_error)
 	command = create_new_node_list(ND_SIMPLE_CMD);
 	while (token && token->kind != TK_EOF && !is_control_operator(token))
 	{
-		// printf("token_kind: %u\n", token->kind);
 		if (token->kind == TK_WORD)
 		{
 			add_token_to_node(&command->args, tokendup(token));
@@ -161,7 +160,6 @@ t_node	*simple_command(t_token **rest, t_token *token, int *syntax_error)
 				create_new_redirect_heredoc(&token, token));
 		else
 			parse_error(ERROR_PARSE_LOCATION, &token, token, syntax_error);
-			// todo("Implement parser");
 	}
 	*rest = token;
 	return (command);
@@ -171,7 +169,6 @@ t_node	*pipeline(t_token **rest, t_token *token, int *syntax_error)
 {
 	t_node	*node;
 
-	// printf("start pipeline\n");
 	node = create_new_node_list(ND_PIPELINE);
 	node->inpipe[0] = STDIN_FILENO;
 	node->inpipe[1] = -1;
@@ -181,7 +178,6 @@ t_node	*pipeline(t_token **rest, t_token *token, int *syntax_error)
 	if (check_operator(token, "|"))
 		node->next = pipeline(&token, token->next, syntax_error);
 	*rest = token;
-	// printf("finish pipeline\n");
 	return (node);
 }
 

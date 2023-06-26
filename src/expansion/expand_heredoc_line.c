@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:03:26 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/24 22:41:04 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 16:23:02 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,11 @@ char	*expand_heredoc_line(char *line, t_env **env)
 	while (*current_word)
 	{
 		if (is_expand_variable(current_word))
-		{
-			// printf("expand_variable_str\n");
 			expand_variable_str(&new_word, &current_word, current_word, env);
-		}
 		else if (is_special_parametar(current_word))
-		{
-			// printf("expand_parameter_str\n");
 			expand_parameter_str(&new_word, &current_word, current_word);
-		}
 		else
 		{
-			// printf("append_char\n");
 			append_char(&new_word, *current_word);
 			current_word++;
 		}

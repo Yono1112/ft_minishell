@@ -3,12 +3,6 @@
 #include <errno.h>
 #include"minishell.h"
 
-// void	cd_error(char *str)
-// {
-// 	dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
-// 	perror(str);
-// }
-
 int	count_arg(char **argv)
 {
 	int	argc;
@@ -28,7 +22,6 @@ int	cd_argv(char **argv, t_env **env)
 	status = chdir(argv[1]);
 	if (status)
 	{
-		// cd_error(argv[1]);
 		builtin_error("cd", argv[1], NULL, argv[1]);
 		return (1);
 	}
@@ -63,7 +56,6 @@ int	cd_home(t_env **env)
 	status = chdir(arg);
 	if (status)
 	{
-		// cd_error(ft_getenv("HOME", env));
 		builtin_error("cd", NULL, NULL, arg);
 		return (1);
 	}
@@ -87,7 +79,6 @@ int	cd_prev(t_env **env)
 	status = chdir(ft_getenv("OLDPWD",env));
 	if (status)
 	{
-		// cd_error(NULL);
 		builtin_error("cd", NULL, NULL, NULL);
 		return (1);
 	}

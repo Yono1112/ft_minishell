@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 23:41:21 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 01:11:02 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:21:15 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	unset_env_list(t_env **env, char *key)
 	t_env	*prev;
 	t_env	*current;
 
-	// printf("start unset_env_list\n");
-	// print_env(*env);
 	if (key == NULL || !is_variable(key))
 		return (-1);
 	current = NULL;
@@ -52,6 +50,5 @@ int	unset_env_list(t_env **env, char *key)
 			prev = prev->next;
 		}
 	}
-	// print_env(*env);
 	return (0);
 }

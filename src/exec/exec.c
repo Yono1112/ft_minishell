@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 22:05:23 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:22:27 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int	wait_pipeline(pid_t last_child_pid)
 	{
 		g_data.sig = 0;
 		wait_pid = wait(&wstatus);
-		// printf("wait_pid: %d", wait_pid);
 		if (wait_pid == last_child_pid)
 		{
 			if (WIFSIGNALED(wstatus))
@@ -139,7 +138,6 @@ int	wait_pipeline(pid_t last_child_pid)
 				fatal_error("wait");
 		}
 	}
-	// printf("finish wait_pipeline\n");
 	return (status);
 }
 
@@ -172,7 +170,6 @@ char	**change_env_to_environ(t_env *env)
 	{
 		if (env->value != NULL)
 		{
-			// printf("env->key:%s\n", env->key);
 			environ[i] = ft_strjoin_three(env->key, "=", env->value);
 			i++;
 		}
@@ -182,17 +179,6 @@ char	**change_env_to_environ(t_env *env)
 	return (environ);
 }
 
-// static void	print_argv(char **argv)
-// {
-// 	size_t	i;
-// 
-// 	i = 0;
-// 	while (argv[i])
-// 	{
-// 		printf("argv[%ld]:%s\n", i, argv[i]);
-// 		i++;
-// 	}
-// }
 
 void	exec_simple_cmd(t_node *node, t_env **env)
 {
@@ -200,7 +186,6 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	char		*path;
 	char		**argv;
 
-	// printf("start exec_simple_cmd\n");
 	argv = NULL;
 	if (node->command->redirects != NULL)
 		do_redirect(node->command->redirects);
@@ -208,8 +193,6 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 		argv = add_token_to_argv(node->command->args);
 	else if (node->command->args == NULL && node->command->redirects != NULL)
 		exit (0);
-	// print_argv(argv);
-	// printf("path:%s\n", path);
 	if (ft_strchr(argv[0], '/') == NULL)
 		path = check_cmd_path(argv[0], env);
 	else
@@ -217,9 +200,6 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	if (!check_is_filename(path, argv[0]))
 		err_exit(argv[0], COMMAND_NOT_FOUND, 127);
 	environ = change_env_to_environ(*env);
-	// printf("==============================\n");
-	// print_envp(environ);
-	// printf("==============================\n");
 	execve(path, argv, environ);
 	free_argv(argv);
 	fatal_error("execve");
@@ -232,30 +212,22 @@ int	exec_cmd(t_node *node, t_env **env)
 
 	while (node != NULL)
 	{
-		// printf("start exec_cmd\n");
 		prepare_pipe(node);
 		pid = fork();
-		// printf("fork=============================================\n");
 		if (pid < 0)
 			fatal_error("fork");
 		else if (pid == CHILD_PID)
 		{
-			// printf("start child_process\n");
 			reset_signal_to_default();
 			prepare_pipe_child(node);
 			if (is_builtin(node))
 			{
-				// printf("exec_builtin_cmd\n");
 				status = exec_builtin_cmd(node, env);
 				exit(status);
 			}
 			else
-			{
-				// printf("exec_simple_cmd\n");
 				exec_simple_cmd(node, env);
-			}
 		}
-		// printf("start parent_process\n");
 		prepare_pipe_parent(node);
 		node = node->next;
 	}
@@ -271,28 +243,8 @@ int	exec(t_node *node, t_env **env)
 	if (open_redirect_file(node, env) < 0)
 		return (ERROR_OPEN_REDIR);
 	if (node->next == NULL && is_builtin(node))
-	{
-		// printf("exec_builtin_cmd in parent process\n");
 		status = exec_builtin_cmd(node, env);
-	}
 	else
-	{
 		status = exec_cmd(node, env);
-		// printf("finish exec_cmd\n");
-	}
 	return (status);
 }
-
-// int	exec(t_node *node)
-// {
-// 	int		status;
-// 	pid_t	last_child_pid;
-// 
-// 	if (open_redirect_file(node) < 0)
-// 		return (ERROR_OPEN_REDIR);
-// 	// printf("finish open_redirect\n");
-// 	last_child_pid = exec_cmd(node);
-// 	// printf("finish exec_cmd\n");
-// 	status = wait_pipeline(last_child_pid);
-// 	return (status);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_unset.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 23:36:26 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 19:11:45 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:19:21 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int	exec_builtin_unset(char **argv, t_env **env)
 	size_t	i;
 	int	status;
 
-	// printf("start exec_builtin_unset\n");
 	i = 1;
 	status = 0;
-	// print_env(*env);
 	while (argv[i])
 	{
 		if (unset_env_list(env, argv[i]) == -1)
@@ -31,6 +29,5 @@ int	exec_builtin_unset(char **argv, t_env **env)
 		}
 		i++;
 	}
-	// print_env(*env);
 	return (status);
 }

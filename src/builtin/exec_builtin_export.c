@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_export.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:00:07 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 19:12:07 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:17:14 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,7 @@ static void	print_environ_variable(t_env **env)
 {
 	t_env	*sorted_env;
 
-	// printf("start print_environ_variable\n");
-	// if (env == NULL)
-	// 	printf("env is NULL\n");
-	// print_env(*env);
 	sorted_env = bubble_sort_env(*env);
-	// print_env(sorted_env);
-	// printf("========================================\n");
 	while (sorted_env != NULL)
 	{
 		if (sorted_env->value != NULL)
@@ -65,7 +59,6 @@ static void	print_environ_variable(t_env **env)
 			printf("declare -x %s\n", sorted_env->key);
 		sorted_env = sorted_env->next;
 	}
-	// printf("finish print_environ_variable\n");
 }
 
 int	exec_builtin_export(char **argv, t_env **env)
@@ -92,6 +85,5 @@ int	exec_builtin_export(char **argv, t_env **env)
 			i++;
 		}
 	}
-	// print_env(*env);
 	return (status);
 }

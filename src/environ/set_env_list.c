@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 02:08:43 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/25 03:49:20 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 16:21:06 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	add_key_value_to_env(t_env **env, char *key, char *value)
 	t_env	*new_env;
 	t_env	*last_env;
 
-	// printf("start add_key_value_to_env\n");
-	// printf("key:%s, value:%s\n", key, value);
 	if (value == NULL)
 	{
 		new_env = create_new_env_list(ft_strdup(key), NULL);
@@ -50,7 +48,6 @@ void	add_key_value_to_env(t_env **env, char *key, char *value)
 		if (new_env->key == NULL || new_env->value == NULL)
 			fatal_error("ft_strdup");
 	}
-	// printf("new_env->key:%s, new_env->value:%s\n", new_env->key, new_env->value);
 	if (*env == NULL)
 		*env = new_env;
 	else
@@ -81,16 +78,13 @@ int	set_env_list(t_env **env, char *str)
 	char	*value;
 	char	*end_key;
 
-	// printf("envp:%s\n", str);
 	if (str == NULL)
 		return (-1);
 	else
 	{
 		end_key = ft_strchr(str, '=');
-		// printf("end_key:%s\n", end_key);
 		if (end_key != NULL)
 		{
-			// printf("end_key is not NULL\n");
 			key = ft_strndup(str, end_key - str);
 			value = ft_strdup(end_key + 1);
 			if (value == NULL)
@@ -98,23 +92,16 @@ int	set_env_list(t_env **env, char *str)
 		}
 		else
 		{
-			// printf("end_key is NULL\n");
 			key = ft_strdup(str);
 			if (key == NULL)
 				fatal_error("ft_strndup");
 			value = NULL;
 		}
-		// printf("%ld\n", end_key - str);
 	}
-	// printf("key:%s, value:%s\n", key, value);
 	if (is_key_in_env(key, *env))
-	{
-		// printf("true is_key_in_env\n");
 		update_value_to_env(env, key, value);
-	}
 	else
 	{
-		// printf("false is_key_in_env\n");
 		if (!is_variable(key))
 		{
 			free(key);
@@ -122,7 +109,6 @@ int	set_env_list(t_env **env, char *str)
 			return (-1);
 		}
 		add_key_value_to_env(env, key, value);
-		// printf("env->key:%s, env->value:%s\n", (*env)->key, (*env)->value);
 	}
 	free(key);
 	free(value);

@@ -12,18 +12,8 @@
 
 #include "minishell.h"
 
-
-// bool	syntax_error = false;
-
-// static void	perror_prefix(void)
-// {
-// 	dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
-// 	// write(STDERR_FILENO, "")
-// }
-
 void	fatal_error(const char *str)
 {
-	// dprintf(STDERR_FILENO, "Fatal Error: %s\n", str);
 	write(STDERR_FILENO, FATAL_ERROR, ft_strlen(FATAL_ERROR));
 	write(STDERR_FILENO, str, ft_strlen(str));
 	write(STDERR_FILENO, NEW_LINE, ft_strlen(NEW_LINE));
@@ -32,7 +22,6 @@ void	fatal_error(const char *str)
 
 void	err_exit(const char *location, const char *msg, int status)
 {
-	// dprintf(STDERR_FILENO, "minishell: %s: %s\n", location, msg);
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, location, ft_strlen(location));
 	write(STDERR_FILENO, msg, ft_strlen(msg));
@@ -44,7 +33,6 @@ void	tokenize_error(const char *location, char **rest,
 			char *line, int *syntax_error)
 {
 	*syntax_error = 1;
-	// dprintf(STDERR_FILENO, "minishell: syntax error near %s\n", location);
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR));
 	write(STDERR_FILENO, ERROR_LEXER_MSG, ft_strlen(ERROR_LEXER_MSG));
@@ -59,7 +47,6 @@ void	parse_error(const char *location, t_token **rest,
 			t_token *token, int *syntax_error)
 {
 	*syntax_error = 1;
-	// dprintf(STDERR_FILENO, "minishell: syntax error near %s\n", location);
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR));
 	write(STDERR_FILENO, ERROR_PARSE_MSG, ft_strlen(ERROR_PARSE_MSG));
@@ -72,25 +59,19 @@ void	parse_error(const char *location, t_token **rest,
 
 void	xperror(const char *location)
 {
-	// perror_prefix();
-	// dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	perror(location);
 }
 
 void	builtin_error(char *func, char *name, char *err_message, char *perror_message)
 {
-	// perror_prefix();
-	// dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, func, ft_strlen(func));
 	write(STDERR_FILENO, ": ", 2);
-	// dprintf(STDERR_FILENO, "%s: ", func);
 	if (name)
 	{
 		write(STDERR_FILENO, name, ft_strlen(name));
 		write(STDERR_FILENO, ": ", 2);
-		// dprintf(STDERR_FILENO, "%s: ", name);
 	}
 	if (err_message)
 		write(STDERR_FILENO, err_message, ft_strlen(err_message));
