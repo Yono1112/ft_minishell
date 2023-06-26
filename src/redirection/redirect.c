@@ -139,9 +139,9 @@ int	open_redirect_file(t_node *node, t_env **env)
 			if (node->kind == ND_REDIR_IN || node->kind == ND_REDIR_OUT || node->kind == ND_REDIR_APPEND)
 			{
 				write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
-				perror(node->redirects->filename->word);
+				perror(node->filename->word);
 			}
-			return (ERROR_OPEN_REDIR);
+			return (-1);
 		}
 		node->filefd = stashfd(node->filefd);
 		// printf("node->filefd after stashfd: %d\n", node->filefd);
