@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 00:42:47 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 01:08:47 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ void	fatal_error(const char *str);
 void	err_exit(const char *location, const char *msg, int status);
 void	builtin_error(char *func, char *name,
 			char *err_message, char	*perror_message);
-void	parse_error(const char *location, t_token **rest, t_token *token, int *syntax_error);
+void	parse_error(const char *location, t_token **rest,
+			t_token *token, int *syntax_error);
 // exec
 int		exec(t_node *node, t_env **env);
 int		exec_cmd(t_node *node, t_env **env);
@@ -161,13 +162,25 @@ void	expand_variable(t_node *node, t_env **env);
 char	*expand_heredoc_line(char *line, t_env **env);
 bool	is_variable(char *s);
 void	expand_parameter_str(char **new_word, char **rest, char *current_word);
-void	expand_variable_str(char **new_word, char **rest, char *current_word, t_env **env);
+void	expand_variable_str(char **new_word, char **rest,
+			char *current_word, t_env **env);
 bool	is_special_parametar(char *str);
 bool	is_alpha_num_under(char c);
 bool	is_alpha_under(char c);
 bool	is_expand_variable(char *s);
 // parser
 t_node	*parse(t_token *token, int *syntax_error);
+t_node	*pipeline(t_token **rest, t_token *token, int *syntax_error);
+t_node	*simple_command(t_token **rest, t_token *token, int *syntax_error);
+t_node	*create_new_redirect_heredoc(t_token **rest, t_token *token);
+t_node	*create_new_redirect_append(t_token **rest, t_token *token);
+t_node	*create_new_redirect_in(t_token **rest, t_token *token);
+t_node	*create_new_redirect_out(t_token **rest, t_token *token);
+void	add_token_to_node(t_token **node_token, t_token *new_token);
+void	add_operator_to_node(t_node **node, t_node *new_node);
+t_token	*tokendup(t_token *token);
+t_node	*create_new_node_list(t_node_kind kind);
+bool	check_operator(t_token *token, char *op);
 // redirection
 int		open_redirect_file(t_node *redirect, t_env **env);
 void	do_redirect(t_node *redirect);
@@ -204,6 +217,6 @@ t_env	*create_new_env_list(char *key, char *value);
 bool	is_variable(char *str);
 void	update_value_to_env(t_env **env, char *key, char *value);
 void	add_key_value_to_env(t_env **env, char *key, char *value);
-int	unset_env_list(t_env **env, char *str);
+int		unset_env_list(t_env **env, char *str);
 
 #endif

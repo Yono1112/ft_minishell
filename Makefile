@@ -22,6 +22,12 @@ SRCS =	src/main.c	\
 		src/expansion/expand_variable.c	\
 		src/expansion/expand_heredoc_line.c	\
 		src/parser/parse.c	\
+		src/parser/pipeline.c	\
+		src/parser/add_operator_to_node.c	\
+		src/parser/add_token_to_node.c	\
+		src/parser/create_new_redirect.c	\
+		src/parser/parse_utils.c	\
+		src/parser/simple_command.c	\
 		src/redirection/redirect.c	\
 		src/pipeline/pipe.c	\
 		src/execution/exec.c	\
