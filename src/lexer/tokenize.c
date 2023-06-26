@@ -47,7 +47,7 @@ t_token	*tokenize(char	*line, int *syntax_error)
 			token = token->next;
 		}
 		else
-			tokenize_error("Unexpected Token", &line, line, syntax_error);
+			tokenize_error(ERROR_LEXER_LOCATION, &line, line, syntax_error);
 			// assert_error("Unexpected Token");
 		// token = token->next;
 	}

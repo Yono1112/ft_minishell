@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 02:08:52 by yumaohno         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:00:50 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_token	*add_word_to_list(char **rest_line, char *line, int *syntax_error)
 			{
 				if (*line == '\0')
 				{
-					tokenize_error("Unclosed single quote", &line, line, syntax_error);
+					tokenize_error(ERROR_SINGLE, &line, line, syntax_error);
 					break ;
 				}
 				line++;
@@ -47,7 +47,7 @@ t_token	*add_word_to_list(char **rest_line, char *line, int *syntax_error)
 			{
 				if (*line == '\0')
 				{
-					tokenize_error("Unclosed double quote", &line, line, syntax_error);
+					tokenize_error(ERROR_DOUBLE, &line, line, syntax_error);
 					break ;
 				}
 				line++;
