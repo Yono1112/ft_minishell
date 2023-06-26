@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 02:22:06 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 03:34:16 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ typedef struct s_node
 {
 	t_node_kind		kind;
 	struct s_node	*next;
-	// CMD
 	t_token			*args;
-	// REDIR
 	struct s_node	*redirects;
 	int				targetfd;
 	t_token			*filename;
@@ -109,7 +107,6 @@ typedef struct s_node
 	int				filefd;
 	int				stashed_targetfd;
 	bool			is_delimiter_quote;
-	// PINELINE
 	struct s_node	*command;
 	int				inpipe[2];
 	int				outpipe[2];
@@ -159,6 +156,9 @@ void	skip_blank(char **skip_line, char *line);
 void	expand(t_node *node, t_env **env);
 void	remove_quote(t_node *node);
 void	append_char(char **s, char c);
+void	append_double_quote(char **new_word, char **rest,
+			char *current_word, t_env **env);
+void	append_single_quote(char **new_word, char **rest, char *current_word);
 void	expand_variable(t_node *node, t_env **env);
 char	*expand_heredoc_line(char *line, t_env **env);
 bool	is_variable(char *s);
@@ -166,9 +166,15 @@ void	expand_parameter_str(char **new_word, char **rest, char *current_word);
 void	expand_variable_str(char **new_word, char **rest,
 			char *current_word, t_env **env);
 bool	is_special_parametar(char *str);
+bool	is_metacharacter(char c);
 bool	is_alpha_num_under(char c);
 bool	is_alpha_under(char c);
 bool	is_expand_variable(char *s);
+bool	is_quote_after_dollar(char *str);
+void	expand_variable_token(t_token *token, t_env **env);
+void	remove_quote_token(t_token *token);
+void	remove_single_quote(char **dst, char **rest, char *p);
+void	remove_double_quote(char **dst, char **rest, char *p);
 // parser
 t_node	*parse(t_token *token, int *syntax_error);
 t_node	*pipeline(t_token **rest, t_token *token, int *syntax_error);
@@ -199,24 +205,24 @@ void	set_signal(void);
 void	reset_signal_to_default(void);
 // builtin
 bool	is_builtin(t_node *node);
-int	exec_builtin_exit(char **argv);
-int	exec_builtin_echo(char **argv);
-int	count_argc(char **argv);
-int	exec_builtin_pwd(char **argv, t_env **env);
-int	exec_builtin_cd(char **argv, t_env **env);
+int		exec_builtin_exit(char **argv);
+int		exec_builtin_echo(char **argv);
+int		count_argc(char **argv);
+int		exec_builtin_pwd(char **argv, t_env **env);
+int		exec_builtin_cd(char **argv, t_env **env);
 int		exec_builtin_cmd(t_node *node, t_env **env);
 int		exec_builtin_exit(char **argv);
 int		exec_builtin_echo(char **argv);
 int		count_argc(char **argv);
 int		exec_builtin_export(char **argv, t_env **env);
 int		get_cwd(t_env **env);
-int	exec_builtin_unset(char **argv, t_env **env);
-int	exec_builtin_env(t_env **env);
+int		exec_builtin_unset(char **argv, t_env **env);
+int		exec_builtin_env(t_env **env);
 // environ
 void	print_env(t_env *env);
 t_env	*init_env_list(char **envp);
 void	add_key_value_to_env(t_env **env, char *key, char *value);
-int	set_env_list(t_env **env, char *str);
+int		set_env_list(t_env **env, char *str);
 char	*ft_getenv(char *path_key, t_env **env);
 t_env	*create_new_env_list(char *key, char *value);
 bool	is_variable(char *str);

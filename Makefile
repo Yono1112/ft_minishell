@@ -10,7 +10,7 @@ endif
 # LDFLAGS = -lreadline
 RM = rm -rf
 SRCS =	src/main.c	\
-		src/free.c	\
+		src/free/free.c	\
 		src/lexer/tokenize.c	\
 		src/lexer/blank.c		\
 		src/lexer/operator.c	\
@@ -21,6 +21,14 @@ SRCS =	src/main.c	\
 		src/expansion/remove_quote.c	\
 		src/expansion/expand_variable.c	\
 		src/expansion/expand_heredoc_line.c	\
+		src/expansion/append_quote.c	\
+		src/expansion/expand_parameter_str.c	\
+		src/expansion/expand_variable_str.c	\
+		src/expansion/expand_variable_token.c	\
+		src/expansion/is_utils.c	\
+		src/expansion/remove_quote_token.c	\
+		src/expansion/remove_single_double_quote.c	\
+		src/expansion/append_char.c	\
 		src/parser/parse.c	\
 		src/parser/pipeline.c	\
 		src/parser/add_operator_to_node.c	\
@@ -28,7 +36,6 @@ SRCS =	src/main.c	\
 		src/parser/create_new_redirect.c	\
 		src/parser/parse_utils.c	\
 		src/parser/simple_command.c	\
-		src/redirection/redirect.c	\
 		src/redirection/do_redirect.c	\
 		src/redirection/is_redirect.c	\
 		src/redirection/open_redirect_file.c	\

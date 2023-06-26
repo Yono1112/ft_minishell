@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:33:42 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 17:32:28 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 03:38:08 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_builtin_cmd_devide_word(char **argv, t_env **env)
+static int	exec_builtin_cmd_devide_word(char **argv, t_env **env)
 {
 	int	status;
 
