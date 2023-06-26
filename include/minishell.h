@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 01:08:47 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 02:22:06 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <stddef.h>
 # include <ctype.h>
 # include <signal.h>
+# include <fcntl.h>
 # include "libft.h"
 
 # define SINGLE_QUOTE_CHAR '\''
@@ -79,7 +80,7 @@ typedef enum e_token_kind
 
 typedef struct s_token
 {
-	char		*word;
+	char			*word;
 	t_token_kind	kind;
 	struct s_token	*next;
 }	t_token;
@@ -184,7 +185,11 @@ bool	check_operator(t_token *token, char *op);
 // redirection
 int		open_redirect_file(t_node *redirect, t_env **env);
 void	do_redirect(t_node *redirect);
+bool	is_redirect(t_node *redirect);
 void	reset_redirect(t_node *redirect);
+int		read_heredoc(const char *delimiter,
+			bool is_delimiter_quote, t_env **env);
+int		stashfd(int fd);
 // pipeline
 void	prepare_pipe(t_node *node);
 void	prepare_pipe_child(t_node *node);

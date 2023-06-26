@@ -29,6 +29,12 @@ SRCS =	src/main.c	\
 		src/parser/parse_utils.c	\
 		src/parser/simple_command.c	\
 		src/redirection/redirect.c	\
+		src/redirection/do_redirect.c	\
+		src/redirection/is_redirect.c	\
+		src/redirection/open_redirect_file.c	\
+		src/redirection/read_heredoc.c	\
+		src/redirection/reset_redirect.c	\
+		src/redirection/stashfd.c	\
 		src/pipeline/pipe.c	\
 		src/execution/exec.c	\
 		src/execution/check_cmd_path.c	\
