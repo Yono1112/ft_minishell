@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 02:08:43 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 16:21:06 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 18:13:35 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,32 @@ bool	is_key_in_env(char *key, t_env *env)
 	return (false);
 }
 
+int	free_key_and_value(char *key, char *value)
+{
+	free(key);
+	free(value);
+	return (-1);
+}
+
+void	set_env_list_if(char **end_key, char **key, char **str, char **value)
+{
+	*end_key = ft_strchr(*str, '=');
+	if (*end_key != NULL)
+	{
+		*key = ft_strndup(*str, *end_key - *str);
+		*value = ft_strdup(*end_key + 1);
+		if (*value == NULL)
+			fatal_error("ft_strndup");
+	}
+	else
+	{
+		*key = ft_strdup(*str);
+		if (*key == NULL)
+			fatal_error("ft_strndup");
+		*value = NULL;
+	}
+}
+
 int	set_env_list(t_env **env, char *str)
 {
 	char	*key;
@@ -81,33 +107,13 @@ int	set_env_list(t_env **env, char *str)
 	if (str == NULL)
 		return (-1);
 	else
-	{
-		end_key = ft_strchr(str, '=');
-		if (end_key != NULL)
-		{
-			key = ft_strndup(str, end_key - str);
-			value = ft_strdup(end_key + 1);
-			if (value == NULL)
-				fatal_error("ft_strndup");
-		}
-		else
-		{
-			key = ft_strdup(str);
-			if (key == NULL)
-				fatal_error("ft_strndup");
-			value = NULL;
-		}
-	}
+		set_env_list_if(&end_key, &key, &str, &value);
 	if (is_key_in_env(key, *env))
 		update_value_to_env(env, key, value);
 	else
 	{
 		if (!is_variable(key))
-		{
-			free(key);
-			free(value);
-			return (-1);
-		}
+			return (free_key_and_value(key, value));
 		add_key_value_to_env(env, key, value);
 	}
 	free(key);
