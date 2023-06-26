@@ -120,7 +120,7 @@ int	open_redirect_file(t_node *node, t_env **env)
 				write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 				perror(node->filename->word);
 			}
-			return (ERROR_OPEN_REDIR);
+			return (-1);
 		}
 		node->filefd = stashfd(node->filefd);
 		node = node->next;
