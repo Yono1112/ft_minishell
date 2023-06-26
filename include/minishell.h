@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 13:21:13 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 00:42:47 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,11 @@ void	builtin_error(char *func, char *name,
 void	parse_error(const char *location, t_token **rest, t_token *token, int *syntax_error);
 // exec
 int		exec(t_node *node, t_env **env);
+int		exec_cmd(t_node *node, t_env **env);
+int		wait_pipeline(pid_t last_child_pid);
+char	*check_cmd_path(const char *filename, t_env **env);
+bool	check_is_filename(const char *path, const char *filename);
+void	exec_simple_cmd(t_node *node, t_env **env);
 // tokenizer
 t_token	*tokenize(char	*line, int *syntax_error);
 void	free_token(t_token *token);

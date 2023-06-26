@@ -25,6 +25,11 @@ SRCS =	src/main.c	\
 		src/redirection/redirect.c	\
 		src/pipeline/pipe.c	\
 		src/exec/exec.c	\
+		src/exec/check_cmd_path.c	\
+		src/exec/check_is_filename.c	\
+		src/exec/exec_cmd.c	\
+		src/exec/exec_simple_cmd.c	\
+		src/exec/wait_pipeline.c	\
 		src/signal/signal.c	\
 		src/builtin/is_builtin.c	\
 		src/builtin/exec_builtin_cmd.c	\
