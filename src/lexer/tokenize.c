@@ -48,8 +48,6 @@ t_token	*tokenize(char	*line, int *syntax_error)
 		}
 		else
 			tokenize_error(ERROR_LEXER_LOCATION, &line, line, syntax_error);
-			// assert_error("Unexpected Token");
-		// token = token->next;
 	}
 	token->next = create_new_token_list(NULL, TK_EOF);
 	return (head.next);

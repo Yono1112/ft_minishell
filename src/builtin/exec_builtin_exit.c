@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_exit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:44:33 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 21:55:44 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 17:46:11 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ bool	is_num(char *str)
 	return (true);
 }
 
+
+int	exec_builtin_exit_is_num(char **argv, int argc)
+{
+	if (argc == 2)
+		return (0);
+	else
+	{
+		builtin_error("exit", argv[1],
+			"exit: too many arguments", "exit: too many arguments");
+		return (1);
+	}
+}
+
 int	exec_builtin_exit(char **argv)
 {
 	int	argc;
@@ -41,19 +54,13 @@ int	exec_builtin_exit(char **argv)
 	{
 		if (is_num(argv[1]))
 		{
-			if (argc == 2)
-				exit(atol(argv[1]));
-			else
-			{
-				// xperror("exit: too many arguments");
-				builtin_error("exit", argv[1],
-					"exit: too many arguments", "exit: too many arguments");
+			if (exec_builtin_exit_is_num(argv, argc))
 				return (1);
-			}
+			else
+				exit(atol(argv[1]));
 		}
 		else
 		{
-			// xperror("exit: numeric argument required");
 			builtin_error("exit", argv[1],
 				"exit: too many arguments", "exit: too many arguments");
 			exit(255);

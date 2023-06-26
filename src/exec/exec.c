@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/25 22:05:23 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 19:51:48 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 {
 	char	*str;
 	size_t	len;
-	size_t	i;
-	size_t	j;
-	size_t	k;
 
 	if (!s1 || !s2 || !s3)
 		return (NULL);
@@ -26,25 +23,13 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{
-		str[i + j] = s2[j];
-		j++;
-	}
-	k = 0;
-	while (s3[k])
-	{
-		str[i + j + k] = s3[k];
-		k++;
-	}
-	str[i + j + k] = '\0';
+	while (*s1)
+		*str++ = *s1++;
+	while (*s2)
+		*str++ = *s2++;
+	while (*s3)
+		*str++ = *s3++;
+	*str = '\0';
 	return (str);
 }
 
@@ -69,29 +54,38 @@ bool	check_is_filename(const char *path, const char *filename)
 	return (true);
 }
 
+static int	make_pathlen(char **end,
+							char *path, char **value)
+{
+	size_t	path_len;
+
+	*end = ft_strchr(*value, ':');
+	if (*end)
+		path_len = (size_t)(*end - *value);
+	else
+		path_len = ft_strlen(*value);
+	if (path_len >= PATH_MAX)
+		return (1);
+	ft_memcpy(path, *value, path_len);
+	path[path_len] = '\0';
+	ft_strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
+	return (0);
+}
+
 char	*check_cmd_path(const char *filename, t_env **env)
 {
 	char	path[PATH_MAX];
 	char	*value;
 	char	*end;
 	char	*dup;
-	size_t	path_len;
 
 	value = ft_getenv("PATH", env);
 	if (!value)
 		return (NULL);
 	while (*value)
 	{
-		end = ft_strchr(value, ':');
-		if (end)
-			path_len = (size_t)end - (size_t)value;
-		else
-			path_len = ft_strlen(value);
-		if (path_len >= PATH_MAX)
+		if (make_pathlen(&end, path, &value))
 			return (NULL);
-		ft_memcpy(path, value, path_len);
-		path[path_len] = '\0';
-		ft_strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
 		ft_strncat(path, filename, PATH_MAX - ft_strlen(path) - 1);
 		if (access(path, X_OK) == 0)
 		{
@@ -107,6 +101,23 @@ char	*check_cmd_path(const char *filename, t_env **env)
 	return (NULL);
 }
 
+static void	wait_pipeline_if(int *status, int *wstatus,
+		pid_t *wait_pid, pid_t *last_child_pid)
+{
+	if (*wait_pid == *last_child_pid)
+	{
+		if (WIFSIGNALED(*wstatus))
+		{
+			if (isatty(STDIN_FILENO))
+				printf("\n");
+			*status = 128 + WTERMSIG(*wstatus);
+		}
+		else
+			*status = WEXITSTATUS(*wstatus);
+	}
+
+}
+
 int	wait_pipeline(pid_t last_child_pid)
 {
 	pid_t	wait_pid;
@@ -117,29 +128,18 @@ int	wait_pipeline(pid_t last_child_pid)
 	{
 		g_data.sig = 0;
 		wait_pid = wait(&wstatus);
-		// printf("wait_pid: %d", wait_pid);
 		if (wait_pid == last_child_pid)
-		{
-			if (WIFSIGNALED(wstatus))
-			{
-				if (isatty(STDIN_FILENO))
-					printf("\n");
-			 	status = 128 + WTERMSIG(wstatus);
-			}
-			else
-				status = WEXITSTATUS(wstatus);
-		}
+			wait_pipeline_if(&status, &wstatus, &wait_pid, &last_child_pid);
 		else if (wait_pid < 0)
 		{
 			if (errno == ECHILD)
-					break ;
+				break ;
 			else if (errno == EINTR)
 				continue ;
 			else
 				fatal_error("wait");
 		}
 	}
-	// printf("finish wait_pipeline\n");
 	return (status);
 }
 
@@ -172,7 +172,6 @@ char	**change_env_to_environ(t_env *env)
 	{
 		if (env->value != NULL)
 		{
-			// printf("env->key:%s\n", env->key);
 			environ[i] = ft_strjoin_three(env->key, "=", env->value);
 			i++;
 		}
@@ -182,17 +181,6 @@ char	**change_env_to_environ(t_env *env)
 	return (environ);
 }
 
-// static void	print_argv(char **argv)
-// {
-// 	size_t	i;
-// 
-// 	i = 0;
-// 	while (argv[i])
-// 	{
-// 		printf("argv[%ld]:%s\n", i, argv[i]);
-// 		i++;
-// 	}
-// }
 
 void	exec_simple_cmd(t_node *node, t_env **env)
 {
@@ -200,7 +188,6 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	char		*path;
 	char		**argv;
 
-	// printf("start exec_simple_cmd\n");
 	argv = NULL;
 	if (node->command->redirects != NULL)
 		do_redirect(node->command->redirects);
@@ -208,8 +195,6 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 		argv = add_token_to_argv(node->command->args);
 	else if (node->command->args == NULL && node->command->redirects != NULL)
 		exit (0);
-	// print_argv(argv);
-	// printf("path:%s\n", path);
 	if (ft_strchr(argv[0], '/') == NULL)
 		path = check_cmd_path(argv[0], env);
 	else
@@ -217,12 +202,31 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	if (!check_is_filename(path, argv[0]))
 		err_exit(argv[0], COMMAND_NOT_FOUND, 127);
 	environ = change_env_to_environ(*env);
-	// printf("==============================\n");
-	// print_envp(environ);
-	// printf("==============================\n");
 	execve(path, argv, environ);
 	free_argv(argv);
 	fatal_error("execve");
+}
+
+static int	exec_cmd_if(t_node **node,t_env **env, pid_t *pid)
+{
+	int	status;
+
+	status = 0;
+	if (*pid < 0)
+		fatal_error("fork");
+	else if (*pid == CHILD_PID)
+	{
+		reset_signal_to_default();
+		prepare_pipe_child(*node);
+		if (is_builtin(*node))
+		{
+			status = exec_builtin_cmd(*node, env);
+			exit(status);
+		}
+		else
+			exec_simple_cmd(*node, env);
+	}
+	return (status);
 }
 
 int	exec_cmd(t_node *node, t_env **env)
@@ -232,30 +236,9 @@ int	exec_cmd(t_node *node, t_env **env)
 
 	while (node != NULL)
 	{
-		// printf("start exec_cmd\n");
 		prepare_pipe(node);
 		pid = fork();
-		// printf("fork=============================================\n");
-		if (pid < 0)
-			fatal_error("fork");
-		else if (pid == CHILD_PID)
-		{
-			// printf("start child_process\n");
-			reset_signal_to_default();
-			prepare_pipe_child(node);
-			if (is_builtin(node))
-			{
-				// printf("exec_builtin_cmd\n");
-				status = exec_builtin_cmd(node, env);
-				exit(status);
-			}
-			else
-			{
-				// printf("exec_simple_cmd\n");
-				exec_simple_cmd(node, env);
-			}
-		}
-		// printf("start parent_process\n");
+		status = exec_cmd_if(&node, env, &pid);
 		prepare_pipe_parent(node);
 		node = node->next;
 	}
@@ -271,28 +254,8 @@ int	exec(t_node *node, t_env **env)
 	if (open_redirect_file(node, env) < 0)
 		return (ERROR_OPEN_REDIR);
 	if (node->next == NULL && is_builtin(node))
-	{
-		// printf("exec_builtin_cmd in parent process\n");
 		status = exec_builtin_cmd(node, env);
-	}
 	else
-	{
 		status = exec_cmd(node, env);
-		// printf("finish exec_cmd\n");
-	}
 	return (status);
 }
-
-// int	exec(t_node *node)
-// {
-// 	int		status;
-// 	pid_t	last_child_pid;
-// 
-// 	if (open_redirect_file(node) < 0)
-// 		return (ERROR_OPEN_REDIR);
-// 	// printf("finish open_redirect\n");
-// 	last_child_pid = exec_cmd(node);
-// 	// printf("finish exec_cmd\n");
-// 	status = wait_pipeline(last_child_pid);
-// 	return (status);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:46:09 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 13:15:51 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:24:27 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,3 @@ void	remove_quote(t_node *node)
 		node = node->next;
 	}
 }
-
-// void	expand_quote_removal(t_node *node)
-// {
-// 	if (node == NULL)
-// 		return ;
-// 	remove_quote(node->args);
-// 	remove_quote(node->filename);
-// 	remove_quote(node->delimiter);
-// 	expand_quote_removal(node->redirects);
-// 	expand_quote_removal(node->command);
-// 	expand_quote_removal(node->next);
-// }
