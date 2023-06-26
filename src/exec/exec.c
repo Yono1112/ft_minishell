@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/26 18:48:36 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/26 19:05:37 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,29 +54,38 @@ bool	check_is_filename(const char *path, const char *filename)
 	return (true);
 }
 
+static int	make_pathlen(char **end,
+							char *path, char **value)
+{
+	size_t	path_len;
+
+	*end = ft_strchr(*value, ':');
+	if (*end)
+		path_len = (size_t)(*end - *value);
+	else
+		path_len = ft_strlen(*value);
+	if (path_len >= PATH_MAX)
+		return (1);
+	ft_memcpy(path, *value, path_len);
+	path[path_len] = '\0';
+	ft_strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
+	return (0);
+}
+
 char	*check_cmd_path(const char *filename, t_env **env)
 {
 	char	path[PATH_MAX];
 	char	*value;
 	char	*end;
 	char	*dup;
-	size_t	path_len;
 
 	value = ft_getenv("PATH", env);
 	if (!value)
 		return (NULL);
 	while (*value)
 	{
-		end = ft_strchr(value, ':');
-		if (end)
-			path_len = (size_t)end - (size_t)value;
-		else
-			path_len = ft_strlen(value);
-		if (path_len >= PATH_MAX)
+		if (make_pathlen(&end, path, &value))
 			return (NULL);
-		ft_memcpy(path, value, path_len);
-		path[path_len] = '\0';
-		ft_strncat(path, "/", PATH_MAX - ft_strlen(path) - 1);
 		ft_strncat(path, filename, PATH_MAX - ft_strlen(path) - 1);
 		if (access(path, X_OK) == 0)
 		{
