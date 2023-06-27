@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 00:37:44 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 00:38:06 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 17:39:58 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ bool	check_is_filename(const char *path, const char *filename)
 {
 	struct stat	sb;
 
+	if (!ft_strcmp(filename, ":"))
+		return (false);
 	if (path == NULL)
 		return (false);
 	else if (!ft_strcmp(filename, ""))
