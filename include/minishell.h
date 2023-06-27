@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 11:04:18 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 11:10:02 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ typedef struct s_node
 	struct s_node	*next;
 	t_token			*args;
 	struct s_node	*redirects;
-	int				targetfd;
+	int				std_fd;
 	t_token			*filename;
 	t_token			*delimiter;
 	int				filefd;
-	int				stashed_targetfd;
+	int				stashed_std_fd;
 	bool			is_delimiter_quote;
 	struct s_node	*command;
 	int				inpipe[2];

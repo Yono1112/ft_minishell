@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 05:53:05 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 11:08:13 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	input_readline(t_env **env)
 		if (input == NULL)
 		{
 			if (isatty(STDIN_FILENO))
-				 write(STDOUT_FILENO, "exit\n", ft_strlen("exit\n"));
+				write(STDOUT_FILENO, "exit\n", ft_strlen("exit\n"));
 			break ;
 		}
 		if (*input)
