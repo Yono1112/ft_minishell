@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 11:01:25 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 11:04:18 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,6 @@
 # define ERROR_SINGLE "Unclosed sigle quote"
 # define ERROR_DOUBLE "Unclosed double quote"
 
-// extern int	last_status;
-// extern bool	syntax_error;
-// extern bool	readline_interrupted;
-// extern volatile sig_atomic_t	sig;
-// extern int	_rl_echo_control_chars;
 extern struct s_data	g_data;
 
 typedef struct s_data
@@ -73,7 +68,6 @@ typedef struct s_data
 typedef enum e_token_kind
 {
 	TK_WORD,
-	TK_RESERVED,
 	TK_OP,
 	TK_EOF,
 }	t_token_kind;
