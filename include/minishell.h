@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 11:10:02 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 17:06:33 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@
 # define DOUBLE_QUOTE_CHAR '\"'
 # define ERROR_TOKENIZE 258
 # define ERROR_PARSE 258
-# define ERROR_OPEN_REDIR 1
+# define CHILD_PID 0
 // # define STDOUT_FILENO 1
 // # define STDIN_FILENO 0
-# define CHILD_PID 0
-# define NOT_CONTROL_CHARS 0
 # define SHELL_PROMPT "\x1b[96mminishell\x1b[0m$ "
 # define NEW_LINE "\n"
 # define ERROR_PREFIX "minishell: "
@@ -123,8 +121,7 @@ void	builtin_error(char *func, char *name, char *err_message);
 void	parse_error(const char *location, t_token **rest,
 			t_token *token, int *syntax_error);
 // exec
-int		exec(t_node *node, t_env **env);
-int		exec_cmd(t_node *node, t_env **env);
+void	exec(t_node *node, t_env **env);
 int		wait_pipeline(pid_t last_child_pid);
 char	*check_cmd_path(const char *filename, t_env **env);
 bool	check_is_filename(const char *path, const char *filename);

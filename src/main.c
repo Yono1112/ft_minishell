@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 11:08:13 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 15:07:41 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	process_input(char *const line, t_env **env)
 		else
 		{
 			expand(node, env);
-			g_data.last_status = exec(node, env);
+			exec(node, env);
 		}
 		free_node(node);
 	}

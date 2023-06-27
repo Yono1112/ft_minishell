@@ -1,13 +1,12 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+LDFLAGS = -lreadline -L$(LIBFTDIR) -lft
 ifeq ($(shell uname -s), Linux)
-LDFLAGS = -lreadline
 else
 RLDIR = $(shell brew --prefix readline)
-LDFLAGS = -lreadline -L$(RLDIR)/lib -lft -L$(LIBFTDIR)
+LDFLAGS += -L$(RLDIR)/lib
 endif
-# LDFLAGS = -lreadline
 RM = rm -rf
 SRCS =	src/main.c	\
 		src/free/free.c	\
@@ -46,7 +45,6 @@ SRCS =	src/main.c	\
 		src/execution/exec.c	\
 		src/execution/check_cmd_path.c	\
 		src/execution/check_is_filename.c	\
-		src/execution/exec_cmd.c	\
 		src/execution/exec_simple_cmd.c	\
 		src/execution/wait_pipeline.c	\
 		src/signal/signal.c	\
