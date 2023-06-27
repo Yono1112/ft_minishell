@@ -18,17 +18,17 @@ SRCS =	src/main.c	\
 		src/lexer/add_token_to_argv.c	\
 		src/output_error/output_error.c	\
 		src/expansion/expand.c	\
-		src/expansion/remove_quote.c	\
-		src/expansion/expand_variable.c	\
-		src/expansion/expand_heredoc_line.c	\
-		src/expansion/append_quote.c	\
-		src/expansion/expand_parameter_str.c	\
-		src/expansion/expand_variable_str.c	\
-		src/expansion/expand_variable_token.c	\
+		src/expansion/remove_quote/remove_quote.c	\
+		src/expansion/expand_variable/expand_variable.c	\
+		src/expansion/expand_variable/expand_heredoc_line.c	\
+		src/expansion/expand_variable/append_quote.c	\
+		src/expansion/expand_variable/expand_parameter_str.c	\
+		src/expansion/expand_variable/expand_variable_str.c	\
+		src/expansion/expand_variable/expand_variable_token.c	\
 		src/expansion/is_utils.c	\
-		src/expansion/remove_quote_token.c	\
-		src/expansion/remove_single_double_quote.c	\
-		src/expansion/append_char.c	\
+		src/expansion/remove_quote/remove_quote_token.c	\
+		src/expansion/remove_quote/remove_single_double_quote.c	\
+		src/expansion/expand_variable/append_char.c	\
 		src/parser/parse.c	\
 		src/parser/pipeline.c	\
 		src/parser/add_operator_to_node.c	\

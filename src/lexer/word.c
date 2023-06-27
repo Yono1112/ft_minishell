@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 21:14:14 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 11:22:50 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	check_error(char quote, char **line, int *syntax_error)
 	{
 		if (**line == '\0')
 		{
-			if (quote == '\'')
+			if (quote == SINGLE_QUOTE_CHAR)
 				tokenize_error(ERROR_SINGLE, line, *line, syntax_error);
 			else
 				tokenize_error(ERROR_DOUBLE, line, *line, syntax_error);
