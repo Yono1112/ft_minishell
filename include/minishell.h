@@ -37,8 +37,8 @@
 # define ERROR_TOKENIZE 258
 # define ERROR_PARSE 258
 # define ERROR_OPEN_REDIR 1
-# define STDOUT_FILENO 1
-# define STDIN_FILENO 0
+// # define STDOUT_FILENO 1
+// # define STDIN_FILENO 0
 # define CHILD_PID 0
 # define NOT_CONTROL_CHARS 0
 # define SHELL_PROMPT "\x1b[96mminishell\x1b[0m$ "

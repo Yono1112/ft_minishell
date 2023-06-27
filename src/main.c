@@ -63,14 +63,14 @@ t_data	g_data;
 // 		print_node(node->next);
 // }
 
-void	init_g_data(void)
+static void	init_g_data(void)
 {
 	g_data.last_status = 0;
 	g_data.readline_interrupted = false;
 	g_data.sig = 0;
 }
 
-void	interpret(char *const line, int *status, t_env **env)
+static void	process_input(char *const line, t_env **env)
 {
 	t_token	*token;
 	t_node	*node;
@@ -79,25 +79,45 @@ void	interpret(char *const line, int *status, t_env **env)
 	syntax_error = 0;
 	token = tokenize(line, &syntax_error);
 	if (token->kind != TK_EOF && syntax_error)
-		*status = ERROR_TOKENIZE;
+		g_data.last_status = ERROR_TOKENIZE;
 	else if (token->kind != TK_EOF)
 	{
 		node = parse(token, &syntax_error);
 		if (syntax_error)
-			*status = ERROR_PARSE;
+			g_data.last_status = ERROR_PARSE;
 		else
 		{
 			expand(node, env);
-			*status = exec(node, env);
+			g_data.last_status = exec(node, env);
 		}
 		free_node(node);
 	}
 	free_token(token);
 }
 
+static void	input_readline(t_env **env)
+{
+	char	*input;
+
+	while (1)
+	{
+		input = readline(SHELL_PROMPT);
+		if (input == NULL)
+		{
+			if (isatty(STDIN_FILENO))
+				 write(STDOUT_FILENO, "exit\n", ft_strlen("exit\n"));
+			break ;
+		}
+		if (*input)
+			add_history(input);
+		process_input(input, env);
+		if (input)
+			free(input);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	char		*line;
 	t_env		*env;
 
 	(void)argc;
@@ -106,16 +126,6 @@ int	main(int argc, char **argv, char **envp)
 	env = init_env_list(envp);
 	init_g_data();
 	set_signal();
-	while (1)
-	{
-		line = readline(SHELL_PROMPT);
-		if (line == NULL)
-			break ;
-		if (*line)
-			add_history(line);
-		interpret(line, &g_data.last_status, &env);
-		if (line)
-			free(line);
-	}
+	input_readline(&env);
 	exit (g_data.last_status);
 }
