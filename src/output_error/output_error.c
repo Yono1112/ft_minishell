@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 03:09:29 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 04:56:09 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 21:23:38 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	parse_error(const char *location, t_token **rest,
 	write(STDERR_FILENO, ERROR_PREFIX, ft_strlen(ERROR_PREFIX));
 	write(STDERR_FILENO, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR));
 	write(STDERR_FILENO, ERROR_PARSE_MSG, ft_strlen(ERROR_PARSE_MSG));
+	write(STDERR_FILENO, "`", ft_strlen("`"));
 	write(STDERR_FILENO, location, ft_strlen(location));
+	write(STDERR_FILENO, "'", ft_strlen("'"));
 	write(STDERR_FILENO, NEW_LINE, ft_strlen(NEW_LINE));
 	while (token && token->kind != TK_EOF)
 		token = token->next;
