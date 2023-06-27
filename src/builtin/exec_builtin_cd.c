@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:15:21 by rnaka             #+#    #+#             */
-/*   Updated: 2023/06/27 05:59:26 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 17:43:01 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ static int	cd_home(t_env **env)
 	}
 	status = chdir(arg);
 	if (status)
-	{
-		builtin_error("cd", arg, NULL);
-		return (1);
-	}
+		return (output_cd_argv_error(arg));
 	save = ft_strdup(ft_getenv("HOME", env));
 	update_value_to_env(env, "PWD", save);
 	free(save);
