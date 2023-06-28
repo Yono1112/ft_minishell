@@ -17,9 +17,9 @@ int	exec(t_node *node, t_env **env)
 	int		status;
 
 	status = 0;
-	if (open_redirect_file(node, env) < 0)
-		return (ERROR_OPEN_REDIR);
-	if (node->next == NULL && is_builtin(node))
+	if (open_redirect_file(node, env) < 0 || g_data.readline_interrupted)
+		status = 1;
+	else if (node->next == NULL && is_builtin(node))
 		status = exec_builtin_cmd(node, env);
 	else
 		status = exec_cmd(node, env);

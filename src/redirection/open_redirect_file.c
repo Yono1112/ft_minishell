@@ -44,6 +44,7 @@ int	open_redirect_file(t_node *node, t_env **env)
 {
 	t_node	*start_node;
 
+	g_data.readline_interrupted = false;
 	start_node = node;
 	while (node != NULL)
 	{
