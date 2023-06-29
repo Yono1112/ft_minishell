@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 05:52:33 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 15:26:05 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@
 # define DOUBLE_QUOTE_CHAR '\"'
 # define ERROR_TOKENIZE 258
 # define ERROR_PARSE 258
-# define ERROR_OPEN_REDIR 1
-# define STDOUT_FILENO 1
-# define STDIN_FILENO 0
 # define CHILD_PID 0
-# define NOT_CONTROL_CHARS 0
+// # define STDOUT_FILENO 1
+// # define STDIN_FILENO 0
 # define SHELL_PROMPT "\x1b[96mminishell\x1b[0m$ "
 # define NEW_LINE "\n"
 # define ERROR_PREFIX "minishell: "
@@ -56,24 +54,18 @@
 # define ERROR_SINGLE "Unclosed sigle quote"
 # define ERROR_DOUBLE "Unclosed double quote"
 
-// extern int	last_status;
-// extern bool	syntax_error;
-// extern bool	readline_interrupted;
-// extern volatile sig_atomic_t	sig;
-// extern int	_rl_echo_control_chars;
 extern struct s_data	g_data;
 
 typedef struct s_data
 {
 	int						last_status;
-	bool					readline_interrupted;
+	bool					heredoc_sig_received;
 	volatile sig_atomic_t	sig;
 }	t_data;
 
 typedef enum e_token_kind
 {
 	TK_WORD,
-	TK_RESERVED,
 	TK_OP,
 	TK_EOF,
 }	t_token_kind;
@@ -101,11 +93,11 @@ typedef struct s_node
 	struct s_node	*next;
 	t_token			*args;
 	struct s_node	*redirects;
-	int				targetfd;
+	int				std_fd;
 	t_token			*filename;
 	t_token			*delimiter;
 	int				filefd;
-	int				stashed_targetfd;
+	int				stashed_std_fd;
 	bool			is_delimiter_quote;
 	struct s_node	*command;
 	int				inpipe[2];
@@ -119,9 +111,6 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-void	print_envp(char **envp);
-void	print_token(t_token *token);
-void	print_argv(char **str);
 // free
 void	free_node(t_node *node);
 void	free_argv(char **argv);
@@ -132,8 +121,7 @@ void	builtin_error(char *func, char *name, char *err_message);
 void	parse_error(const char *location, t_token **rest,
 			t_token *token, int *syntax_error);
 // exec
-int		exec(t_node *node, t_env **env);
-int		exec_cmd(t_node *node, t_env **env);
+void	exec(t_node *node, t_env **env);
 int		wait_pipeline(pid_t last_child_pid);
 char	*check_cmd_path(const char *filename, t_env **env);
 bool	check_is_filename(const char *path, const char *filename);
@@ -201,7 +189,7 @@ void	prepare_pipe(t_node *node);
 void	prepare_pipe_child(t_node *node);
 void	prepare_pipe_parent(t_node *node);
 // signal
-void	set_signal(void);
+void	set_signal_action(void);
 void	reset_signal_to_default(void);
 // builtin
 bool	is_builtin(t_node *node);
@@ -210,7 +198,7 @@ int		exec_builtin_echo(char **argv);
 int		count_argc(char **argv);
 int		exec_builtin_pwd(char **argv, t_env **env);
 int		exec_builtin_cd(char **argv, t_env **env);
-int		exec_builtin_cmd(t_node *node, t_env **env);
+int		exec_builtin_cmd(t_node *node, t_env **env, bool is_child_process);
 int		exec_builtin_exit(char **argv);
 int		exec_builtin_echo(char **argv);
 int		count_argc(char **argv);
@@ -229,5 +217,9 @@ bool	is_variable(char *str);
 void	update_value_to_env(t_env **env, char *key, char *value);
 void	add_key_value_to_env(t_env **env, char *key, char *value);
 int		unset_env_list(t_env **env, char *str);
+// debug_print
+// void	print_envp(char **envp);
+// void	print_token(t_token *token);
+// void	print_argv(char **str);
 
 #endif

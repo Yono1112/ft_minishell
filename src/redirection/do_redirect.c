@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 01:13:14 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 04:57:43 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/27 11:13:29 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	do_redirect(t_node *redirect)
 	{
 		if (is_redirect(redirect))
 		{
-			if (redirect->stashed_targetfd != STDIN_FILENO)
-				redirect->stashed_targetfd = stashfd(redirect->targetfd);
-			if (dup2(redirect->filefd, redirect->targetfd) < 0)
+			if (redirect->stashed_std_fd != STDIN_FILENO)
+				redirect->stashed_std_fd = stashfd(redirect->std_fd);
+			if (dup2(redirect->filefd, redirect->std_fd) < 0)
 			{
 				fatal_error("dup2");
 				return ;

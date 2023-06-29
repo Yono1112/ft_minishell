@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 00:42:08 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 00:43:31 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 16:55:29 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	exec_simple_cmd(t_node *node, t_env **env)
 	char		**argv;
 
 	argv = NULL;
+	reset_signal_to_default();
+	prepare_pipe_child(node);
 	if (node->command->redirects != NULL)
 		do_redirect(node->command->redirects);
 	if (node->command->args != NULL)

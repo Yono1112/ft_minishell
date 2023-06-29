@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 19:56:08 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 15:25:34 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,14 @@
 
 t_data	g_data;
 
-// void	print_argv(char **str)
-// {
-// 	int	i = 0;
-
-// 	while (str[i])
-// 	{
-// 		printf("str[%d]:%s\n", i, str[i]);
-// 		i++;
-// 	}
-// }
-
-// void	print_token(t_token *token)
-// {
-// 	while (token && token->kind != TK_EOF)
-// 	{
-// 		printf("token_word: %s\n", token->word);
-// 		token = token->next;
-// 	}
-// }
-
-// void	print_env(t_env *env)
-// {
-// 	printf("start print_env\n");
-// 	printf("=======================================================\n");
-// 	while (env)
-// 	{
-// 		printf("env->key:%s, env->value:%s\n", env->key, env->value);
-// 		env = env->next;
-// 	}
-// }
-
-// void	print_node(t_node *node)
-// {
-// 	if (node->command->args)
-// 	{
-// 		printf("node->command->args\n");
-// 		print_token(node->command->args);
-// 	}
-// 	if (node->command->redirects)
-// 	{
-// 		printf("node->command->redirects\n");
-// 		print_token(node->command->args);
-// 		print_token(node->command->redirects->filename);
-// 		print_token(node->command->redirects->delimiter);
-// 	}
-// 	if (node->next)
-// 		print_node(node->next);
-// }
-
-void	init_g_data(void)
+static void	init_global_variable(void)
 {
 	g_data.last_status = 0;
-	g_data.readline_interrupted = false;
+	g_data.heredoc_sig_received = false;
 	g_data.sig = 0;
 }
 
-void	interpret(char *const line, int *status, t_env **env)
+static void	process_input(char *const line, t_env **env)
 {
 	t_token	*token;
 	t_node	*node;
@@ -79,43 +30,53 @@ void	interpret(char *const line, int *status, t_env **env)
 	syntax_error = 0;
 	token = tokenize(line, &syntax_error);
 	if (token->kind != TK_EOF && syntax_error)
-		*status = ERROR_TOKENIZE;
+		g_data.last_status = ERROR_TOKENIZE;
 	else if (token->kind != TK_EOF)
 	{
 		node = parse(token, &syntax_error);
 		if (syntax_error)
-			*status = ERROR_PARSE;
+			g_data.last_status = ERROR_PARSE;
 		else
 		{
 			expand(node, env);
-			*status = exec(node, env);
+			exec(node, env);
 		}
 		free_node(node);
 	}
 	free_token(token);
 }
 
+static void	input_readline(t_env **env)
+{
+	char	*input;
+
+	rl_outstream = stderr;
+	while (1)
+	{
+		input = readline(SHELL_PROMPT);
+		if (input == NULL)
+		{
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "exit\n", ft_strlen("exit\n"));
+			break ;
+		}
+		if (*input)
+			add_history(input);
+		process_input(input, env);
+		if (input)
+			free(input);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	char		*line;
 	t_env		*env;
 
 	(void)argc;
 	(void)argv;
-	rl_outstream = stderr;
 	env = init_env_list(envp);
-	init_g_data();
-	set_signal();
-	while (1)
-	{
-		line = readline(SHELL_PROMPT);
-		if (line == NULL)
-			break ;
-		if (*line)
-			add_history(line);
-		interpret(line, &g_data.last_status, &env);
-		if (line)
-			free(line);
-	}
+	init_global_variable();
+	set_signal_action();
+	input_readline(&env);
 	exit (g_data.last_status);
 }

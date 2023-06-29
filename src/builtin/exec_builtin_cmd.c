@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:33:42 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 03:38:08 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 15:12:08 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,18 @@ static int	exec_builtin_cmd_devide_word(char **argv, t_env **env)
 	return (status);
 }
 
-int	exec_builtin_cmd(t_node *node, t_env **env)
+int	exec_builtin_cmd(t_node *node, t_env **env, bool is_child_process)
 {
 	int		status;
 	char	**argv;
 
 	status = 0;
 	argv = NULL;
+	if (is_child_process)
+	{
+		reset_signal_to_default();
+		prepare_pipe_child(node);
+	}
 	if (node->command->redirects != NULL)
 		do_redirect(node->command->redirects);
 	if (node->command->args != NULL)

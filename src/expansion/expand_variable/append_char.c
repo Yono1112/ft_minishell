@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 03:35:31 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 03:43:04 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 14:47:27 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 void	append_char(char **s, char c)
 {
 	size_t	len;
-	char	*new;
+	char	*appended_word;
 
+	len = 2;
 	if (*s)
-		len = ft_strlen(*s) + 2;
-	else
-		len = 2;
-	new = malloc(len);
-	if (!new)
+		len += ft_strlen(*s);
+	appended_word = (char *)malloc(len);
+	if (appended_word == NULL)
 		fatal_error("malloc");
 	if (*s)
-		ft_strlcpy(new, *s, len);
-	new[len - 1] = '\0';
-	new[len - 2] = c;
-	if (*s)
+	{
+		ft_strlcpy(appended_word, *s, len);
 		free(*s);
-	*s = new;
+	}
+	appended_word[len - 1] = '\0';
+	appended_word[len - 2] = c;
+	*s = appended_word;
 }

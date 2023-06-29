@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 20:26:52 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 11:11:12 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	check_error(char quote, char **line, int *syntax_error)
 	{
 		if (**line == '\0')
 		{
-			if (quote == '\'')
+			if (quote == SINGLE_QUOTE_CHAR)
 				tokenize_error(ERROR_SINGLE, line, *line, syntax_error);
 			else
 				tokenize_error(ERROR_DOUBLE, line, *line, syntax_error);

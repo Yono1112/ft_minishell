@@ -186,6 +186,7 @@ assert 'cat | cat | ls\n\n'
 assert 'echo $USER'
 assert 'echo $USER$PATH$TERM'
 assert 'echo "$USER  $PATH   $TERM"'
+assert 'echo $U%SER'
 
 # Special Parameter $?
 assert 'echo $?'
