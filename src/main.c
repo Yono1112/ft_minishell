@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/29 11:50:26 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 15:20:14 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	input_readline(t_env **env)
 {
 	char	*input;
 
+	rl_outstream = stderr;
 	while (1)
 	{
 		input = readline(SHELL_PROMPT);
@@ -73,7 +74,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	rl_outstream = stderr;
 	env = init_env_list(envp);
 	init_g_data();
 	set_signal();
