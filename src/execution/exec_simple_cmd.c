@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 00:42:08 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 16:55:29 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 18:34:13 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 {
 	char	*str;
 	size_t	len;
+	char	*tmp;
 
 	if (!s1 || !s2 || !s3)
 		return (NULL);
@@ -23,13 +24,14 @@ static char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
+	tmp = str;
 	while (*s1)
-		*str++ = *s1++;
+		*tmp++ = *s1++;
 	while (*s2)
-		*str++ = *s2++;
+		*tmp++ = *s2++;
 	while (*s3)
-		*str++ = *s3++;
-	*str = '\0';
+		*tmp++ = *s3++;
+	*tmp = '\0';
 	return (str);
 }
 
