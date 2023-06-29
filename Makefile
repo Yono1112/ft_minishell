@@ -66,7 +66,7 @@ SRCS =	src/main.c	\
 		src/environ/unset_env_list.c	\
 		src/builtin/exec_builtin_env.c	\
 		src/environ/update_value_to_env.c	\
-		src/environ/add_key_value_to_env.c	
+		src/environ/add_key_value_to_env.c
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
