@@ -186,7 +186,6 @@ assert 'cat | cat | ls\n\n'
 assert 'echo $USER'
 assert 'echo $USER$PATH$TERM'
 assert 'echo "$USER  $PATH   $TERM"'
-assert 'echo $U%SER'
 
 # Special Parameter $?
 assert 'echo $?'
@@ -270,10 +269,21 @@ assert './infinite_loop'
 ## exit
 assert 'exit'
 assert 'exit 42'
+assert 'exit -42'
+assert 'exit -257'
+assert 'exit --42'
+assert 'exit +42'
+assert 'exit +++42'
 assert 'exit ""'
+assert 'exit " 42 "'
 assert 'exit hello'
 assert 'exit 42Tokyo'
+assert 'exit 42a 42'
+assert 'exit a 42'
+assert 'exit 42 41'
 assert 'exit 1 2'
+assert 'exit 1111111111'
+assert 'exit 99999999999999999999'
 
 ## export
 print_desc "Output of 'export' differs, but it's ok."
@@ -342,6 +352,23 @@ assert 'echo hello -n'
 assert 'echo -n -n hello'
 assert 'echo -n -n  -n hello'
 assert 'echo -nn -nn hello'
+assert 'echo -a'
+assert 'echo -nnnnn hello'
+assert 'echo -na hello'
+assert 'echo - n'
+assert 'echo - hello'
+
+## unset
+export hoge fuga=fuga
+assert 'unset'
+assert 'unset hoge'
+assert 'unset fuga'
+assert 'unset nosuch'
+assert 'unset [invalid]'
+assert 'unset hoge fuga'
+assert 'unset hoge nosuch fuga'
+assert 'unset fuga \n export | echo $fuga'
+assert 'unset [invalid] fuga \n echo $fuga'
 
 ## pwd
 assert 'pwd'
