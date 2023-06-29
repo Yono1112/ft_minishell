@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:33:23 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/29 11:11:04 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 11:40:58 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	exec(t_node *node, t_env **env)
 	pid_t	pid;
 	int		status;
 
-	status = 0;
 	if (open_redirect_file(node, env) < 0 || g_data.readline_interrupted)
 		status = 1;
 	else if (node->next == NULL && is_builtin(node))

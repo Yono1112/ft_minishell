@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 04:47:57 by rnaka             #+#    #+#             */
-/*   Updated: 2023/06/27 18:51:12 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/29 11:41:49 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int	is_option(char *str)
 	}
 	return (flag);
 }
-
 
 int	exec_builtin_echo(char **argv)
 {
