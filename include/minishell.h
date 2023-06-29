@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 17:06:33 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 11:51:30 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ extern struct s_data	g_data;
 typedef struct s_data
 {
 	int						last_status;
-	bool					readline_interrupted;
+	bool					heredoc_sig_received;
 	volatile sig_atomic_t	sig;
 }	t_data;
 

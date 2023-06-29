@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 01:14:53 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 01:19:20 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 11:50:26 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	while_read_heredoc(const char *delimiter,
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (g_data.readline_interrupted || !ft_strcmp(line, delimiter))
+		if (g_data.heredoc_sig_received || !ft_strcmp(line, delimiter))
 		{
 			free(line);
 			break ;
@@ -42,7 +42,7 @@ int	read_heredoc(const char *delimiter, bool is_delimiter_quote, t_env **env)
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
 	while_read_heredoc(delimiter, is_delimiter_quote, env, pfd);
-	if (g_data.readline_interrupted)
+	if (g_data.heredoc_sig_received)
 	{
 		close(pfd[0]);
 		return (-1);

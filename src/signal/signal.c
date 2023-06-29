@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 04:58:52 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/29 11:50:26 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_state(void)
 	if (g_data.sig == SIGINT)
 	{
 		g_data.sig = 0;
-		g_data.readline_interrupted = true;
+		g_data.heredoc_sig_received = true;
 		rl_replace_line("", 0);
 		rl_done = 1;
 		g_data.last_status = 1;

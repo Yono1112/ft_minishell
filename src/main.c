@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/29 11:10:45 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 11:50:26 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_data	g_data;
 static void	init_g_data(void)
 {
 	g_data.last_status = 0;
-	g_data.readline_interrupted = false;
+	g_data.heredoc_sig_received = false;
 	g_data.sig = 0;
 }
 
