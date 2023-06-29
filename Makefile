@@ -2,8 +2,7 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline -L$(LIBFTDIR) -lft
-ifeq ($(shell uname -s), Linux)
-else
+ifneq ($(shell uname -s), Linux)
 RLDIR = $(shell brew --prefix readline)
 LDFLAGS += -L$(RLDIR)/lib
 endif
