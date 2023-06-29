@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:17:59 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/27 11:22:50 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 11:11:12 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_word(char *line)
 static void	check_error(char quote, char **line, int *syntax_error)
 {
 	(*line)++;
-	while (**line != quote)
+	while ((*line) && **line != quote)
 	{
 		if (**line == '\0')
 		{
@@ -28,7 +28,7 @@ static void	check_error(char quote, char **line, int *syntax_error)
 				tokenize_error(ERROR_SINGLE, line, *line, syntax_error);
 			else
 				tokenize_error(ERROR_DOUBLE, line, *line, syntax_error);
-			break ;
+			return ;
 		}
 		(*line)++;
 	}

@@ -339,6 +339,9 @@ assert 'echo -n'
 assert 'echo -n hello'
 assert 'echo -n hello world'
 assert 'echo hello -n'
+assert 'echo -n -n hello'
+assert 'echo -n -n  -n hello'
+assert 'echo -nn -nn hello'
 
 ## pwd
 assert 'pwd'

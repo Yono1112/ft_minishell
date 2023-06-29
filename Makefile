@@ -94,7 +94,6 @@ $(NAME): $(OBJS) $(LIBFT)
 clean:
 	$(RM) $(OBJS)
 	$(RM) $(OBJ_DIR)
-	@make fclean -C $(LIBFTDIR)
 
 fclean: clean
 	$(RM) $(NAME)

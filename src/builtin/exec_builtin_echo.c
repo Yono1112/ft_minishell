@@ -6,27 +6,11 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 04:47:57 by rnaka             #+#    #+#             */
-/*   Updated: 2023/06/27 05:56:26 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/27 18:51:12 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static bool	check_valid_option(char *second_arg)
-{
-	int	i;
-
-	i = 1;
-	if (second_arg[i] == '\0')
-		return (false);
-	while (second_arg[i])
-	{
-		if (second_arg[i] != 'n')
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 static void	write_str(char *str)
 {
@@ -40,22 +24,44 @@ static void	write_str(char *str)
 	}
 }
 
+static int	is_option(char *str)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 1;
+	if (!str[i] || str[i] != '-')
+		return (1);
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] == 'n')
+			flag = 0;
+		else
+			return (1);
+		i++;
+	}
+	return (flag);
+}
+
+
 int	exec_builtin_echo(char **argv)
 {
 	int	i;
-	int	is_option;
+	int	j;
 	int	argc;
 
 	i = 0;
-	is_option = 0;
+	j = 1;
 	argc = count_argc(argv);
 	if (argc == 1)
 		write(STDOUT_FILENO, "\n", 1);
 	else
 	{
-		if ('-' == argv[1][0] && check_valid_option(argv[1]))
-			is_option = 1;
-		i = is_option + 1;
+		while (argv[j] && !is_option(argv[j]))
+			j++;
+		i = j;
 		while (i < argc)
 		{
 			write_str(argv[i]);
@@ -63,7 +69,7 @@ int	exec_builtin_echo(char **argv)
 				write(1, " ", 1);
 			i++;
 		}
-		if (!is_option)
+		if (j == 1)
 			write(STDOUT_FILENO, "\n", 1);
 	}
 	return (0);
