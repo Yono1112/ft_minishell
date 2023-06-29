@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:05:12 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/26 17:58:41 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 20:19:37 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,20 @@
 void	free_node(t_node *node)
 {
 	t_node	*next_node;
+	t_node	*next_redirect;
 
 	while (node != NULL)
 	{
 		if (node->command->redirects)
 		{
-			free_token(node->command->redirects->filename);
-			free_token(node->command->redirects->delimiter);
-			free(node->command->redirects);
+			while (node->command->redirects)
+			{
+				free_token(node->command->redirects->filename);
+				free_token(node->command->redirects->delimiter);
+				next_redirect = node->command->redirects->next;
+				free(node->command->redirects);
+				node->command->redirects = next_redirect;
+			}
 		}
 		if (node->command)
 		{
