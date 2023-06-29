@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin_cd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:15:21 by rnaka             #+#    #+#             */
-/*   Updated: 2023/06/27 17:43:01 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 19:10:22 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,16 @@
 
 int	output_cd_argv_error(char *str)
 {
+	struct stat	sb;
+
+	stat(str, &sb);
 	if (access(str, F_OK) < 0)
 		builtin_error("cd", str, "no such file or directory");
+	else if (!S_ISDIR(sb.st_mode))
+		builtin_error("cd", str, "Not a directory");
 	else if (access(str, X_OK) < 0)
-		builtin_error("cd", str, "permission denied");
+		builtin_error("cd[", str, "Permission denied");
+	write(1, "afsdfas", 8);
 	return (1);
 }
 
