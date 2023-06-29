@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:05:26 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/29 12:05:48 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 13:28:41 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_overflow(char c, int sign, long result)
 	return (0);
 }
 
-long	ft_atol(const char *str)
+long	ft_atol(const char *str, int *is_over_long)
 {
 	int		sign;
 	long	result;
@@ -43,9 +43,15 @@ long	ft_atol(const char *str)
 	while ((str[i] >= '0' && str[i] <= '9') && str[i])
 	{
 		if (sign == 1 && check_overflow(str[i], sign, result))
+		{
+			*is_over_long = 1;
 			return (LONG_MAX);
+		}
 		if (sign == -1 && check_overflow(str[i], sign, result))
+		{
+			*is_over_long = 1;
 			return (LONG_MIN);
+		}
 		result = result * 10 + (str[i] - '0');
 		i++;
 	}
