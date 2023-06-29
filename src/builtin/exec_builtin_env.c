@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   exec_builtin_env.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yumaohno <yumaohno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/03/22 22:11:02 by yumaohno         ###   ########.fr       */
+/*   Created: 2023/06/23 04:20:46 by yumaohno          #+#    #+#             */
+/*   Updated: 2023/06/23 04:21:53 by yumaohno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "unistd.h"
-#include "readline/readline.h"
-#include "readline/history.h"
+#include "minishell.h"
 
-int	main(void)
+int	exec_builtin_env(t_env **env)
 {
-	char	*line;
+	t_env	*current;
 
-	rl_outstream = stderr;
-	while (1)
+	current = NULL;
+	if (*env != NULL)
 	{
-		line = readline("minishell$ ");
-		if (line == NULL)
-			break ;
-		if (*line)
-			add_history(line);
-		free(line);
+		current = *env;
+		while (current != NULL)
+		{
+			if (current->value != NULL)
+				printf("%s=%s\n", current->key, current->value);
+			current = current->next;
+		}
 	}
-	exit (0);
+	return (0);
 }
