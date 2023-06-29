@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 09:44:33 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/27 04:48:31 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 12:58:44by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,38 @@ static bool	is_num(char *str)
 	return (true);
 }
 
-static int	exec_builtin_exit_is_num(char **argv, int argc)
+static int	exit_numeric(char **argv, int argc)
 {
+	int		is_over_long;
+	long	result;
+
+	is_over_long = 0;
 	if (argc == 2)
-		return (0);
+	{
+		result = ft_atol(argv[1], &is_over_long);
+		if (!is_over_long)
+			exit(result);
+		else
+		{
+			builtin_error("exit", argv[1], "numric argument required");
+			exit(255);
+		}
+	}
+	builtin_error("exit", NULL, "too many arguments");
+	return (1);
+}
+
+static void	exit_not_numeric(char *str, int argc)
+{
+	if (argc > 2)
+	{
+		builtin_error("exit", NULL, "numric argument required");
+		exit(255);
+	}
 	else
 	{
-		builtin_error("exit", argv[1], "exit: too many arguments");
-		return (1);
+		builtin_error("exit", str, "numric argument required");
+		exit(255);
 	}
 }
 
@@ -51,17 +75,9 @@ int	exec_builtin_exit(char **argv)
 	else
 	{
 		if (is_num(argv[1]))
-		{
-			if (exec_builtin_exit_is_num(argv, argc))
-				return (1);
-			else
-				exit(atol(argv[1]));
-		}
+			return (exit_numeric(argv, argc));
 		else
-		{
-			builtin_error("exit", argv[1], "exit: too many arguments");
-			exit(255);
-		}
+			exit_not_numeric(argv[1], argc);
 	}
 	return (1);
 }
