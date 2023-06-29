@@ -38,7 +38,8 @@ SRCS1	= ft_atoi.c		\
 		ft_strndup.c	\
 		ft_isspace.c	\
 		ft_strcmp.c		\
-		ft_strncat.c
+		ft_strncat.c	\
+		ft_atol.c
 
 CC			= cc
 
