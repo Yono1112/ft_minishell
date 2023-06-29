@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:36:52 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/29 11:51:30 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 15:12:53 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ int		exec_builtin_echo(char **argv);
 int		count_argc(char **argv);
 int		exec_builtin_pwd(char **argv, t_env **env);
 int		exec_builtin_cd(char **argv, t_env **env);
-int		exec_builtin_cmd(t_node *node, t_env **env);
+int		exec_builtin_cmd(t_node *node, t_env **env, bool is_child_process);
 int		exec_builtin_exit(char **argv);
 int		exec_builtin_echo(char **argv);
 int		count_argc(char **argv);
