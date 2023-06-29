@@ -88,7 +88,6 @@ $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT)
-	@make -C $(LIBFTDIR)
 	$(CC) $(CFLAGS) $(LIBS) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 clean:

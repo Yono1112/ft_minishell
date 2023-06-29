@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:05:58 by yumaohno          #+#    #+#             */
-/*   Updated: 2023/06/29 15:20:14 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 15:25:34 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_data	g_data;
 
-static void	init_g_data(void)
+static void	init_global_variable(void)
 {
 	g_data.last_status = 0;
 	g_data.heredoc_sig_received = false;
@@ -75,8 +75,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = init_env_list(envp);
-	init_g_data();
-	set_signal();
+	init_global_variable();
+	set_signal_action();
 	input_readline(&env);
 	exit (g_data.last_status);
 }

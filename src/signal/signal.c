@@ -6,7 +6,7 @@
 /*   By: yuohno <yuohno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:30:00 by yuohno            #+#    #+#             */
-/*   Updated: 2023/06/29 11:50:26 by yuohno           ###   ########.fr       */
+/*   Updated: 2023/06/29 15:25:57 by yuohno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	check_state(void)
 	return (0);
 }
 
-void	set_signal(void)
+void	set_signal_action(void)
 {
 	if (isatty(STDIN_FILENO))
 		rl_event_hook = check_state;
