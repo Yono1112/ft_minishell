@@ -25,7 +25,7 @@ int	output_cd_argv_error(char *str)
 	else if (!S_ISDIR(sb.st_mode))
 		builtin_error("cd", str, "Not a directory");
 	else if (access(str, X_OK) < 0)
-		builtin_error("cd[", str, "Permission denied");
+		builtin_error("cd", str, "Permission denied");
 	return (1);
 }
 
