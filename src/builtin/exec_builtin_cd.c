@@ -6,7 +6,7 @@
 /*   By: rnaka <rnaka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:15:21 by rnaka             #+#    #+#             */
-/*   Updated: 2023/06/29 19:10:22 by rnaka            ###   ########.fr       */
+/*   Updated: 2023/06/29 23:40:08 by rnaka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	output_cd_argv_error(char *str)
 		builtin_error("cd", str, "Not a directory");
 	else if (access(str, X_OK) < 0)
 		builtin_error("cd[", str, "Permission denied");
-	write(1, "afsdfas", 8);
 	return (1);
 }
 
