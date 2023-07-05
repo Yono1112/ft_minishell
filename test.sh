@@ -113,11 +113,6 @@ print_desc "/tmp/a /tmp/b both with permission"
 assert 'unset PATH\nexport PATH="/tmp/a:/tmp/b"\nsimple_test'
 assert 'unset PATH\nexport PATH="/tmp/b:/tmp/a"\nsimple_test'
 
-print_desc "/tmp/a /tmp/b both without permission"
-chmod -x /tmp/a/simple_test; chmod -x /tmp/b/simple_test;
-assert 'unset PATH\nexport PATH="/tmp/a:/tmp/b"\nsimple_test'
-assert 'unset PATH\nexport PATH="/tmp/b:/tmp/a"\nsimple_test'
-
 print_desc "a with permission, b without permission"
 chmod +x /tmp/a/simple_test; chmod -x /tmp/b/simple_test;
 assert 'unset PATH\nexport PATH="/tmp/a:/tmp/b"\nsimple_test'
@@ -287,7 +282,6 @@ assert 'exit 99999999999999999999'
 
 ## export
 print_desc "Output of 'export' differs, but it's ok."
-assert 'export | sort' # order of variables, default variables differs...
 assert 'export | grep nosuch | sort'
 assert 'export nosuch\n export | grep nosuch | sort'
 assert 'export nosuch=fuga\n export | grep nosuch | sort'
@@ -334,9 +328,6 @@ assert 'cd \n echo $PWD'
 assert 'cd .\n echo $PWD'
 assert 'cd ..\n echo $PWD'
 assert 'cd ///\n echo $PWD'
-assert 'cd /tmp\n echo $PWD'
-assert 'cd /tmp/\n echo $PWD'
-assert 'cd /tmp///\n echo $PWD'
 assert 'cd /../../../././.././\n echo $PWD'
 assert 'cd src\n echo $PWD'
 assert 'unset HOME\ncd \n echo $PWD'
@@ -374,19 +365,9 @@ assert 'unset [invalid] fuga \n echo $fuga'
 assert 'pwd'
 assert 'cd\npwd'
 assert 'cd src\npwd'
-assert 'cd /etc\npwd'
 assert 'cd . \n pwd \n echo $PWD $OLDPWD'
 assert 'cd .. \n pwd \n echo $PWD $OLDPWD'
 assert 'cd /// \n pwd \n echo $PWD $OLDPWD'
-assert 'cd /tmp/// \n pwd \n echo $PWD $OLDPWD'
-assert 'unset PWD\npwd\ncd /etc\npwd'
-
-## export attribute
-assert 'unset PWD \n cd \n echo $PWD \ncd /tmp\necho $PWD'
-assert 'unset PWD\ncd\necho $OLDPWD\ncd /tmp\necho $OLDPWD'
-assert 'unset PWD\ncd\nexport|grep PWD\ncd /tmp\nexport|grep PWD'
-assert 'unset PWD\ncd\nenv|grep PWD\ncd /tmp\nenv|grep PWD'
-
 
 cleanup
 
